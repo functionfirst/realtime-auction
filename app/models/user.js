@@ -10,7 +10,6 @@ var UserSchema = new Schema({
 	address : String,
 	city : String,
 	mobile: String,
-	qatari_id : { type : String, required : true },
 	username :  { type: String, lowercase: true, required : true, index : { unique : true }},
 	password : { type : String, required : true, select : false },
 	admin : {

@@ -39,7 +39,6 @@ users.create = function(req, res){
 	user.address 			= req.body.address;
 	user.city 				= req.body.city;
 	user.mobile 			= req.body.mobile;
-	user.qatari_id 			= req.body.qatari_id;
 	user.username 			= req.body.username;
 	user.password 			= req.body.password;
 	user.confirm_password 	= req.body.confirm_password;
@@ -47,10 +46,6 @@ users.create = function(req, res){
 	// VALIDATION
 	if(validator.isNull(user.name)) {
 		return throwValidationError('Please enter your Name.', res);
-	}
-
-	if(validator.isNull(user.qatari_id)) {
-		return throwValidationError('Please enter your Qatari ID', res);
 	}
 
 	if(validator.isNull(user.username)) {
@@ -104,7 +99,6 @@ users.update = function(req, res) {
 
 		// Update user info if its new
 		if (req.body.name) user.name = req.body.name;
-		if (req.body.qatari_id) user.qatari_id = req.body.qatari_id;
 		if (req.body.password) user.password = req.body.password;
 		if(req.body.removeImage) user.image = '';
 		
