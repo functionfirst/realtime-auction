@@ -141,16 +141,20 @@ input[type=number],
 }
 
 .auction-back {
-	position: fixed;
+	/*position: fixed;
 	top: 0;
 	left: 0;
-	right: 0;
+	right: 0;*/
+	display: block;
+	margin: 10px 0;
 	background: #2196f3;
 	color: #fff;
 	line-height: 64px;
 	font-size: 18px;
 	text-indent: 10px;
+	border-radius: 4px;
 }
+
 .auction-back:hover {
 	color: #fff;
 	text-decoration: none;

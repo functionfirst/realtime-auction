@@ -14,10 +14,10 @@
 
 		<h4 class="text-center text-danger">This auction is not currently available.</h4>
 	</div>
+	
+	<a href="/" class="auction-back"><span class="glyphicon glyphicon-chevron-left"></span> View all Auctions</a>
 
 	<div class="auction-page" ng-show="auction.auctionData.enabled">
-		<a href="/" class="auction-back"><span class="glyphicon glyphicon-chevron-left"></span> Back to Auctions</a>
-
 		<div ng-show="auction.active && !auction.expired">
 			<small class="auction-note">Select a Single or Autobid below..</small>
 			<a class="btn-custom" ng-class="{'btn-active': showautobid!=1}" href="#" ng-click="showautobid=0">Single Bid</a>
