@@ -10,6 +10,7 @@
 	<div ng-hide="auction.auctionData.enabled" class="auction-page">
 		<div class="auction-title">
 			<h1>{{auction.auctionData.name}}</h1>
+			<p>xxx{{auction.auctionData.description}}</p>
 		</div>
 
 		<h4 class="text-center text-danger">This auction is not currently available.</h4>
@@ -27,6 +28,7 @@
 
 		<div class="auction-title">
 			<h1>{{auction.auctionData.name}}</h1>
+			<p>{{auction.auctionData.description}}</p>
 		</div>
 
 		<div ng-show="auction.expired">
