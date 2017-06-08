@@ -10,31 +10,29 @@ var ngAnnotate 	= require('gulp-ng-annotate');
 var nodemon 	= require('gulp-nodemon');
 
 // define a task called css
-gulp.task('css', function() {
-	// grab the less file, process the LESS, save to style.css
+gulp
+	.task('css', css)
+	.task('js', js)
+	.task('scripts', scripts)
+	.task('watch', watch)
+	.task('default', monitor);
+
+// grab the less file, process the LESS, save to style.css
+function css() {
 	return gulp.src('public/assets/css/style.less')
 		.pipe(less())
 		.pipe(minifyCSS())
 		.pipe(rename({ suffix : '.min' }))
 		.pipe(gulp.dest('public/assets/css'));
-});
+};
 
-gulp.task('js', function() {
+function js() {
 	return gulp.src(['server.js', 'public/app/*.js', '/public/app/**/*.js'])
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
-});
+};
 
-gulp.task('scripts', function() {
-	return gulp.src(['/public/app/*.js', '/public/app/**/*.js'])
-		.pipe(jshint())
-		.pipe(jshint.reporter('default'))
-		.pipe(concat('all.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('public/dist'));
-});
-
-gulp.task('angular', function() {
+function scripts() {
 	return gulp.src(['public/app/*.js', 'public/app/**/*.js'])
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'))
@@ -42,19 +40,18 @@ gulp.task('angular', function() {
 		.pipe(concat('app.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('public/dist'));
-});
+};
 
-gulp.task('watch', function() {
+function watch() {
 	// watch less file and run the css task
 	gulp.watch('public/assets/css/style.less', ['css']);
 
-	// watch js files and run lint as well as js and angular tasks
-
-	gulp.watch(['server.js', 'public/app/*.js', 'public/app/**/*.js'], ['js', 'angular']);
-});
+	// watch js files and run lint as well as js and script tasks
+	gulp.watch(['server.js', 'public/app/*.js', 'public/app/**/*.js'], ['js', 'scripts']);
+}
 
 // nodemon task
-gulp.task('nodemon', function() {
+function monitor() {
 	nodemon({
 		script : 'server.js',
 		ext : 'js less html'
@@ -64,7 +61,4 @@ gulp.task('nodemon', function() {
 	.on('restart', function() {
 		console.log('Restarted!');
 	})
-});
-
-// define main gulp task
-gulp.task('default', ['nodemon']);
+}
