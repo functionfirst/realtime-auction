@@ -1,0 +1,32 @@
+<div ng-show="main.user.admin">
+	<ul class="breadcrumb">
+		<li>Users</li>
+	</ul>
+
+	<p>
+		<a href="/users/create" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-plus"></span> New User</a>
+	</p>
+
+	<!-- LOADING MESSAGE -->
+	<div class="jumbotron text-center" ng-show="user.processing" >
+		<span class="glyphicon glyphicon-repeat spinner"></span>
+		<p>Loading Users...</p>
+		<a href="#" ng-click="reloadRoute()">Click here to reload</a>
+	</div>
+
+	<ul class="nav nav-pills nav-stacked" ng-show="user.users">
+		<li ng-repeat="person in user.users">
+			<a ng-href="/users/{{ person._id }}">
+				{{ person.name }}
+				<span ng-show="person.blocked" class="label label-danger">Blocked</span>
+				<span ng-hide="person.blocked" class="label label-success">Active</span>
+				<span ng-show="person.admin" class="label label-default">Administrator</span>
+				<br />
+
+				<span class="text-muted">
+					{{ person.username }}
+				</span>
+			</a>
+		</li>
+	</ul>
+</div>

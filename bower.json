@@ -1,0 +1,25 @@
+{
+  "name": "Real-time Auctions",
+  "version": "0.0.0",
+  "authors": [
+    "Alan Jenkins <alan@functionfirst.co.uk>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-bootstrap-datetimepicker": "latest",
+    "ng-file-upload": "~5.0.9",
+    "ng-file-upload-shim": "~5.0.9",
+    "angular-ui-notification": "~0.0.14",
+    "moment": "~2.10.6"
+  }
+}

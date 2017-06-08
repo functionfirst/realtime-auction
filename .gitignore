@@ -1,0 +1,5 @@
+/node_modules
+/public/assets/lib
+/public/uploads
+.DS_Store
+config.js

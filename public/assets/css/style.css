@@ -1,0 +1,368 @@
+/* HEADER
+========================== */
+header .navbar {
+	border-radius: 0;
+	margin: 0;
+}
+
+.navbar-inverse .navbar-text {
+	color: #fff;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+	background-color: #fff;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+	background-color: rgba(0,0,0,0.1);
+}
+
+.container {
+	width: auto;
+	padding: 10px;
+}
+
+html, body {
+	background: #eee;
+}
+
+/* ANIMATIONS
+========================== */
+.spinner {
+	-webkit-animation: 	spin 1s infinite;
+	-moz-animation: 	spin 1s infinite;
+	animation: 			spin 1s infinite;
+}
+
+@keyframes spin {
+	from 	{  transform:rotate(0deg); }
+	to 		{  transform:rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+	from 	{  -webkit-transform:rotate(0deg); }
+	to 		{  -webkit-transform:rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+	from 	{  -moz-transform:rotate(0deg); }
+	to 		{  -moz-transform:rotate(360deg); }
+}
+
+/* auction list */
+.auction-list {
+
+}
+
+.auction-list-title {
+	border-bottom: 1px solid #DDD;
+    background-color: #F8F8F8;
+    padding: 15px 30px;
+    margin: 0 -15px 15px;
+    border-top: 1px solid #DDD;
+    font-size: 18px;
+    color: #999;
+}
+
+.auction-list-item + .auction-list-item .auction-list-item-link{
+	border-top: 0;
+}
+
+.auction-list-item-link {
+	display: block;
+	border: 1px solid #ddd;
+	border-left: 5px solid #2196f3;
+	padding: 10px 30px 10px 20px;
+	color: #555;
+	font-size: 21px;
+	position: relative;
+}
+
+.auction-list-item-link:hover {
+	color: #555;
+	border-color: #ccc;
+	border-left-color: #555;
+	background-color: #f5f5f5;
+	text-decoration: none;
+}
+
+.auction-list-start-date {
+	display: block;
+	font-size: 13px;
+	color: #999;
+}
+
+.auction-list-arrow {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	margin-top: -12px;
+	color: #ccc;
+}
+.auction-list-item-link:hover .auction-list-arrow {
+	color: #999;
+}
+.pointer {
+	cursor: pointer;
+}
+
+textarea, textarea.form-control,
+select.form-control,
+input.form-control,
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=number],
+[type=text].form-control,
+[type=password].form-control,
+[type=email].form-control,
+[type=tel].form-control {
+	border: 1px solid #ddd;
+	background: #f8f8f8;
+	padding: 10px;
+	height: 50px;
+	margin-bottom: 10px;
+	box-shadow: inset 0 1px 3px #eee;
+}
+
+.panel-danger>.panel-heading {
+	color: #fff;
+}
+
+.alert-default {
+	background: #999;
+}
+.alert h3 {
+	color: #fff;
+}
+
+.nav-stacked a {
+	background-color: #f8f8f8;
+}
+
+.auction-back {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: #2196f3;
+	color: #fff;
+	line-height: 64px;
+	font-size: 18px;
+	text-indent: 10px;
+}
+.auction-back:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #00adef;
+}
+
+/* timer widget */
+.timer {
+	background-color: #a8a8a8;
+	color: #fff;
+	border-radius: 3px;
+
+	text-align: center;
+	padding: 10px;
+}
+.timer-countdown {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+.auction-title {
+	margin: 10px 0;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 1px solid #eee;
+}
+.auction-title h1 {
+	font-size: 28px;
+	font-weight: 300;
+	margin: 0;
+}
+
+.auction-nobids {
+	text-align: center;
+	padding: 0 0 10px;
+	border-bottom: 1px solid #eee;
+}
+.auction-nobids h3 {
+	font-size: 17px;
+	font-weight: 300;
+}
+
+.auction-pending {
+	padding: 10px;
+	text-align: center;
+	font-size: 21px;
+	font-weight: 300;
+}
+
+/* current bid */
+.winning-bid,
+.current-bid {
+	padding: 10px;
+	line-height: 32px;
+	border-bottom: 1px solid #eee;
+}
+.winning-bid-title,
+.current-bid-title {
+	font-size: 1.8em;
+	font-weight: bold;
+}
+
+.winning-bid { 
+	background-color: #eee;
+}
+.winner {
+	background-color: #4caf50;
+	color: #fff;
+}
+
+.label-winner-state {
+	float: right;
+	margin-top: 40px;
+	text-transform: uppercase;
+	padding-top: .4em;
+}
+
+.auction-closed {
+	padding: 10px;
+	color: #900;
+	text-align: center;
+	font-size: 21px;
+	font-weight: 300;
+}
+
+.auction-note {
+	display: block;
+	text-transform: uppercase;
+	color: #666;
+	text-align: center;
+	font-size: 10px;
+}
+
+.btn-custom {
+	display: block;
+	font-size: 21px;
+	color: #333;
+	font-weight: 300;
+	text-align: center;
+	width: 50%;
+	float: left;
+	display: block;
+	border-bottom: 2px solid #ccc;
+}
+
+.btn-custom:hover,
+.btn-custom:focus {
+	text-decoration: none;
+}
+
+.btn-custom.btn-active {
+	color: #4a82f1;
+	border-color: #4b5381;
+}
+
+.auction-page {
+	margin: 0;
+	border-radius: 4px;
+	box-shadow: 0 1px 4px #eee;
+	background-color: #fff;
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+
+.desc {
+	margin: 10px 0;
+	color: #666;
+	text-align: justify;
+}
+
+.btn {
+	white-space: inherit;
+	text-transform: none;
+}
+
+.btn span {
+	margin-top: 5px;
+	display: block;
+	text-transform: none;
+	font-size: 12px;
+}
+
+.auction-page .alert-danger {
+	margin-bottom: 0;
+}
+
+.upload-btn {
+	margin-bottom: 10px;
+}
+
+/* progress loader */
+.loader {
+	position: fixed;
+	overflow: hidden;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #DDD;
+	right: 0;
+	z-index: 99;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.loader img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -18px;
+	margin-top: -18px;
+}
+.show-hide-message {
+	position: fixed;
+	z-index: 10;
+	top: -80px;
+	left: 10px;
+	right: 10px;
+	opacity: 0.9;
+
+    -webkit-animation: alert 1s ease forwards;
+       -moz-animation: alert 1s ease forwards;
+        -ms-animation: alert 1s ease forwards;
+         -o-animation: alert 1s ease forwards;
+            animation: alert 1s ease forwards;
+}
+
+.autobid-close {
+	margin: 10px;
+}
+
+
+/* Animation */
+
+@-webkit-keyframes alert {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 0; }
+}
+@-moz-keyframes alert {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 0; }
+}
+@-ms-keyframes alert {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 0; }
+}
+@-o-keyframes alert {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 0; }
+}
+@keyframes alert {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 0; }
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Real-time Auctions</title>
+
+	<meta name="robots" content="index, follow" />
+    <meta name="author" content="Alan Jenkins, alan@functionfirst.co.uk" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+	<meta name="google-site-verification" content="sxe7GoQtG5S4V2x0Npb3hE2FOfGCYywPHZiS3r8_qMg" />
+
+	<!-- FOR ANGULAR ROUTING -->
+	<base href="/">
+
+	<!-- CSS -->
+	<!-- load bootstrap from CDN and custom CSS -->
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/paper/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/lib/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+	<link rel="stylesheet" type="text/css" href="/assets/lib/angular-ui-notification/dist/angular-ui-notification.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<!-- JS -->
+	<!-- load angular and angular-route via CDN -->
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/lib/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/assets/lib/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="/assets/lib/angular-animate/angular-animate.min.js"></script>
+	<script type="text/javascript" src="/assets/lib/moment/moment.js"></script>
+	<script type="text/javascript" src="/assets/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+	<script type="text/javascript" src="/assets/lib/ng-file-upload-shim/ng-file-upload-shim.min.js"></script> 
+	<script type="text/javascript" src="/assets/lib/ng-file-upload/ng-file-upload.min.js"></script>
+	<script type="text/javascript" src="/assets/lib/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+
+
+	<!-- controllers -->
+	<script type="text/javascript" src="app/controllers/mainCtrl.js"></script>
+	<script type="text/javascript" src="app/controllers/homeCtrl.js"></script>
+	<script type="text/javascript" src="app/controllers/userCtrl.js"></script>
+	<script type="text/javascript" src="app/controllers/auctionCtrl.js"></script>
+	<script type="text/javascript" src="app/controllers/bidCtrl.js"></script>
+
+	<!-- services -->
+	<script type="text/javascript" src="app/services/authService.js"></script>
+	<script type="text/javascript" src="app/services/userService.js"></script>
+	<script type="text/javascript" src="app/services/auctionService.js"></script>
+	<!--script type="text/javascript" src="app/services/bidService.js"></script-->
+	<script type="text/javascript" src="app/services/socketService.js"></script>
+
+	<script src="/assets/js/socket.io/socket.io.js"></script>
+
+	<!-- main Angular app files -->
+	<script type="text/javascript" src="app/appRoutes.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
+</head>
+<body ng-app="userApp" ng-controller="MainController as main">
+	<!-- NAV -->
+	<header>
+		<div class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+				  	</button>
+				  	<a class="navbar-brand" href="/">Real-time Auctions</a>
+				</div>
+
+				<div id="nav" class="collapse navbar-collapse" ng-if="main.user">
+
+					<ul class="nav navbar-nav" ng-if="main.user.admin">
+						<li>
+							<a href="/users"><span class="glyphicon glyphicon-user"></span> Users</a>
+						</li>
+						<li>
+							<a href="/auctions"><span class="glyphicon glyphicon-sort-by-alphabet"></span> Auctions</a>
+						</li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<p class="navbar-text">
+								You are logged in as {{main.user.name}}
+							</p>
+						</li>
+						<li>
+							<a href="#" ng-click="main.doLogout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- MAIN CONTENT -->
+	<main class="container">
+		<!-- ANGULAR VIEWS -->
+		<div ng-view></div>
+	</main>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!-- LOADING MESSAGE -->
+<div class="jumbotron text-center" ng-show="auction.processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading Auction Details...</p>
+
+	<a href="#" ng-click="reloadRoute()">Click here to reload</a>
+</div>
+
+<div ng-hide="auction.processing">
+	<div ng-hide="auction.auctionData.enabled" class="auction-page">
+		<div class="auction-title">
+			<h1>{{auction.auctionData.name}}</h1>
+		</div>
+
+		<h4 class="text-center text-danger">This auction is not currently available.</h4>
+	</div>
+
+	<div class="auction-page" ng-show="auction.auctionData.enabled">
+		<a href="/" class="auction-back"><span class="glyphicon glyphicon-chevron-left"></span> Back to Auctions</a>
+
+		<div ng-show="auction.active && !auction.expired">
+			<small class="auction-note">Select a Single or Autobid below..</small>
+			<a class="btn-custom" ng-class="{'btn-active': showautobid!=1}" href="#" ng-click="showautobid=0">Single Bid</a>
+			<a class="btn-custom" ng-class="{'btn-active': showautobid==1}" href="#" ng-click="showautobid=1">Autobid</a>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="auction-title">
+			<h1>{{auction.auctionData.name}}</h1>
+		</div>
+
+		<div ng-show="auction.expired">
+			<div class="auction-closed">
+				This auction is now closed.
+			</div>
+
+			<div class="winning-bid" ng-class="{'winner': auction.currentBidder}">
+				<div ng-hide="auction.currentBidder">Winning bid</div>
+				<div ng-show="auction.currentBidder">You won this auction for:</div>
+				<div class="winning-bid-title">
+					{{ auction.highestBidValue | currency :"£ ":0 }}
+				</div>
+			</div>
+		</div>
+
+		<div ng-hide="auction.expired">
+			<div ng-hide="auction.active" class="auction-pending">
+				This auction starts in
+				
+				<div class="timer-countdown">
+					{{ auction.start.days }}d
+					{{ auction.start.hours }}h
+					{{ auction.start.minutes }}m
+					{{ auction.start.seconds }}s
+				</div>
+
+				<small class="text-muted">
+					<span class="glyphicon glyphicon-calendar"></span>
+					{{ auction.auctionData.start_date | date: 'hh:mma MMM dd, yyyy' }}
+				</small>
+			</div>
+		</div>
+
+		<div ng-show="auction.active">
+			<div ng-hide="auction.expired">
+				<div title="{{ auction.auctionData.end_date | date : 'HH:mm dd/MM/yyyy' }}" class="timer" ng-show="auction.hasBids">
+					Auction closes in
+					<div class="timer-countdown">
+						{{ auction.timer.days }}d
+						{{ auction.timer.hours }}h
+						{{ auction.timer.minutes }}m
+						{{ auction.timer.seconds }}s
+					</div>
+				</div>
+
+				<div class="current-bid" ng-show="auction.hasBids || auction.user.autobid">
+					<div ng-show="auction.hasBids">
+						<div class="label-winner-state label label-success" ng-show="auction.currentBidder">You are winning</div>
+						<div class="label-winner-state label label-danger" ng-hide="auction.currentBidder">You are not the highest bidder</div>
+						
+						<div>Current bid</div>
+						
+						<div class="current-bid-title">
+							{{ auction.highestBidValue | currency :"£ ":0 }}
+						</div>
+					</div>
+
+					<small ng-show="auction.user.autobid">
+						You have Autobid: {{ auction.user.autobid | currency : "£":0 }}
+					</small>
+				</div>
+
+				<div ng-hide="auction.hasBids" class="auction-nobids">
+					<h3>This auction currently has no bids.</h3>
+
+					<p>
+						Bidding for this auction will start at<br />
+						<strong>{{ auction.starting_bid | currency : "£ ":0 }}</strong>
+					</p>
+				</div>	
+
+				<div class="show-hide-message" ng-show="auction.message">
+					<div class="alert alert-info">
+						{{ auction.message }}
+					</div>
+				</div>
+
+				<div class="panel-body">
+					<div class="auto-bid" ng-show="showautobid==1">
+						<form name="autobidForm" ng-submit="auction.checkAutobid()" ng-hide="auction.confirmAutobid">
+							<h6>Set-up an automatic bid</h6>
+
+							<input type="number" ng-model="auction.autobid" class="form-control" required placeholder="Enter your maximum bid.."/>
+							<button type="submit" class="btn btn-block btn-lg btn-primary">Autobid</button>
+						</form>
+
+						<div class="alert alert-danger text-center" ng-show="auction.confirmAutobid">
+							<h4>You are about to set an automatic bid upto a maximum of {{ auction.autobid | currency : "£":0 }}.</h4>
+
+							<button ng-click="auction.saveAutobid()" class="btn btn-lg btn-primary">Confirm</button>
+							<button ng-click="auction.cancelAutobid()" class="btn btn-lg btn-default">Cancel</button>
+						</div>
+
+						<p class="desc">
+							<strong>What is an Autobid?</strong><br />
+							An automatic bid or 'autobid' allows you to automatically increase your auction bid by the minimum amount
+							in order to put yourself back in the highest bid position. This system will continue to place bids
+							until your autobid amount is reached. You will always automatically be the highest bidder - as long as you are not outbid by another users autobid.
+						</p>
+					</div>
+
+					<div class="bid-controls" ng-show="showautobid!=1">
+						<h6>Submit a single bid</h6>
+						
+						<div class="alert alert-danger text-center" ng-show="auction.confirmBid">
+							<h4>You are about to bid {{ auction.mybid | currency : "£":0 }}.</h4>
+
+							<button ng-click="auction.saveBid()" class="btn btn-lg btn-primary">Confirm</button>
+							<button ng-click="auction.cancelBid()" class="btn btn-lg btn-default">Cancel</button>
+						</div>
+						
+						<form name="bidForm" ng-submit="auction.checkBid()" ng-hide="auction.confirmBid">
+							<select class="form-control" ng-model="auction.bidIncrement" required ng-change="auction.selectBidIncrement()" convert-to-number>
+		    					<option style="display:none" value="">Click to select a bid increment..</option>
+								<option value="1">+ £1</option>
+								<option value="5">+ £5</option>
+								<option value="10">+ £10</option>
+								<option value="20">+ £20</option>
+								<option value="50">+ £50</option>
+								<option value="100">+ £100</option>
+								<option value="125">+ £125</option>
+								<option value="150">+ £150</option>
+								<option value="175">+ £175</option>
+								<option value="200">+ £200</option>
+								<option value="250">+ £250</option>
+								<option value="300">+ £300</option>
+								<option value="350">+ £350</option>
+								<option value="400">+ £400</option>
+								<option value="450">+ £450</option>
+								<option value="500">+ £500</option>
+								<option value="600">+ £600</option>
+								<option value="700">+ £700</option>
+								<option value="800">+ £800</option>
+								<option value="900">+ £900</option>
+								<option value="1000">£1,000</option>
+							</select>
+
+							<button type="submit" class="btn btn-lg btn-primary btn-block" ng-class="auction.buttonclass">
+								<div ng-bind-html="auction.buttontext">Select a bid increment</div>
+							</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

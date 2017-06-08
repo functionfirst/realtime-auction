@@ -1,0 +1,135 @@
+<div ng-show="main.user.admin">
+    <div class="loader" ng-show="user.uploading">
+    	<img src="/assets/images/oval.svg" alt="">
+    </div>
+
+	<ul class="breadcrumb">
+		<li><a href="/users">Users</a></li>
+		<li>
+			<span ng-show="user.type == 'create'">Create User</span>
+			<span ng-show="user.type == 'edit'">Edit User</span>
+		</li>
+	</ul>
+
+	<div class="row">
+		<div class="col-sm-7">
+			<form class="form-horizontal" ng-submit="user.saveUser()">
+				<div class="panel panel-default">
+					<div class="panel-heading">User Details</div>
+					
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Name <span class="text-danger">*</span></label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.userData.name" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Email</label>
+
+							<div class="col-sm-9">
+								<div class="form-control-static">
+									{{ user.userData.username }}
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Password</label>
+
+							<div class="col-sm-9">
+								<input type="password" class="form-control" ng-model="user.userData.password">
+							</div>
+						</div>
+
+						<hr />
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">P.O. Box Number</label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.userData.pobox">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Home Street Address</label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.userData.address">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">City</label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.userData.city">
+							</div>
+						</div>
+
+						<hr />
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Mobile Phone Number</label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.userData.mobile">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Qatari ID <span class="text-danger">*</span></label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="user.userData.qatari_id" required>
+							</div>
+						</div>
+
+						<div class="form-group" ng-show="user.type == 'edit' && user.userData.image">
+							<div class="col-sm-6 col-md-offset-3">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" ng-model="user.userData.removeImage">
+										Remove user image
+								</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer">
+						<div class="col-md-offset-3">
+							<button type="submit" class="btn btn-success btn-lg" ng-if="user.type == 'create'">Create User</button>
+														
+							<button type="submit" class="btn btn-success btn-lg" ng-if="user.type == 'edit'">Update User</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-5" ng-show="user.type == 'edit'">
+			<p ng-show="user.userData.blocked">
+				<button type="button" class="btn btn-lg btn-block btn-success" ng-show="user.userData.blocked" ng-click="user.toggleBlock(false)"><span>This User is blocked</span>
+				Unblock this User</button>
+			</p>
+
+			<p ng-hide="user.userData.blocked">
+				<button type="button" class="btn btn-lg btn-block btn-danger" ng-hide="user.userData.blocked" ng-click="user.toggleBlock(true)"><span>This user is active</span>
+				Block this User</button>
+			</p>
+
+			<div class="upload-btn">
+		    	<div class="btn btn-default btn-block" ng-model="image" ngf-select ngf-change="user.upload($files)" ngf-capture="'camera'" accept="'image/*'">Upload File</div>
+		    </div>
+
+		  	<p>
+		  		<a href="/uploads/{{user.userData.image}}" target="_blank" ng-show="user.userData.image">
+		  			<img ng-src="{{user.userImage}}" style="max-width: 100%" />
+		  		</a>
+		  	</p>
+		</div>
+	</div>
+</div>

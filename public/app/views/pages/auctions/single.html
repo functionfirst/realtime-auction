@@ -1,0 +1,209 @@
+<div ng-show="main.user.admin">
+	<div class="row show-hide-message" ng-show='auction.message'>
+		<div class="alert alert-info">
+			{{ auction.message }}
+		</div>
+	</div>
+
+	<ul class="breadcrumb">
+		<li><a href="/auctions">Auctions</a></li>
+		<li>
+			<span ng-if="auction.type == 'create'">Create Auction</span>
+			<span ng-if="auction.type == 'edit'">Edit Auction</span>
+		</li>
+	</ul>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Auction Details</div>
+				
+				<form class="form-horizontal" ng-submit="auction.saveAuction()">
+					<div class="panel-body">
+							
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Name</label>
+
+							<div class="col-sm-9">
+								<input type="text" class="form-control" ng-model="auction.auctionData.name" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Description</label>
+
+							<div class="col-sm-9">
+								<textarea class="form-control" cols="60" rows="6" ng-model="auction.auctionData.description"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Start Amount</label>
+
+							<div class="col-sm-9">
+								<input type="number" min="1" class="form-control" ng-model="auction.auctionData.start_amount" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Countdown</label>
+
+							<div class="col-sm-9 form-inline">
+								<input type="number" min="1" size="1" class="form-control" ng-model="auction.auctionData.countdown" required> minutes
+
+								<div class="help-block">Grace period within which others can counter offer.</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Start Date/Time</label>
+
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<div class="form-control-static">
+					    				<a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
+					        				<div class="input-append">
+												<span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+					        					{{auction.auctionData.start_date | date : 'HH:mm dd/MM/yyyy'}}
+					        				</div>
+					    				</a>
+									    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									        <datetimepicker ng-model="auction.auctionData.start_date" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+									    </ul>
+								    </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">End Date/Time</label>
+
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<div class="form-control-static">
+					    				<a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
+					        				<div class="input-append">
+												<span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+					        					{{auction.auctionData.end_date | date : 'HH:mm dd/MM/yyyy'}}
+					        				</div>
+					    				</a>
+									    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+									        <datetimepicker ng-model="auction.auctionData.end_date" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+									    </ul>
+								    </div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-9 col-md-offset-3">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" ng-model="auction.auctionData.enabled">
+										Enable this auction
+								</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-footer">
+						<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="auction.type == 'create'">Create Auction</button>
+
+						<button type="submit" class="btn btn-success btn-lg btn-block" ng-if="auction.type == 'edit'">Update Auction</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Autobids</div>
+
+				<div class="panel-body" ng-hide="auction.auctionData.autobids.length > 0">
+					<div class="form-control-static">
+						There are no autobids
+					</div>
+				</div>
+
+				<div class="panel-body" ng-show="auction.auctionData.autobids.length > 0">
+					<div class="form-group">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="auction.auctionData.resetautobids">
+								Reset Autobids
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<table class="table" ng-show="auction.auctionData.autobids.length > 0">
+					<thead>
+						<tr>
+							<th>Value</th>
+							<th>Bidder</th>
+							<th>Time/Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="autobid in auction.auctionData.autobids | orderBy:'-value'">
+							<td>
+								{{autobid.value | currency:"£ ":0}}
+							</td>
+							<td>
+								<a href="/users/{{autobid.userid}}" ng-show="autobid.blocked"><strike>{{autobid.username}}</strike></a>
+								<a href="/users/{{autobid.userid}}" ng-hide="autobid.blocked">{{autobid.username}}</a>
+							</td>
+							<td>
+								<time title="{{bid.created_at}}" datetime="{{bid.created_at}}">{{autobid.created_at | date : "hh:mm:ss dd/MM/yyyy"}}</time>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Bids</div>
+
+				<div class="panel-body" ng-hide="auction.auctionData.bids.length > 0">
+					<div class="form-control-static">
+						There are no current bids
+					</div>
+				</div>
+
+				<div class="panel-body" ng-show="auction.auctionData.bids.length > 0">
+					<div class="form-group">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="auction.auctionData.resetbids">
+								Reset bids
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<table class="table" ng-show="auction.auctionData.bids.length > 0">
+					<thead>
+						<tr>
+							<th>Value</th>
+							<th>Bidder</th>
+							<th>Time/Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="bid in auction.auctionData.bids | orderBy:'-value'">
+							<td>
+								{{bid.value | currency:"£ ":0}}
+							</td>
+							<td>
+								<a href="/users/{{bid.userid}}" ng-show="bid.blocked"><strike>{{bid.username}}</strike></a>
+								<a href="/users/{{bid.userid}}" ng-hide="bid.blocked">{{bid.username}}</a>
+							</td>
+							<td>
+								<time title="{{bid.created_at}}" datetime="{{bid.created_at}}">{{bid.created_at | date : "hh:mm:ss dd/MM/yyyy"}}</time>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
