@@ -22,8 +22,6 @@
 		<h1 ng-hide="home.auctions.length > 0" class="text-center">No auctions available</h1>
 
 		<div class="auction-list" ng-show="home.auctions.length > 0">
-			<h4 class="auction-list-title">Select an auction:</h4>
-			
 			<div ng-repeat="auction in home.auctions" class="auction-list-item">
 				<a class="auction-list-item-link" href="/bids/{{ auction._id }}">
 					<div>{{ auction.name }}</div>

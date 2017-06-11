@@ -9,35 +9,25 @@ var bodyParser 	= require('body-parser');
 var db 			= require('./app/lib/db');
 var config 		= require('./config');
 var path 		= require('path');
+var apiRoutes 	= require('./app/routes/api')(app, express);
+var handleCORS  = require('./app/lib/cors');
+var enforceSSL  = require('./app/lib/enforceSSL');
 
 // APP CONFIGURATION --------------------
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 
 // Handle CORS requests
-app.use(function(req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
-	next();
-});
+app.use(handleCORS);
 
-// Force ssl on production server
-if(process.env.NODE_ENV === 'production') {
-	app.use(function (req, res, next) {
-	    if (req.headers['x-forwarded-proto'] !== 'https') {
-	        return res.redirect(['https://', req.get('Host'), req.url].join(''));
-	    }
-	    return next();
-	});
-}
+// Enforce SSL on production server
+app.use(enforceSSL);
 
 // STATIC FILES
 // Used for front-end requests
 app.use(express.static(__dirname + '/public'));
 
 // API ROUTES
-var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', apiRoutes);
 
 // MAIN ROUTE
