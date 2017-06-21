@@ -8,12 +8,15 @@ angular.module('userApp', [
 	'bidCtrl',
 	'mainCtrl',
 	'userCtrl',
+	'userConfirmCtrl',
+	'userCreateCtrl',
+	'userEditCtrl',
 	'homeCtrl',
 	'auctionCtrl',
 	'auctionCreateCtrl',
 	'auctionEditCtrl',
-	'userService',
-	'auctionService',
+	'userFactory',
+	'auctionFactory',
 	'socketService'
 ])
 

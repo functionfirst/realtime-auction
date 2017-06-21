@@ -1,4 +1,4 @@
-(function(){
+(function() {
     angular.module('authInterceptor', ['authToken'])
         .factory('AuthInterceptor', authInterceptor);
 

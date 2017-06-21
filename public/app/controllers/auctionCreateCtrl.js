@@ -1,5 +1,5 @@
 (function(){
-	angular.module('auctionCreateCtrl', ['auctionService'])
+	angular.module('auctionCreateCtrl', ['auctionFactory'])
 		.controller('AuctionCreateController', auctionCreateController);
 
 	function auctionCreateController(Auction, Notification) {
@@ -13,7 +13,7 @@
 		function saveAuction() {
 			vm.processing = true;
 
-			// create auction function from auctionService
+			// create auction function from auctionFactory
 			Auction.create(vm.auctionData)
 				.success(function(data) {
 					vm.processing = false;

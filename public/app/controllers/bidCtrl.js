@@ -1,6 +1,10 @@
 (function() {
-	angular.module('bidCtrl', ['auctionService', 'socketService'])
+	angular.module('bidCtrl', ['auctionFactory', 'socketService'])
 		.controller('BidController', bidController);
+
+	bidController.$inject = ['$interval', '$routeParams', '$window', '$filter', '$sce', 'Auction', 'Socket', 'Auth', 'Notification'];
+
+	/////
 
 	function bidController($interval, $routeParams, $window, $filter, $sce, Auction, Socket, Auth, Notification) {
 		var vm = this,

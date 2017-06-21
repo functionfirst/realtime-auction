@@ -1,5 +1,5 @@
-(function(){
-	angular.module('userService', [])
+(function() {
+	angular.module('userFactory', [])
 		.factory('User', userFactory);
 
 	userFactory.$inject = ['$http'];

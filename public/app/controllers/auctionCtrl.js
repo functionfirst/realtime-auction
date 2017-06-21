@@ -1,6 +1,10 @@
 (function(){
-	angular.module('auctionCtrl', ['auctionService'])
+	angular.module('auctionCtrl', ['auctionFactory'])
 		.controller('AuctionController', auctionController);
+
+	auctionController.$inject = ['$scope', 'Auction'];
+
+	/////
 
 	function auctionController($scope, Auction) {
 		// redirect if not an admin

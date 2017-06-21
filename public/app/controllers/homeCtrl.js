@@ -1,5 +1,5 @@
 (function(){
-	angular.module('homeCtrl', ['auctionService'])
+	angular.module('homeCtrl', ['auctionFactory'])
 		.controller('HomeController', homeController);
 
 	function homeController(Auction) {

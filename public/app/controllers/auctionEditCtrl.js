@@ -1,6 +1,8 @@
 (function(){
-	angular.module('auctionEditCtrl', ['auctionService'])
+	angular.module('auctionEditCtrl', ['auctionFactory'])
 		.controller('AuctionEditController', auctionEditController);
+
+	auctionEditController.$inject = ['$routeParams', 'Auction', 'Notification'];
 
 	// controller applied to edit auction page
 	function auctionEditController($routeParams, Auction, Notification) {
@@ -20,7 +22,7 @@
 		vm.saveAuction = function() {
 			vm.processing = true;
 
-			// Call the auctionService function to update
+			// Call the auctionFactory function to update
 			Auction.update($routeParams.auction_id, vm.auctionData)
 				.success(function(data) {
 					vm.processing = false;

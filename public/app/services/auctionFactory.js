@@ -1,5 +1,5 @@
-(function(){
-	angular.module('auctionService', [])
+(function() {
+	angular.module('auctionFactory', [])
 		.factory('Auction', auctionFactory);
 
 	auctionFactory.$inject = ['$http'];
