@@ -1,6 +1,5 @@
 // name angular app
 angular.module('userApp', [
-	'ngAnimate',
 	'appRoutes',
 	'authService',
 	'ui-notification',
@@ -9,6 +8,8 @@ angular.module('userApp', [
 	'userCtrl',
 	'homeCtrl',
 	'auctionCtrl',
+	'auctionCreateCtrl',
+	'auctionEditCtrl',
 	'userService',
 	'auctionService',
 	'socketService'

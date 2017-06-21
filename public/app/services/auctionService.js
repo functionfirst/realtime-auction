@@ -1,38 +1,49 @@
-angular.module('auctionService', [])
+(function(){
+	angular.module('auctionService', [])
+		.factory('Auction', auctionFactory);
 
-.factory('Auction', function($http) {
-	// create object
-	var auctionFactory = {};
+	auctionFactory.$inject = ['$http'];
 
-	// get single auction
-	auctionFactory.get = function(id, filter) {
-		return $http.get('/api/auctions/' + id, { params: filter });
-	};
+	/////
 
-	// get all auctions
-	auctionFactory.all = function() {
-		return $http.get('/api/auctions');
-	};
+	function auctionFactory($http) {
+		return {
+			get: get,
+			all: all,
+			create: create,
+			update: update,
+			bid: bid,
+			delete: remove
+		};
 
-	// create an auction
-	auctionFactory.create = function(auctionData) {
-		return $http.post('/api/auctions', auctionData);
-	};
+		// get single auction
+		function get(id, filter) {
+			return $http.get('/api/auctions/' + id, { params: filter });
+		}
 
-	// update auction
-	auctionFactory.update = function(id, auctionData) {
-		return $http.put('/api/auctions/' + id, auctionData);
-	};
+		// get all auctions
+		function all() {
+			return $http.get('/api/auctions');
+		}
 
-	// submit a bid
-	auctionFactory.bid = function(id, bidData) {
-		return $http.put('/api/auctions/' + id + '/bid', bidData);
-	};
+		// create an auction
+		function create(auctionData) {
+			return $http.post('/api/auctions', auctionData);
+		}
 
-	// delete auction
-	auctionFactory.delete = function(id) {
-		return $http.delete('/api/auctions/' + id);
-	};
+		// update auction
+		function update(id, auctionData) {
+			return $http.put('/api/auctions/' + id, auctionData);
+		}
 
-	return auctionFactory;
-});
+		// submit a bid
+		function bid(id, bidData) {
+			return $http.put('/api/auctions/' + id + '/bid', bidData);
+		}
+
+		// delete auction
+		function remove(id) {
+			return $http.delete('/api/auctions/' + id);
+		}
+	}
+})();
