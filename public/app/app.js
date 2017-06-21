@@ -1,7 +1,9 @@
 // name angular app
 angular.module('userApp', [
 	'appRoutes',
+	'authToken',
 	'authService',
+	'authInterceptor',
 	'ui-notification',
 	'bidCtrl',
 	'mainCtrl',
