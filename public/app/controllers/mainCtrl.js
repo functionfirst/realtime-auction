@@ -1,15 +1,23 @@
-(function(){
+(function() {
 	angular.module('mainCtrl', ['ui.bootstrap.datetimepicker'])
 		.controller('MainController', mainController);
 	
+	mainController.$inject = ['$rootScope', '$route', '$location', 'Auth'];
+
+ 	/////
+
 	function mainController($rootScope, $route, $location, Auth) {
 		var vm  = this;
 
 		// get info for the person who is logged in
 		vm.loggedIn = Auth.isLoggedIn();
+		vm.doLogin = doLogin;
+		vm.doLogut = doLogut;
+		$rootScope.reloadRoute = reloadRoute;
+		$rootScope.$on('$routeChangeStart', routeChangeStart);
 
 		// check to see if the user is logged in on every reqyest
-		$rootScope.$on('$routeChangeStart', function(event, next) {
+		function routeChangeStart(event, next) {
 			vm.loggedIn = Auth.isLoggedIn(event, next);
 
 			// get user information on route change
@@ -17,14 +25,14 @@
 				.then(function(data) {
 					vm.user = data.data;
 				});
-		});
+		}
 
-		$rootScope.reloadRoute = function() {
-		$route.reload();
-		};
+		function reloadRoute() {
+			$route.reload();
+		}
 
 		// function to handle login form
-		vm.doLogin = function() {
+		function doLogin() {
 			vm.processing = true;
 
 			// clear error
@@ -45,7 +53,7 @@
 		};
 
 		// handle logging out
-		vm.doLogout = function() {
+		function doLogout() {
 			Auth.logout();
 
 			// reset all user info
