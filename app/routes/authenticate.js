@@ -42,7 +42,7 @@ var authenticate = function(req, res) {
 					userid : user._id,
 					name : user.name
 				}, superSecret, {
-					expiresInMinutes : config.tokenExpiry * (24*60) // 24 = hours. 60 = minutes
+					expiresIn : config.tokenExpiry * (24*60*60) // 24 = hours. 60 = minutes
 				});
 
 				// return the information including token as JSON

@@ -12,7 +12,7 @@
 		// get info for the person who is logged in
 		vm.loggedIn = Auth.isLoggedIn();
 		vm.doLogin = doLogin;
-		vm.doLogut = doLogut;
+		vm.doLogout = doLogout;
 		$rootScope.reloadRoute = reloadRoute;
 		$rootScope.$on('$routeChangeStart', routeChangeStart);
 
