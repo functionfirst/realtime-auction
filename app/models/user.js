@@ -1,7 +1,8 @@
 // grab packages that we need to use for the model
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
+var mongoose 	= require('mongoose');
+var db 				= require('../lib/db');
+var Schema 		= mongoose.Schema;
+var bcrypt 		= require('bcrypt-nodejs');
 
 // User Schema
 var UserSchema = new Schema({
@@ -51,4 +52,4 @@ UserSchema.methods.isBlocked = function(field){
 }
 
 // return model
-module.exports = mongoose.model('User', UserSchema);
+module.exports = db.model('User', UserSchema);

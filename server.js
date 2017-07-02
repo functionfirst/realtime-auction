@@ -2,16 +2,15 @@
 // ======================================
 
 // CALL PACKAGES ------------------------
-var express 	= require('express');
-var app 		= express();
-var http 		= require('http');
-var bodyParser 	= require('body-parser');
-var db 			= require('./app/lib/db');
-var config 		= require('./config');
-var path 		= require('path');
-var apiRoutes 	= require('./app/routes/api')(app, express);
-var handleCORS  = require('./app/lib/cors');
-var enforceSSL  = require('./app/lib/enforceSSL');
+var express 			= require('express');
+var app 					= express();
+var http 					= require('http');
+var bodyParser 		= require('body-parser');
+var config 				= require('./config');
+var path 					= require('path');
+var apiRoutes 		= require('./app/routes/api')(app, express);
+var handleCORS  	= require('./app/lib/cors');
+var enforceSSL  	= require('./app/lib/enforceSSL');
 
 // APP CONFIGURATION --------------------
 app.use(bodyParser.urlencoded({ extended : true }));

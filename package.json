@@ -11,6 +11,9 @@
     "auction",
     "auctions"
   ],
+  "scripts":{
+    "seed" : "node app/seed"
+  },
   "author": "Alan Jenkins",
   "repository": {
     "type": "git",

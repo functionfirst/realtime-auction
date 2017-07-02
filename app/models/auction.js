@@ -1,8 +1,8 @@
 var mongoose 			= require('mongoose');
+var db 						= require('../lib/db');
 var AutobidSchema = require('../models/autobid');
 var BidSchema 		= require('../models/bid');
 var Schema 				= mongoose.Schema;
-
 
 // Auction Schema
 var AuctionSchema = new Schema({
@@ -158,4 +158,4 @@ AuctionSchema.methods.highestBid = function(){
 }
 
 // return model
-module.exports = mongoose.model('Auction', AuctionSchema);
+module.exports = db.model('Auction', AuctionSchema);
