@@ -8,11 +8,15 @@ var mail 		= require('../lib/mail');
 
 var users = {};
 
-// S3FS implementation
-s3fsImpl = new S3FS(process.env.S3_BUCKET || config.aws.bucket, {
-	accessKeyId : process.env.AWS_ACCESS_KEY ||config.aws.accessKeyId,
-	secretAccessKey : process.env.AWS_SECRET_KEY || config.aws.secretAccessKey
-});
+
+// Check AWS bucket is configured
+if(config.aws.bucket) {
+	// S3FS implementation
+	s3fsImpl = new S3FS(process.env.S3_BUCKET || config.aws.bucket, {
+		accessKeyId : process.env.AWS_ACCESS_KEY ||config.aws.accessKeyId,
+		secretAccessKey : process.env.AWS_SECRET_KEY || config.aws.secretAccessKey
+	});
+}
 
 // get user information
 users.me = function(req, res) {
