@@ -1,9 +1,9 @@
-var User 		= require('../models/user');
-var jwt 		= require('jsonwebtoken');
-var config 		= require('../../config');
-var superSecret	= config.secret;
+var User 			= require('../models/user');
+	jwt 				= require('jsonwebtoken');
+	config 			= require('../../config');
+	superSecret	= config.secret;
 
-var authenticate = function(req, res) {
+function authenticate(req, res) {
 	// select the name username and password explicitly
 	User.findOne({
 		username : req.body.username

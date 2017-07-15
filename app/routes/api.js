@@ -1,37 +1,24 @@
-var verifyToken 	= require('../lib/verifytoken');
-var requireAdmin 	= require('../lib/authorise.js');
-var multer 			= require('multer');
+var verifyToken = require('../lib/verifytoken'),
+	requireAdmin 	= require('../lib/authorise.js'),
+	auctionRoute 	= require('../routes/auctions'),
+	authRoute 		= require('../routes/authenticate'),
+	userRoute 		= require('../routes/users');
 
-// Routes
-var auctionRoute 	= require('../routes/auctions');
-var authRoute 		= require('../routes/authenticate');
-var userRoute 		= require('../routes/users');
-
-module.exports = function(app, express) {
+function api(app, express) {
 	// get an instance of express router
 	var apiRouter = express.Router();
 
-	// accessed at GET http://localhost:8080/api
-	apiRouter.get('/', function(req, res) {
-		res.json({ message : "Yo, welcome to the auction API!" });
-	});
+	// API Homepage
+	apiRouter.get('/', homeRoute.index);
 
+	// Create a new User
 	apiRouter.post('/users', userRoute.create);
 	
 	// Authentication route
-	// This needs to be defined befroe verifyToken is called
 	apiRouter.post('/authenticate', authRoute);
 
-	// Middleware - Multer config
-	// Used for image uploads
-	app.use(multer({
-		dest: './public/uploads/',
- 		rename: function (fieldname, filename) {
-			return filename.toLowerCase() + Date.now();
-		}
-	}).single('file'));
-
-	// middleware to verify a token
+	// Verify token
+	// Routes defined beyond this point require a verified token
 	apiRouter.use(verifyToken);
 	
 	// ROUTES
@@ -54,4 +41,6 @@ module.exports = function(app, express) {
 	apiRouter.put('/auctions/:auction_id', requireAdmin, auctionRoute.update);
 
 	return apiRouter
-};
+}
+
+module.exports = api;

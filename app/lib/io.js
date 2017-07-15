@@ -1,6 +1,6 @@
 var socket = require('socket.io');
 
-module.exports = function(server) {
+function socketIO(server) {
     var io = socket.listen(server);
 
     io.on('connection', function(socket){
@@ -17,3 +17,5 @@ module.exports = function(server) {
 
     return io;
 }
+
+module.exports = socketIO;

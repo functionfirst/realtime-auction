@@ -1,12 +1,19 @@
-var config 		= require('../../config');
-var User 		= require('../models/user');
-var Auction 	= require('../models/auction');
-var S3FS 		= require('s3fs');
-var fs 			= require('fs');
-var validator 	= require('validator');
-var mail 		= require('../lib/mail');
+var config	= require('../../config'),
+	User 			= require('../models/user'),
+	Auction 	= require('../models/auction'),
+	S3FS 			= require('s3fs'),
+	fs 				= require('fs'),
+	validator	= require('validator'),
+	mail 			= require('../lib/mail');
 
-var users = {};
+var users = {
+	me: me,
+	list: list,
+	create: create,
+	view: view,
+	update: update,
+	upload: upload
+};
 
 
 // Check AWS bucket is configured
@@ -19,12 +26,12 @@ if(config.aws.bucket) {
 }
 
 // get user information
-users.me = function(req, res) {
+function me(req, res) {
 	res.send(req.decoded);
 };
 
 // view all users
-users.list = function(req, res){
+function list(req, res){
 	User.find({}, null, { sort: 'name'}, function(err, user) {
 		if (err) res.send(err);
 
@@ -33,7 +40,7 @@ users.list = function(req, res){
 };
 
 // create user
-users.create = function(req, res){
+function create(req, res){
 	// create new instance of user model
 	var user = new User();
 
@@ -88,7 +95,7 @@ users.create = function(req, res){
 
 
 // Retrieve single user
-users.view = function(req, res) {
+function view(req, res) {
 	User.findById(req.params.user_id, function(err,user) {
 		if (err) res.send(err);
 
@@ -97,7 +104,7 @@ users.view = function(req, res) {
 };
 
 // Update single user information
-users.update = function(req, res) {
+function update(req, res) {
 	User.findById(req.params.user_id, function(err, user) {
 		if (err) return res.send(err);
 
@@ -126,7 +133,7 @@ users.update = function(req, res) {
 	})
 };
 
-users.upload = function(req, res) {
+function upload(req, res) {
 	// Upload image
 	var file = req.file;
 
@@ -174,7 +181,7 @@ function clearBidHistory(userid) {
 			});
 		})
 	});
-}
+}	
 
 function clearAutobidHistory(userid) {
 	Auction.find({ 'autobids.userid' : userid }, function(err, auctions) {
