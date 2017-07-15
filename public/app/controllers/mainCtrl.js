@@ -50,7 +50,7 @@
 						vm.error = data.message;
 					}
 				});
-		};
+		}
 
 		// handle logging out
 		function doLogout() {
@@ -59,6 +59,6 @@
 			// reset all user info
 			vm.user = {};
 			$location.path('/login');
-		};
+		}
 	}
 })();
