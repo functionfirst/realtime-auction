@@ -24,14 +24,16 @@ app.use(handleCORS);
 // Enforce SSL on production server
 app.use(enforceSSL);
 
-// Multer - image uploads
+// MULTER
+// Image uploads
 app.use(multerUploads);
 
 // STATIC FILES
 // Used for front-end requests
 app.use(express.static(__dirname + '/public'));
 
-// API ROUTES
+// API
+// Load API end points
 app.use('/api', apiRoutes);
 
 // MAIN ROUTE

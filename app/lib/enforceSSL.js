@@ -1,4 +1,4 @@
-var enforceSSL = function(req, res, next) {
+function enforceSSL(req, res, next) {
     var productionNotSSL = process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https';
 
     if(productionNotSSL) {

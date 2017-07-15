@@ -1,5 +1,6 @@
 var verifyToken = require('../lib/verifytoken'),
 	requireAdmin 	= require('../lib/authorise.js'),
+	homeRoute     = require('../routes/home'),
 	auctionRoute 	= require('../routes/auctions'),
 	authRoute 		= require('../routes/authenticate'),
 	userRoute 		= require('../routes/users');

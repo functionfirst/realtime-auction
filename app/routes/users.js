@@ -15,7 +15,6 @@ var users = {
 	upload: upload
 };
 
-
 // Check AWS bucket is configured
 if(config.aws.bucket) {
 	// S3FS implementation
