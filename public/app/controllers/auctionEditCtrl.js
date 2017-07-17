@@ -7,19 +7,31 @@
 	// controller applied to edit auction page
 	function auctionEditController($routeParams, Auction, Notification) {
 		var vm = this;
-
-		// variable to show/hide elements of the view
-		// differentiates between create or edit pages
 		vm.type = 'edit';
+		vm.currentTab = 'details';
+		vm.setTab = setTab;
+		vm.saveAuction = saveAuction;
 
-		// get auction data for auction to edit
-		// $routeParams is how we grab data from the URL
-		Auction.get($routeParams.auction_id, { blocked: true })
-			.success(function(data) {
+		init();
+
+		/////
+
+		function init() {
+			Auction.get(
+				$routeParams.auction_id, {
+				blocked: true
+			}).success(function(data) {
 				vm.auctionData = data;
+				vm.noBids = data.bids.length <= 0;
+				vm.noAutobids = data.autobids.length <= 0;
 			});
+		}
 
-		vm.saveAuction = function() {
+		function setTab(tab) {
+			vm.currentTab = tab;
+		}
+
+		function saveAuction() {
 			vm.processing = true;
 
 			// Call the auctionFactory function to update

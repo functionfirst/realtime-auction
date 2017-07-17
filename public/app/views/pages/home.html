@@ -8,41 +8,6 @@
 	</p>
 </div>
 
-<!-- LOADING MESSAGE -->
-<div class="jumbotron text-center" ng-if="main.loggedIn" ng-show="home.processing" >
-	<span class="glyphicon glyphicon-repeat spinner"></span>
-	<p>Loading Auctions...</p>
-
-	<a href="#" ng-click="reloadRoute()">Click here to reload</a>
-</div>
-
 <div ng-if="main.loggedIn">
-	<!-- CONTENT LOADED -->
-	<div ng-hide="home.processing">
-		<h1 ng-hide="home.auctions.length > 0" class="text-center">No auctions available</h1>
-
-		<div class="auction-list" ng-show="home.auctions.length > 0">
-			<div ng-repeat="auction in home.auctions" class="auction-list-item">
-				<a class="auction-list-item-link" href="/bids/{{ auction._id }}">
-					<div>{{ auction.name }}</div>
-
-					<span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
-
-					<div class="auction-list-start-date" ng-show="auction.status.live">
-						<span class="label label-success">Live</span>
-						This auction started at {{ auction.start_date | date: 'hh:mma MMM dd, yyyy'}}
-					</div>
-
-					<div class="auction-list-start-date" ng-show="auction.status.expired">
-						<span class="label label-danger">Expired</span>
-						This auction ended at {{ auction.status.date | date: 'hh:mma MMM dd, yyyy' }}
-					</div>
-					
-					<div ng-show="auction.status.notstarted" class="auction-list-start-date">
-						Auction starts {{ auction.start_date | date : "hh:mma MMM dd, yyyy"}}
-					</div>
-				</a>
-			</div>
-		</div>
-	</div>
+	<auction-list class="auction-list"></auction-list>
 </div>

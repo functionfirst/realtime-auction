@@ -1,0 +1,18 @@
+<div class="jumbotron text-center" ng-show="processing">
+	<span class="glyphicon glyphicon-repeat spinner"></span>
+	<p>Loading Auctions...</p>
+
+	<a href="#" ng-click="reloadRoute()">Click here to reload</a>
+</div>
+
+<h1 class="text-center" ng-if="no_data">No Auctions available</h1>
+
+<auction-list-item ng-repeat="auction in auctions" class="auction-list-item" ng-hide="processing">
+  <a class="auction-list-item-link" href="/bids/{{ auction._id }}">
+      <div ng-bind="auction.name"></div>
+
+      <span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
+      
+      <auction-status ng-model="auction"></auction-status>
+  </a>
+</auction-item>

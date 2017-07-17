@@ -15,6 +15,11 @@ angular.module('userApp', [
 	'auctionCtrl',
 	'auctionCreateCtrl',
 	'auctionEditCtrl',
+
+	// Directives
+	'auctionList',
+	'auctionStatus',
+
 	'userFactory',
 	'auctionFactory',
 	'socketService'

@@ -50,15 +50,17 @@ html, body {
 }
 
 /* auction list */
+auction-list,
 .auction-list {
-
+	display: block;
 }
 
-.auction-list-item + .auction-list-item .auction-list-item-link{
-	border-top: 0;
+auction-list-item {
+	display: block;
+	margin-top: 10px;
 }
 
-.auction-list-item-link {
+auction-list-item a {
 	display: block;
 	background: #fff;
 	border: 1px solid #ddd;
@@ -67,10 +69,9 @@ html, body {
 	color: #555;
 	font-size: 21px;
 	position: relative;
-	border-radius: 4px;
 }
 
-.auction-list-item-link:hover {
+auction-list-item a:hover {
 	color: #555;
 	border-color: #ccc;
 	border-left-color: #555;
@@ -328,6 +329,12 @@ input[type=number],
 	margin: 10px;
 }
 
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+	border: 0;
+}
 
 /* Animation */
 

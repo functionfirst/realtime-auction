@@ -1,11 +1,18 @@
-var User 	    = require('../models/user');
-var Auction   = require('../models/auction');
-var auctions  = {};
-var async     = require('async');
-var filters   = require('../lib/filters.js');
+var User 	  = require('../models/user'),
+  Auction   = require('../models/auction'),
+  async     = require('async'),
+  filters   = require('../lib/filters.js');
+
+var auctions  = {
+  list: list,
+  create: create,
+  view: view,
+  update: update,
+  bid: bid
+};
 
 // List all auctions
-auctions.list = function(req, res) {
+function list(req, res) {
   var filter = {};
 
   // only show enabled auctions for non-admin
@@ -26,7 +33,7 @@ auctions.list = function(req, res) {
 };
 
 // Create a new auction (Admin only)
-auctions.create = function(req, res) {
+function create(req, res) {
 	var auction = new Auction();
 
 	// set auction info
@@ -46,7 +53,7 @@ auctions.create = function(req, res) {
 };
 
 // View a specific auction (Users)
-auctions.view = function(req, res) {
+function view(req, res) {
   var fields = '';
 
   // don't return bid/autobid username if not an admin
@@ -73,7 +80,7 @@ auctions.view = function(req, res) {
 };
 
 // Update a specific auction (Admin only);
-auctions.update = function(req, res) {
+function update(req, res) {
 	Auction.findById(req.params.auction_id, function(err, auction) {
 		if(err) return res.send(err);
 
@@ -104,9 +111,9 @@ auctions.update = function(req, res) {
 	});
 };
 
-auctions.bid = function(req, res) {
-	var msg;
-	var msgResult = true;
+function bid(req, res) {
+  var msg,
+    msgResult = true;
 
   async.series({
 
