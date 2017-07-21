@@ -48,6 +48,6 @@
 					// vm.auctionData.bids = [];
 					vm.auctionData.resetbids = false;
 				});
-		};
+		}
 	}
 })();
