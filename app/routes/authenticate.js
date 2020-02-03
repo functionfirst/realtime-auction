@@ -1,7 +1,6 @@
-var User 			= require('../models/user');
-	jwt 				= require('jsonwebtoken');
-	config 			= require('../../config');
-	superSecret	= config.secret;
+var User = require('../models/user'),
+	jwt = require('jsonwebtoken'),
+	superSecret = process.env.SECRET;
 
 function authenticate(req, res) {
 	// select the name username and password explicitly
@@ -42,7 +41,7 @@ function authenticate(req, res) {
 					userid : user._id,
 					name : user.name
 				}, superSecret, {
-					expiresIn : config.tokenExpiry * (24*60*60) // 24 = hours. 60 = minutes
+					expiresIn: process.env.TOKEN_EXPIRY * (24 * 60 * 60) // 24 = hours. 60 = minutes
 				});
 
 				// return the information including token as JSON

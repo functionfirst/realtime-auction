@@ -1,10 +1,9 @@
-var config	= require('../../config'),
-	User 			= require('../models/user'),
-	Auction 	= require('../models/auction'),
-	S3FS 			= require('s3fs'),
-	fs 				= require('fs'),
-	validator	= require('validator'),
-	mail 			= require('../lib/mail');
+var User = require('../models/user'),
+	Auction = require('../models/auction'),
+	S3FS = require('s3fs'),
+	fs = require('fs'),
+	validator = require('validator'),
+	mail = require('../lib/mail');
 
 var users = {
 	me: me,
@@ -16,11 +15,11 @@ var users = {
 };
 
 // Check AWS bucket is configured
-if(config.aws.bucket) {
+if (process.env.AWS_BUCKET) {
 	// S3FS implementation
-	s3fsImpl = new S3FS(process.env.S3_BUCKET || config.aws.bucket, {
-		accessKeyId : process.env.AWS_ACCESS_KEY ||config.aws.accessKeyId,
-		secretAccessKey : process.env.AWS_SECRET_KEY || config.aws.secretAccessKey
+	s3fsImpl = new S3FS(process.env.S3_BUCKET, {
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 	});
 }
 

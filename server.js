@@ -1,16 +1,15 @@
 // BASE SETUP
 // ======================================
-var express 		= require('express'),
-	app 					= express(),
-	http 					= require('http'),
-	bodyParser 		= require('body-parser'),
-	config 				= require('./config'),
-	path 					= require('path'),
-	apiRoutes 		= require('./app/routes/api')(app, express),
-	handleCORS  	= require('./app/lib/cors'),
-	enforceSSL		= require('./app/lib/enforceSSL'),
-	multerUploads	= require('./app/lib/enforceSSL'),
-	port 					= process.env.PORT || config.port || 8080,
+var express = require('express'),
+	app = express(),
+	http = require('http'),
+	bodyParser = require('body-parser'),
+	path = require('path'),
+	apiRoutes = require('./app/routes/api')(app, express),
+	handleCORS = require('./app/lib/cors'),
+	enforceSSL = require('./app/lib/enforceSSL'),
+	multerUploads = require('./app/lib/enforceSSL'),
+	port = process.env.PORT || 8080,
 	httpServer,
 	socket;
 

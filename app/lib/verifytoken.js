@@ -1,6 +1,5 @@
-var jwt 			= require('jsonwebtoken'),
-	config 			= require('../../config'),
-	superSecret = config.secret;
+const jwt = require('jsonwebtoken');
+const superSecret = process.env.SECRET;
 
 function verifyToken(req, res, next) {
 	// check header or url params or post params for token

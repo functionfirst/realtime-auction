@@ -1,10 +1,9 @@
-var mongoose    = require('mongoose');
-var config      = require('../../config');
+const mongoose = require('mongoose');
 
-var uristring = process.env.MONGOLAB_URI ||
-                process.env.MONGOHQ_URL ||
-                'mongodb://' + config.db.host + '/' +config.db.name;
+const uristring = process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`
 
-var db = mongoose.createConnection(uristring);
+const db = mongoose.createConnection(uristring);
 
 module.exports = db;
