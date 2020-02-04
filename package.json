@@ -30,6 +30,7 @@
     "cloneable-readable": "^1.0.0",
     "component-emitter": "^1.2.1",
     "component-inherit": "0.0.3",
+    "cors": "^2.8.5",
     "express": "^4.15.3",
     "fs.realpath": "^1.0.0",
     "jsonwebtoken": "^7.4.1",

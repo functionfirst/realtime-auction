@@ -6,7 +6,7 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	path = require('path'),
 	apiRoutes = require('./app/routes/api')(app, express),
-	handleCORS = require('./app/lib/cors'),
+	cors = require('cors'),
 	enforceSSL = require('./app/lib/enforceSSL'),
 	multerUploads = require('./app/lib/enforceSSL'),
 	port = process.env.PORT || 8080,
@@ -17,8 +17,7 @@ var express = require('express'),
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 
-// Handle CORS requests
-app.use(handleCORS);
+app.use(cors());
 
 // Enforce SSL on production server
 app.use(enforceSSL);
