@@ -10,7 +10,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="/">Real-time Auctions</a>
+						<router-link class="navbar-brand" to="/">Real-time Auctions</router-link>
 					</div>
 
 					<div id="nav" class="collapse navbar-collapse" v-if="user">
