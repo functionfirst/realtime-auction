@@ -47,7 +47,6 @@
     "wtf-8": "^1.0.1"
   },
   "devDependencies": {
-    "bower": "^1.8.0",
     "env-cmd": "^10.0.1",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.4.2",
