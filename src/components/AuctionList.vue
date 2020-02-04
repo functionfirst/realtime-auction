@@ -1,32 +1,23 @@
 <template>
-    <data-auction v-slot="{ auctions }">
+    <data-auction v-slot="{ auctions, loading }">
       <div>
-        <h1 v-if="!auctions.length">No Auctions available</h1>
+        <div v-if="loading">LOADING.....</div>
 
-        <div class="auction" v-for="(auction, _id) in auctions" :key="_id">
-          <router-link :to="{ name: 'auction', params: { id: auction._id } }">
-            <div>{{ auction.name }}</div>
+        <div v-else>
+          <h1 v-if="!auctions.length">No Auctions available</h1>
 
-            <span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
+          <div class="auction" v-for="(auction, _id) in auctions" :key="_id">
+            <router-link :to="{ name: 'auction', params: { id: auction._id } }">
+              <div>{{ auction.name }}</div>
 
-            <auction-status
-              class="auction-list-start-date"
-              :auction="auction"
-            />
-          </router-link>
+              <span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
 
-          <!-- {{ auction.name }}
-          {{ auction._id }}
-          {{ auction.start_date }}
-          {{ auction.end_date }}
-          {{ auction.description }}
-          {{ auction.start_amount }}
-          {{ auction.bids }}
-          {{ auction.autobids }}
-          {{ auction.countdown }}
-          {{ auction.enabled }} -->
-
-          <!-- <pre>{{ auction }}</pre> -->
+              <auction-status
+                class="auction-list-start-date"
+                :auction="auction"
+              />
+            </router-link>
+          </div>
         </div>
       </div>
     </data-auction>
