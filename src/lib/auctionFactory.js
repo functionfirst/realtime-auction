@@ -11,8 +11,9 @@ const auctionFactory = http => {
   };
 
   // get single auction
-  function get(id, filter) {
-    return http.get('/api/auctions/' + id, { params: filter });
+  async function get(id, filter) {
+    const { data } = await http.get('http://localhost:8888/api/auctions/' + id, { params: filter });
+    return new Auction(data);
   }
 
   // get all auctions
