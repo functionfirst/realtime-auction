@@ -14,6 +14,23 @@
       <div class="font-bold text-xl">{{ auction.start_amount }}</div>
     </div>
 
+    <div>
+      <form class="flex flex-col" @submit.prevent="submitBid">
+        <label for="bidValue" class="cursor-pointer mb-2">Submit a Single Bid</label>
+
+        <div class="mb-4">
+          <input id="bidValue" type="text" v-model="bid.value" class="border px-3 py-2 w-full" />
+        </div>
+
+        <button class="flex flex-col items-center bg-blue-400 p-3">
+          Place Bid
+          <span>£{{ bid.value }}</span>
+
+          <small>You can review before submitting</small>
+        </button>
+      </form>
+    </div>
+
     <!-- <p>{{ auction.enabled }}</p> -->
     <!-- <p>{{ auction.countdown }}</p> -->
     <!-- <p>{{ auction.bids }}</p> -->
@@ -29,8 +46,27 @@ export default {
   data() {
     return {
       loading: true,
-      auction: []
+      auction: [],
+      bid: {
+        value: 0
+      }
     };
+  },
+
+  methods: {
+    async submitBid() {
+      const bid = {
+        userid: "5e389d94ed7e0a4676bc2af7",
+        username: "Admin",
+        value: this.bid.value
+      };
+
+      const response = await auctionFactory(xhrFactory()).bid(
+        this.$route.params.id,
+        bid
+      );
+      console.log(response);
+    }
   },
 
   created() {
