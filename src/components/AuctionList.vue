@@ -3,7 +3,7 @@
     <div v-if="loading">LOADING.....</div>
 
     <div v-else>
-      <div v-if="!auctions.length" class="mt-6 mb-12 max-w-2xl mx-auto">
+      <div v-if="auctions.length" class="mt-6 mb-12 max-w-2xl mx-auto">
         <ul>
           <li v-for="(auction, _id) in auctions" :key="_id">
             <router-link
