@@ -12,7 +12,7 @@
 
             <span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
 
-            <auction-status class="auction-list-start-date" :auction="auction" />
+            <AuctionStatus class="auction-list-start-date" :auction="auction" />
           </router-link>
         </div>
       </div>
@@ -26,6 +26,7 @@ import DataAuction from "@/components/data/Auction";
 
 export default {
   components: {
+    AuctionStatus,
     DataAuction
   }
 };
