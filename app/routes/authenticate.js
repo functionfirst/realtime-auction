@@ -5,7 +5,7 @@ var User = require('../models/user'),
 function authenticate(req, res) {
 	// select the name username and password explicitly
 	User.findOne({
-		username: req.body.username
+		username: req.body.email
 	}).select('name username password admin blocked').exec(function (err, user) {
 		if (err) throw err;
 

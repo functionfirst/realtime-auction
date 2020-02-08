@@ -48,9 +48,9 @@ function create(req, res){
 	user.address 			= req.body.address;
 	user.city 				= req.body.city;
 	user.mobile 			= req.body.mobile;
-	user.username 			= req.body.username;
 	user.password 			= req.body.password;
 	user.confirm_password 	= req.body.confirm_password;
+	user.username = req.body.email;
 
 	// VALIDATION
 	if(validator.isNull(user.name)) {
