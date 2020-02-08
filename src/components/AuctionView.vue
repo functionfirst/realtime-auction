@@ -53,6 +53,12 @@ export default {
     };
   },
 
+  sockets: {
+    "bid:send": function(data) {
+      console.log("bid:send", data);
+    }
+  },
+
   computed: {
     token() {
       return this.$store.state.user.token;
@@ -74,7 +80,10 @@ export default {
         this.$route.params.id,
         bid
       );
-      console.log(response);
+
+      if (response.success) {
+        this.$socket.client.emit("bid:send", response.auction);
+      }
     }
   },
 
