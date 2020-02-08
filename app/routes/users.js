@@ -85,7 +85,7 @@ function create(req, res){
 		}
 
 		// Send email confirmation to admin
-		sendNewUserSignup(user.name, user.username, u._id);
+		// sendNewUserSignup(user.name, user.username, u._id);
 
 		res.json({ success : true, message : 'User created' });
 	})
