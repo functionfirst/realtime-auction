@@ -46,9 +46,14 @@ function authenticate(req, res) {
 
 				// return the information including token as JSON
 				res.json({
-					success : true,
-					message : 'Enjoy your token',
-					token : token
+					success: true,
+					message: 'Enjoy your token',
+					user: {
+						username: user.username,
+						userid: user._id,
+						name: user.name,
+						token
+					}
 				});
 			}
 		}
