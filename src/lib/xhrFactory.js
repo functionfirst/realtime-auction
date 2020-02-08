@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-function xhrFactory(token) {
+const xhrFactory = token => {
   if (token) {
     axios.defaults.headers['x-access-token'] = token
   }
