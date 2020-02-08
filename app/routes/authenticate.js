@@ -5,41 +5,41 @@ var User = require('../models/user'),
 function authenticate(req, res) {
 	// select the name username and password explicitly
 	User.findOne({
-		username : req.body.username
-	}).select('name username password admin blocked').exec(function(err, user) {
+		username: req.body.username
+	}).select('name username password admin blocked').exec(function (err, user) {
 		if (err) throw err;
 
 		// no user with that username was found
 		if (!user) {
 			res.json({
-				success : false,
-				message : 'Authentication failed. Error 1.'
+				success: false,
+				message: 'Authentication failed. Error 1.'
 			});
 		} else if (user) {
-			var accountBlocked  = user.blocked;
+			var accountBlocked = user.blocked;
 			var validPassword = user.comparePassword(req.body.password);
-			
+
 			// Check if account is blocked
-			if(accountBlocked) {
+			if (accountBlocked) {
 				res.json({
-					success : false,
-					message : 'Authentication failed. Error 2.'
+					success: false,
+					message: 'Authentication failed. Error 2.'
 				});
 
-			// check password matches
+				// check password matches
 			} else if (!validPassword) {
 				res.json({
-					success : false,
-					message : 'Authentication failed. Error 3.'
+					success: false,
+					message: 'Authentication failed. Error 3.'
 				});
 			} else {
 				// if user is found and password is correct
 				// create a token
 				var token = jwt.sign({
-					admin : user.admin,
-					username : user.username,
-					userid : user._id,
-					name : user.name
+					admin: user.admin,
+					username: user.username,
+					userid: user._id,
+					name: user.name
 				}, superSecret, {
 					expiresIn: process.env.TOKEN_EXPIRY * (24 * 60 * 60) // 24 = hours. 60 = minutes
 				});
