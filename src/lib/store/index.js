@@ -10,8 +10,15 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    async login({ commit }, { username, password }) {
-      const { data } = await axios.post('http://localhost:8888/api/authenticate', { username, password });
+    async login({ commit }, { email, password }) {
+      const { data } = await axios.post('http://localhost:8888/api/authenticate', { email, password });
+
+      commit('user', data.user)
+      return data
+    },
+
+    async register({ commit }, user) {
+      const { data } = await axios.post('http://localhost:8888/api/users', user)
 
       commit('user', data.user)
       return data
