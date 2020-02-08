@@ -1,16 +1,16 @@
 var filter = {};
 
-filter.bids = function(auction, field) {
-	if(auction) {
-		auction.bids = auction.bids.filter(function(obj){
+filter.bids = function (auction, field) {
+	if (auction) {
+		auction.bids = auction.bids.filter(function (obj) {
 			return obj[field] != true
 		});
 
-		auction.autobids = auction.autobids.filter(function(obj){
+		auction.autobids = auction.autobids.filter(function (obj) {
 			return obj[field] != true
 		});
 	}
-		
+
 	return auction;
 }
 

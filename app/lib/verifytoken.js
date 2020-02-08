@@ -8,11 +8,11 @@ function verifyToken(req, res, next) {
 	// decode token
 	if (token) {
 		// verify secret and check expiry
-		jwt.verify(token, superSecret, function(err, decoded) {
+		jwt.verify(token, superSecret, function (err, decoded) {
 			if (err) {
 				return res.status(403).send({
-					success : false,
-					message : 'Failed to authenticate token'
+					success: false,
+					message: 'Failed to authenticate token'
 				});
 			} else {
 				// if everything is good, save to request for use in other routes
@@ -26,8 +26,8 @@ function verifyToken(req, res, next) {
 		// no token
 		// return a 403 http response (access forbidden) and an error
 		return res.status(403).send({
-			success : false,
-			message : 'No token provided'
+			success: false,
+			message: 'No token provided'
 		});
 	}
 }

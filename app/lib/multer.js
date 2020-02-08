@@ -8,5 +8,5 @@ var multerUploads = multer({
 		return filename.toLowerCase() + Date.now();
 	}
 }).single('file');
-  
+
 module.exports = multerUploads;

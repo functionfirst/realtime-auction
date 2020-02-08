@@ -1,9 +1,9 @@
 var verifyToken = require('../lib/verifytoken'),
-	requireAdmin 	= require('../lib/authorise.js'),
-	homeRoute     = require('../routes/home'),
-	auctionRoute 	= require('../routes/auctions'),
-	authRoute 		= require('../routes/authenticate'),
-	userRoute 		= require('../routes/users');
+	requireAdmin = require('../lib/authorise.js'),
+	homeRoute = require('../routes/home'),
+	auctionRoute = require('../routes/auctions'),
+	authRoute = require('../routes/authenticate'),
+	userRoute = require('../routes/users');
 
 function api(app, express) {
 	// get an instance of express router
@@ -14,14 +14,14 @@ function api(app, express) {
 
 	// Create a new User
 	apiRouter.post('/users', userRoute.create);
-	
+
 	// Authentication route
 	apiRouter.post('/authenticate', authRoute);
 
 	// Verify token
 	// Routes defined beyond this point require a verified token
 	apiRouter.use(verifyToken);
-	
+
 	// ROUTES
 	// Get current user's details
 	apiRouter.get('/me', userRoute.me);
