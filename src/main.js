@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Router from 'vue-router'
+import '@/assets/css/style.sass'
 
 const Home = () => import('@/pages/Home')
 const Auction = () => import('@/pages/Auction')

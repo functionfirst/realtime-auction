@@ -55,13 +55,17 @@
     "wtf-8": "^1.0.1"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.0.6",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
     "babel-eslint": "^10.0.3",
+    "env-cmd": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "env-cmd": "^10.0.1",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
+    "tailwindcss": "^1.2.0",
     "vue-template-compiler": "^2.6.10"
   },
   "engines": {
