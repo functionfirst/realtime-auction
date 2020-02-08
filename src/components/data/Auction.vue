@@ -2,6 +2,7 @@
 // import axios from 'axios'
 import { xhrFactory } from '@/lib/xhrFactory'
 import { auctionFactory } from '@/lib/auctionFactory'
+import Auction from "@/models/auction";
 
 export default {
   data () {
@@ -16,6 +17,7 @@ export default {
       this.auctions = response.data
       this.loading = false
     });
+        this.auctions = response.data.map(auction => new Auction(auction));
   },
 
   render () {
