@@ -1,9 +1,8 @@
 <template>
-  <div id="app" class="min-h-screen">
+  <div id="app" class="min-h-screen flex flex-col">
     <site-header />
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-2xl mx-auto">
+    <main class="flex-1">
       <router-view></router-view>
     </main>
   </div>
