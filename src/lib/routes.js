@@ -8,6 +8,9 @@ const routes = [
     path: '/:name/:id',
     name: 'auction',
     component: () => import('@/pages/Auction'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/login',
