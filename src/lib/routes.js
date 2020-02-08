@@ -18,6 +18,16 @@ const routes = [
     component: () => import('@/pages/Login')
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/pages/Register')
+  },
+  {
+    path: '/success',
+    name: 'Success',
+    component: () => import('@/pages/Success')
+  },
+  {
     path: '/logout',
     name: 'Logout',
     component: () => import('@/pages/Logout')
