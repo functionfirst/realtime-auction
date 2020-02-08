@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Router from 'vue-router'
+
 const Home = () => import('@/pages/Home')
 const Auction = () => import('@/pages/Auction')
 
@@ -15,7 +16,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/auction/:id',
+      path: '/:name/:id',
       name: 'auction',
       component: Auction
     }
