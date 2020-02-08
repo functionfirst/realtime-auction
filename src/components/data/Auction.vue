@@ -10,8 +10,10 @@ export default {
     };
   },
 
-  created() {
-    auctionFactory(xhrFactory())
+  mounted() {
+    const { token } = this.$store.state.user;
+
+    auctionFactory(xhrFactory(token))
       .all()
       .then(auctions => {
         this.auctions = auctions;
