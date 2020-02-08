@@ -7,7 +7,7 @@
         <h1 v-if="!auctions.length">No Auctions available</h1>
 
         <div class="auction-list-item" v-for="(auction, _id) in auctions" :key="_id">
-          <router-link :to="{ name: 'auction', params: { id: auction._id } }">
+          <router-link :to="auction.path">
             <div>{{ auction.name }}</div>
 
             <span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
