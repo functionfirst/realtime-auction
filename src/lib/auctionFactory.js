@@ -33,8 +33,9 @@ const auctionFactory = http => {
   }
 
   // submit a bid
-  function bid(id, bidData) {
-    return http.put('/api/auctions/' + id + '/bid', bidData);
+  async function bid(id, bidData) {
+    const { data } = await http.put('http://localhost:8888/api/auctions/' + id + '/bid', bidData);
+    return data
   }
 
   // delete auction
