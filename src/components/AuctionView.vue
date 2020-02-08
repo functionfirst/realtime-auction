@@ -54,6 +54,10 @@ export default {
   },
 
   computed: {
+    token() {
+      return this.$store.state.user.token;
+    },
+
     user() {
       return this.$store.state.user;
     }
@@ -61,14 +65,12 @@ export default {
 
   methods: {
     async submitBid() {
-      const { token } = this.$store.state.user;
-
       const bid = {
         ...this.user,
         value: this.bid.value
       };
 
-      const response = await auctionFactory(xhrFactory(token)).bid(
+      const response = await auctionFactory(xhrFactory(this.token)).bid(
         this.$route.params.id,
         bid
       );
@@ -77,7 +79,7 @@ export default {
   },
 
   created() {
-    auctionFactory(xhrFactory())
+    auctionFactory(xhrFactory(this.token))
       .get(this.$route.params.id)
       .then(auction => {
         this.auction = auction;
