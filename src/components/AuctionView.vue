@@ -61,12 +61,14 @@ export default {
 
   methods: {
     async submitBid() {
+      const { token } = this.$store.state.user;
+
       const bid = {
         ...this.user,
         value: this.bid.value
       };
 
-      const response = await auctionFactory(xhrFactory()).bid(
+      const response = await auctionFactory(xhrFactory(token)).bid(
         this.$route.params.id,
         bid
       );
