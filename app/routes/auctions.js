@@ -56,9 +56,9 @@ function create(req, res) {
 function view(req, res) {
   var fields = '';
 
-  // don't return bid/autobid username if not an admin
+  // don't return bid/autobid email if not an admin
   if (!req.admin) {
-    fields = '-bids.username -autobids.username';
+    fields = '-bids.email -autobids.email';
   }
 
   Auction.findById(req.params.auction_id, fields, function (err, auction) {
@@ -145,7 +145,7 @@ function bid(req, res) {
         var bid = {
           value: req.body.value,
           userid: req.body.userid,
-          username: req.body.username
+          email: req.body.email
         };
 
         // Return an error if the auction hasn't started yet
@@ -177,7 +177,7 @@ function bid(req, res) {
             auction.autobids.push({
               value: req.body.value,
               userid: req.body.userid,
-              username: req.body.username
+              email: req.body.email
             });
 
             // Use the minimumBid value to create bid instead of the Users max bid (Autobid value)
@@ -196,7 +196,7 @@ function bid(req, res) {
           // There's an autobid which is higher than this bid
           bid.value = autobid.value;
           bid.userid = autobid.userid;
-          bid.username = autobid.username;
+          bid.email = autobid.email;
           // msgResult = false;
           // msg = 'You have been outbid. Someone had a higher Autobid.'
         }

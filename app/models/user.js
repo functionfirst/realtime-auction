@@ -11,7 +11,7 @@ var UserSchema = new Schema({
 	address: String,
 	city: String,
 	mobile: String,
-	username: { type: String, lowercase: true, required: true, index: { unique: true } },
+	email: { type: String, lowercase: true, required: true, index: { unique: true } },
 	password: { type: String, required: true, select: false },
 	admin: {
 		type: Boolean,

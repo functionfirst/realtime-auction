@@ -48,7 +48,7 @@ function create(req, res) {
 	user.address = req.body.address;
 	user.city = req.body.city;
 	user.mobile = req.body.mobile;
-	user.username = req.body.email;
+	user.email = req.body.email;
 	user.password = req.body.password;
 	user.confirm_password = req.body.confirm_password;
 
@@ -57,7 +57,7 @@ function create(req, res) {
 		return throwValidationError('Please enter your Name.', res);
 	}
 
-	if (validator.isNull(user.username)) {
+	if (validator.isNull(user.email)) {
 		return throwValidationError('Please enter your email address.', res);
 	}
 
@@ -78,14 +78,14 @@ function create(req, res) {
 		if (err) {
 			// check for duplicate user entry
 			if (err.code == 11000) {
-				return res.json({ success: false, message: 'A User with that username already exists.' });
+				return res.json({ success: false, message: 'A User with that email already exists.' });
 			} else {
 				return res.send(err);
 			}
 		}
 
 		// Send email confirmation to admin
-		// sendNewUserSignup(user.name, user.username, u._id);
+		// sendNewUserSignup(user.name, user.email, u._id);
 
 		res.json({ success: true, message: 'User created' });
 	})

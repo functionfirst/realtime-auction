@@ -3,13 +3,13 @@ var User = require('../models/user'),
 	superSecret = process.env.SECRET;
 
 function authenticate(req, res) {
-	// select the name username and password explicitly
+	// select the name email and password explicitly
 	User.findOne({
-		username: req.body.email
-	}).select('name username password admin blocked').exec(function (err, user) {
+		email: req.body.email
+	}).select('name email password admin blocked').exec(function (err, user) {
 		if (err) throw err;
 
-		// no user with that username was found
+		// no user with that email was found
 		if (!user) {
 			res.json({
 				success: false,
@@ -37,7 +37,7 @@ function authenticate(req, res) {
 				// create a token
 				var token = jwt.sign({
 					admin: user.admin,
-					username: user.username,
+					email: user.email,
 					userid: user._id,
 					name: user.name
 				}, superSecret, {
@@ -49,7 +49,7 @@ function authenticate(req, res) {
 					success: true,
 					message: 'Enjoy your token',
 					user: {
-						username: user.username,
+						email: user.email,
 						userid: user._id,
 						name: user.name,
 						token

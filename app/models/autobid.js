@@ -7,7 +7,7 @@ var AutobidSchema = new Schema({
 	userid: {
 		type: ObjectId
 	},
-	username: {
+	email: {
 		type: String
 	},
 	value: {

@@ -77,14 +77,14 @@ AuctionSchema.methods.getOldestMatchingAutobid = function (autobidValue) {
 
 	return {
 		userid: autobids[0].userid,
-		username: autobids[0].username
+		email: autobids[0].email
 	}
 }
 
 AuctionSchema.methods.checkForAutobid = function (bidValue) {
 	var highestAutobid = { value: 0 };
 	var autobidUser = '';
-	var autobidUsername = '';
+	var autobidEmail = '';
 	var newBid = 0;
 
 	// Check for existing autobids
@@ -99,7 +99,7 @@ AuctionSchema.methods.checkForAutobid = function (bidValue) {
 	// Get the highest current autobid
 	highestAutobid = this.autobids[this.autobids.length - 1];
 	autobidUser = this.autobids[this.autobids.length - 1].userid;
-	autobidUsername = this.autobids[this.autobids.length - 1].username;
+	autobidEmail = this.autobids[this.autobids.length - 1].email;
 
 	// We also need the second highest to establish our minimum bid value
 	if (this.autobids.length > 1) {
@@ -112,7 +112,7 @@ AuctionSchema.methods.checkForAutobid = function (bidValue) {
 			// Values are the same, grab the userid of the oldest autobid
 			var oldest = this.getOldestMatchingAutobid(highestAutobid.value);
 			autobidUser = oldest.userid;
-			autobidUsername = oldest.username;
+			autobidEmail = oldest.email;
 		}
 	}
 
@@ -140,7 +140,7 @@ AuctionSchema.methods.checkForAutobid = function (bidValue) {
 	return {
 		userid: autobidUser,
 		value: newBid,
-		username: autobidUsername
+		email: autobidEmail
 	};
 }
 

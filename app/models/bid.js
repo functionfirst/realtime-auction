@@ -7,7 +7,7 @@ var BidSchema = new Schema({
 	userid: {
 		type: ObjectId
 	},
-	username: {
+	email: {
 		type: String
 	},
 	value: {

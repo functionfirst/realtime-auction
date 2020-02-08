@@ -6,7 +6,7 @@ var admin = {
   address: '76 Howden Road',
   city: 'Newcastyle-upon-tyne',
   mobile: '0786 096 235',
-  username: 'admin',
+  email: 'admin',
   password: 'admin',
   admin: true,
   confirm_password: 'admin'
@@ -18,7 +18,7 @@ var player1 = {
   address: '24 Sureberry DRive',
   city: 'Oxford',
   mobile: '0800 345 234',
-  username: 'player1',
+  email: 'player1',
   password: 'demo',
   confirm_password: 'demo'
 };
@@ -29,7 +29,7 @@ var player2 = {
   address: '18 Fairmount Crescent',
   city: 'Brighton',
   mobile: '0800 345 234',
-  username: 'player2',
+  email: 'player2',
   password: 'demo',
   confirm_password: 'demo'
 };
@@ -43,15 +43,16 @@ function create(properties) {
   user.save(function (err, u) {
     if (err) {
       // check for duplicate user entry
+      console.log(err);
       if (err.code == 11000) {
-        console.log('A User with the username "' + properties.username + '" already exists.')
+        console.log('A User with the email "' + properties.email + '" already exists.')
       } else {
         console.log(err);
       }
       return;
     }
 
-    console.log('User "' + properties.username + '" created.');
+    console.log('User "' + properties.email + '" created.');
     return;
   })
 };
