@@ -18,6 +18,11 @@ const routes = [
     path: '/logout',
     name: 'Logout',
     component: () => import('@/pages/Logout')
+  },
+  {
+    path: '*',
+    name: '404',
+    component: () => import('@/pages/404')
   }
 ]
 
