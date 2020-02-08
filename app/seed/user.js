@@ -1,4 +1,4 @@
-var User   = require('../models/user');
+var User = require('../models/user');
 
 var admin = {
   name: 'Admin',
@@ -35,29 +35,29 @@ var player2 = {
 };
 
 
-function create(properties){
+function create(properties) {
   user = new User(properties);
   user.blocked = false;
 
-	// save user and error check
-	user.save(function(err, u) {
-		if (err) {
-			// check for duplicate user entry
-			if (err.code == 11000) {
+  // save user and error check
+  user.save(function (err, u) {
+    if (err) {
+      // check for duplicate user entry
+      if (err.code == 11000) {
         console.log('A User with the username "' + properties.username + '" already exists.')
-			} else {
-				console.log(err);
-			}
+      } else {
+        console.log(err);
+      }
       return;
-		}
-    
+    }
+
     console.log('User "' + properties.username + '" created.');
     return;
-	})
+  })
 };
 
 module.exports = {
-  seed: function() {
+  seed: function () {
     create(admin);
     create(player1);
     create(player2);

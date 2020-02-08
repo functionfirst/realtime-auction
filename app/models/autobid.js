@@ -1,26 +1,26 @@
-var mongoose 	= require('mongoose');
-var db 				= require('../lib/db');
-var Schema 		= mongoose.Schema;
-var ObjectId 	= mongoose.Schema.Types.ObjectId;
+var mongoose = require('mongoose');
+var db = require('../lib/db');
+var Schema = mongoose.Schema;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var AutobidSchema = new Schema({
-	userid : {
-		type : ObjectId
+	userid: {
+		type: ObjectId
 	},
 	username: {
 		type: String
 	},
-	value : {
-		type : Number,
-		min : 0
+	value: {
+		type: Number,
+		min: 0
 	},
-	blocked : {
+	blocked: {
 		type: Boolean,
-		default : false
+		default: false
 	},
-	created_at : {
-		type : Date,
-		default : Date.now
+	created_at: {
+		type: Date,
+		default: Date.now
 	}
 });
 
