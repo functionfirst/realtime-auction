@@ -53,11 +53,16 @@ export default {
     };
   },
 
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+
   methods: {
     async submitBid() {
       const bid = {
-        userid: "5e389d94ed7e0a4676bc2af7",
-        username: "Admin",
+        ...this.user,
         value: this.bid.value
       };
 
