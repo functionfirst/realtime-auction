@@ -9,6 +9,21 @@ const router = new Router({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    const state = JSON.parse(localStorage.getItem('store'));
+
+    if (state.user.token == null) {
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    }
+    next()
+  }
+  next()
+})
+
 export {
   router
 }
