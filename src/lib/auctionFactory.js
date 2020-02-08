@@ -1,4 +1,6 @@
-function auctionFactory(http) {
+import Auction from "@/models/auction";
+
+const auctionFactory = http => {
   return {
     get: get,
     all: all,
@@ -14,8 +16,9 @@ function auctionFactory(http) {
   }
 
   // get all auctions
-  function all() {
-    return http.get(`http://localhost:8888/api/auctions`);
+  async function all() {
+    const { data } = await http.get(`http://localhost:8888/api/auctions`);
+    return data.map(auction => new Auction(auction));
   }
 
   // create an auction

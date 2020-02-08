@@ -1,5 +1,4 @@
 <script>
-import Auction from "@/models/auction";
 import { xhrFactory } from "@/lib/xhrFactory";
 import { auctionFactory } from "@/lib/auctionFactory";
 
@@ -14,8 +13,8 @@ export default {
   created() {
     auctionFactory(xhrFactory())
       .all()
-      .then(response => {
-        this.auctions = response.data.map(auction => new Auction(auction));
+      .then(auctions => {
+        this.auctions = auctions;
         this.loading = false;
       });
   },
