@@ -14,22 +14,22 @@
       <div class="font-bold text-xl">{{ auction.start_amount }}</div>
     </div>
 
-    <div>
-      <form class="flex flex-col" @submit.prevent="submitBid">
-        <label for="bidValue" class="cursor-pointer mb-2">Submit a Single Bid</label>
+    <form v-if="user.token" class="flex flex-col" @submit.prevent="submitBid">
+      <label for="bidValue" class="cursor-pointer mb-2">Submit a Single Bid</label>
 
-        <div class="mb-4">
-          <input id="bidValue" type="text" v-model="bid.value" class="border px-3 py-2 w-full" />
-        </div>
+      <div class="mb-4">
+        <input id="bidValue" type="text" v-model="bid.value" class="border px-3 py-2 w-full" />
+      </div>
 
-        <button class="flex flex-col items-center bg-blue-400 p-3">
-          Place Bid
-          <span>£{{ bid.value }}</span>
+      <button class="flex flex-col items-center bg-blue-400 p-3">
+        Place Bid
+        <span>£{{ bid.value }}</span>
 
-          <small>You can review before submitting</small>
-        </button>
-      </form>
-    </div>
+        <small>You can review before submitting</small>
+      </button>
+    </form>
+
+    <p v-else class="font-bold">You must be logged in to submit a bid</p>
 
     <!-- <p>{{ auction.enabled }}</p> -->
     <!-- <p>{{ auction.countdown }}</p> -->
