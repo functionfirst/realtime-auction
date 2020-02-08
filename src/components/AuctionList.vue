@@ -31,11 +31,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.auction {
-  border: 1px solid #eee;
-  padding: 1rem;
-  text-decoration: none;
-}
-</style>
