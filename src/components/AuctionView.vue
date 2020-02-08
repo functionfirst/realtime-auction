@@ -5,7 +5,7 @@
     <p>Start Date: {{ auction.start_date }}</p>
     <p>End Date: {{ auction.end_date }}</p>
 
-    <div v-if="auction.bids.length"></div>
+    <div v-if="auction.bids && auction.bids.length"></div>
 
     <p class="text-center font-medium my-6" v-else>This auction currently has no bids</p>
 
