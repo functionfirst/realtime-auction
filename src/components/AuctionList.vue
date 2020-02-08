@@ -1,38 +1,34 @@
 <template>
-    <data-auction v-slot="{ auctions, loading }">
-      <div>
-        <div v-if="loading">LOADING.....</div>
+  <data-auction v-slot="{ auctions, loading }">
+    <div class="auction-list">
+      <div v-if="loading">LOADING.....</div>
 
-        <div v-else>
-          <h1 v-if="!auctions.length">No Auctions available</h1>
+      <div v-else>
+        <h1 v-if="!auctions.length">No Auctions available</h1>
 
-          <div class="auction" v-for="(auction, _id) in auctions" :key="_id">
-            <router-link :to="{ name: 'auction', params: { id: auction._id } }">
-              <div>{{ auction.name }}</div>
+        <div class="auction-list-item" v-for="(auction, _id) in auctions" :key="_id">
+          <router-link :to="{ name: 'auction', params: { id: auction._id } }">
+            <div>{{ auction.name }}</div>
 
-              <span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
+            <span class="auction-list-arrow glyphicon glyphicon-chevron-right"></span>
 
-              <auction-status
-                class="auction-list-start-date"
-                :auction="auction"
-              />
-            </router-link>
-          </div>
+            <auction-status class="auction-list-start-date" :auction="auction" />
+          </router-link>
         </div>
       </div>
-    </data-auction>
+    </div>
+  </data-auction>
 </template>
 
 <script>
-import AuctionStatus from '@/components/AuctionStatus'
-import DataAuction from '@/components/data/Auction'
+import AuctionStatus from "@/components/AuctionStatus";
+import DataAuction from "@/components/data/Auction";
 
 export default {
   components: {
-    AuctionStatus,
     DataAuction
   }
-}
+};
 </script>
 
 <style scoped>
