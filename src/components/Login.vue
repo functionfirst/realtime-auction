@@ -1,14 +1,16 @@
 <template>
   <form class="border p-4 bg-gray-100" @submit.prevent="login">
-    <h1 class="text-lg font-bold">Login..</h1>
+    <h1 class="text-center text-lg font-bold">Login</h1>
 
     <div class="mb-4">
-      <label class="mb-2 inline-block" for="username">User name</label>
-      <input class="border w-full px-3 py-2" id="username" required v-model="username" type="text" />
+      <label class="cursor-pointer mb-2 inline-block" for="email">Email</label>
+
+      <input class="border w-full px-3 py-2" id="email" required v-model="email" type="text" />
     </div>
 
     <div class="mb-4">
-      <label class="mb-2 inline-block" for="password">Password</label>
+      <label class="cursor-pointer mb-2 inline-block" for="password">Password</label>
+
       <input
         class="border w-full px-3 py-2"
         id="password"
@@ -21,6 +23,11 @@
     <p class="text-red-800 py-2" v-if="error">{{ error }}</p>
 
     <button class="bg-blue-300 px-3 py-2 w-full hover:bg-blue-400" type="submit">Login</button>
+
+    <p class="mt-4 text-center">
+      Not Registered?
+      <router-link class="text-blue-700 hover:text-blue-900" to="/register">Create an Account</router-link>
+    </p>
   </form>
 </template>
 
@@ -28,7 +35,7 @@
 export default {
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
       error: ""
     };
@@ -36,10 +43,10 @@ export default {
 
   methods: {
     async login() {
-      const { username, password } = this;
+      const { email, password } = this;
 
       const response = await this.$store.dispatch("login", {
-        username,
+        email,
         password
       });
 
