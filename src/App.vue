@@ -1,14 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" class="min-h-screen">
     <site-header />
 
     <!-- MAIN CONTENT -->
-    <main class="container">
-      <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <div>
-          <router-view></router-view>
-        </div>
-      </div>
+    <main class="max-w-2xl mx-auto">
+      <router-view></router-view>
     </main>
   </div>
 </template>

@@ -1,45 +1,26 @@
 <template>
-  <header>
-    <div class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-          <div class="navbar-header">
-            <button
-              type="button"
-              class="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#nav"
-            >
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <router-link class="navbar-brand" to="/">Real-time Auctions</router-link>
-          </div>
+  <header class="bg-gray-200 mb-12 py-6">
+    <div class>
+      <div class="container-fluid max-w-2xl mx-auto w-full">
+        <div class="flex justify-between items-center">
+          <router-link class="font-bold text-lg mr-4" to="/">Real-time Auctions</router-link>
 
-          <div id="nav" class="collapse navbar-collapse" v-if="user">
-            <ul class="nav navbar-nav" v-if="user.admin">
+          <div class="flex flex-1 items-center justify-end">
+            <ul v-if="user.admin" class="flex justify-between items-center nav navbar-nav">
               <li>
-                <a href="/users">
-                  <span class="glyphicon glyphicon-user"></span> Users
-                </a>
+                <router-link class="rounded p-2 block hover:bg-gray-300" to="/users">Users</router-link>
               </li>
               <li>
-                <a href="/auctions">
-                  <span class="glyphicon glyphicon-sort-by-alphabet"></span> Auctions
-                </a>
+                <router-link class="rounded p-2 block hover:bg-gray-300" to="/auctions">Auctions</router-link>
               </li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul v-if="user" class="flex justify-between items-center">
               <li>
-                <p class="navbar-text">You are logged in as {{ user.name }}</p>
+                <p class="mr-4">You are logged in as {{ user.name }}</p>
               </li>
               <li>
-                <a href="#" @click="doLogout()">
-                  <span class="glyphicon glyphicon-log-out"></span> Logout
-                </a>
+                <router-link class="rounded p-2 block hover:bg-gray-300" to="/logout">Logout</router-link>
               </li>
             </ul>
           </div>
