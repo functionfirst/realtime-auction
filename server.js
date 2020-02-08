@@ -14,7 +14,7 @@ var express = require('express'),
 	socket;
 
 // APP CONFIGURATION --------------------
-app.use(bodyParser.urlencoded({ extended : true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors());
@@ -36,7 +36,7 @@ app.use('/api', apiRoutes);
 
 // MAIN ROUTE
 // Serves front-end to users
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
 	res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
