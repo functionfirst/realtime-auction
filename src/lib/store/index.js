@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import { apiHost } from '@/lib/env'
 
 Vue.use(Vuex)
 
@@ -11,14 +12,14 @@ const store = new Vuex.Store({
 
   actions: {
     async login({ commit }, { email, password }) {
-      const { data } = await axios.post('http://localhost:8888/api/authenticate', { email, password });
+      const { data } = await axios.post(`${apiHost}/api/authenticate`, { email, password });
 
       commit('user', data.user)
       return data
     },
 
     async register({ commit }, user) {
-      const { data } = await axios.post('http://localhost:8888/api/users', user)
+      const { data } = await axios.post(`${apiHost}/api/users`, user)
 
       commit('user', data.user)
       return data
