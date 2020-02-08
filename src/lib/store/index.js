@@ -14,6 +14,7 @@ const store = new Vuex.Store({
       const { data } = await axios.post('http://localhost:8888/api/authenticate', { username, password });
 
       commit('user', data.user)
+      return data
     },
 
     logout({ commit }) {

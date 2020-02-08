@@ -17,6 +17,9 @@
         type="password"
       />
     </div>
+
+    <p class="text-red-800 py-2" v-if="error">{{ error }}</p>
+
     <button class="bg-blue-300 px-3 py-2 w-full hover:bg-blue-400" type="submit">Login</button>
   </form>
 </template>
@@ -26,17 +29,25 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      error: ""
     };
   },
 
   methods: {
-    login() {
+    async login() {
       const { username, password } = this;
 
-      this.$store.dispatch("login", { username, password }).then(() => {
-        this.$router.push("/");
+      const response = await this.$store.dispatch("login", {
+        username,
+        password
       });
+
+      if (response.success) {
+        this.$router.push("/");
+      } else {
+        this.error = response.message;
+      }
     }
   }
 };
