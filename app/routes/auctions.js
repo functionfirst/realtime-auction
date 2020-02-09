@@ -41,30 +41,18 @@ function create(req, res) {
 };
 
 // View a specific auction (Users)
-function view(req, res) {
-  var fields = '';
+const view = async (req, res) => {
+  const id = req.params.auction_id
+  const fields = 'name description start_date end_date start_amount current_bid countdown _id';
 
-  // don't return bid/autobid email if not an admin
-  if (!req.admin) {
-    fields = '-bids.email -autobids.email';
-  }
-
-  Auction.findById(req.params.auction_id, fields, function (err, auction) {
-    if (err) res.send(err)
-
-    // sort by highest bid
-    if (auction) {
-      auction.sortField('bids');
-    }
-
-    // ignore block from admin panel - we pass in blocked param to bypass this
-    if (!req.query.blocked) {
-      // filter blocked bids/autobids
-      auction = filters.bids(auction, 'blocked');
-    }
+  try {
+    const auction = await Auction
+      .findById(id, fields)
 
     res.json(auction);
-  });
+  } catch (err) {
+    res.send(err)
+  }
 };
 
 // Update a specific auction (Admin only);
