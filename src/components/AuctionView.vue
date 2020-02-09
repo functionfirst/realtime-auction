@@ -35,12 +35,14 @@
     <!-- <p>{{ auction.countdown }}</p> -->
     <!-- <p>{{ auction.bids }}</p> -->
     <!-- <p>{{ auction.autobids }}</p> -->
+    <BidHistory :bids="auction.bids" />
   </div>
 </template>
 
 <script>
 import { xhrFactory } from "@/lib/xhrFactory";
 import { auctionFactory } from "@/lib/auctionFactory";
+import BidHistory from "@/components/BidHistory";
 
 export default {
   data() {
@@ -51,6 +53,10 @@ export default {
         value: 0
       }
     };
+  },
+
+  components: {
+    BidHistory,
   },
 
   sockets: {
