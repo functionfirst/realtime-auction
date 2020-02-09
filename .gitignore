@@ -3,5 +3,4 @@
 /public/uploads
 .DS_Store
 config.js
-package-lock.json
 .env
