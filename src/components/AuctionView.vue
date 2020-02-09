@@ -16,14 +16,12 @@
 
     <SubmitBid :auction="auction" />
 
-    <BidHistory :bids="auction.bids" />
   </div>
 </template>
 
 <script>
 import { xhrFactory } from "@/lib/xhrFactory";
 import { auctionFactory } from "@/lib/auctionFactory";
-import BidHistory from "@/components/BidHistory";
 import SubmitBid from "@/components/SubmitBid";
 
 export default {
@@ -38,7 +36,6 @@ export default {
   },
 
   components: {
-    BidHistory,
     SubmitBid
   },
 
