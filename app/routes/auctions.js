@@ -1,28 +1,23 @@
-var User = require('../models/user'),
-  Auction = require('../models/auction'),
-  async = require('async'),
-  filters = require('../lib/filters.js');
+const async = require('async');
+const Auction = require('../models/auction');
+const User = require('../models/user');
+const filters = require('../lib/filters.js');
 
+const list = async (req, res) => {
+  const fields = 'name description start_date end_date start_amount current_bid countdown _id';
+  const filter = {
+    enabled: true
+  };
 
-// List all auctions
-function list(req, res) {
-  var filter = {};
-
-  // only show enabled auctions for non-admin
-  if (!req.admin) {
-    filter.enabled = true;
-  }
-
-  Auction.find(filter, null, { sort: 'start_date' }, function (err, auctions) {
-    if (err) res.send(err);
-
-    // // removed blocked bids/autobids
-    auctions.forEach(function (item) {
-      item = filters.bids(item, 'blocked');
-    });
+  try {
+    const auctions = await Auction
+      .find(filter, null, { sort: 'start_date' })
+      .select(fields)
 
     res.json(auctions);
-  });
+  } catch (err) {
+    res.send(err)
+  }
 };
 
 // Create a new auction (Admin only)
