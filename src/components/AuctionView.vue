@@ -5,13 +5,17 @@
     <p>Start Date: {{ auction.start_date }}</p>
     <p>End Date: {{ auction.end_date }}</p>
 
-    <div v-if="auction.bids && auction.bids.length"></div>
+    <div
+      v-if="auction.current_bid"
+      class="p-4 bg-green-300 text-center"
+    >Current Bid is....£{{ auction.current_bid.value }}</div>
+    <div v-else>
+      <p class="text-center font-medium my-6">This auction currently has no bids</p>
 
-    <p class="text-center font-medium my-6" v-else>This auction currently has no bids</p>
-
-    <div class="text-center">
-      Bidding for this auction will start at
-      <div class="font-bold text-xl">{{ auction.start_amount }}</div>
+      <div class="text-center">
+        Bidding for this auction will start at
+        <div class="font-bold text-xl">£{{ auction.start_amount }}</div>
+      </div>
     </div>
 
     <SubmitBid :auction="auction" :event-name="eventName" />
