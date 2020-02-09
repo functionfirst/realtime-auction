@@ -102,7 +102,6 @@ export default {
     async submitBid() {
       const valid = await this.checkBidAmount();
 
-      console.log(valid);
       if (!valid) return;
 
       const bid = {
