@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const superSecret = process.env.SECRET;
 
-function verifyToken(req, res, next) {
+const verifyToken = (req, res, next) => {
 	// check header or url params or post params for token
 	var token = req.body.token || req.params['token'] || req.headers['x-access-token'];
 
