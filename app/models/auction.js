@@ -32,6 +32,10 @@ var AuctionSchema = new Schema({
 		type: Boolean,
 		default: false
 	},
+	current_bid: {
+		type: BidSchema.schema,
+		required: false
+	},
 	countdown: { type: Number, default: 1 },
 	bids: [BidSchema.schema],
 	autobids: [AutobidSchema.schema]
