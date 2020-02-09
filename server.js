@@ -4,7 +4,6 @@ var express = require('express'),
 	app = express(),
 	http = require('http'),
 	bodyParser = require('body-parser'),
-	path = require('path'),
 	apiRoutes = require('./app/routes/api')(app, express),
 	cors = require('cors'),
 	enforceSSL = require('./app/lib/enforceSSL'),
@@ -26,19 +25,10 @@ app.use(enforceSSL);
 // Image uploads
 app.use(multerUploads);
 
-// STATIC FILES
-// Used for front-end requests
-app.use(express.static(__dirname + '/public'));
 
 // API
 // Load API end points
 app.use('/api', apiRoutes);
-
-// MAIN ROUTE
-// Serves front-end to users
-app.get('*', function (req, res) {
-	res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
-});
 
 // START SERVER
 httpServer = http.createServer(app);
