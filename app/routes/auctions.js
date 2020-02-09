@@ -3,13 +3,6 @@ var User = require('../models/user'),
   async = require('async'),
   filters = require('../lib/filters.js');
 
-var auctions = {
-  list: list,
-  create: create,
-  view: view,
-  update: update,
-  bid: bid
-};
 
 // List all auctions
 function list(req, res) {
@@ -224,4 +217,10 @@ function bid(req, res) {
   });
 }
 
-module.exports = auctions;
+module.exports = {
+  list: list,
+  create: create,
+  view: view,
+  update: update,
+  bid: bid
+};
