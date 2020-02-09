@@ -13,6 +13,7 @@ var express = require('express'),
 	socket;
 
 // APP CONFIGURATION --------------------
+const socketIO = require('./app/lib/io');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -35,6 +36,6 @@ httpServer = http.createServer(app);
 httpServer.listen(port);
 
 // SETUP SOCKET BROADCASTS
-socket = require('./app/lib/io')(httpServer);
 
 console.log('All the magic happens on port ' + port);
+socketIO(httpServer)
