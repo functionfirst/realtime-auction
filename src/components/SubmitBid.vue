@@ -49,7 +49,7 @@ export default {
     auction: {
       default: () => {},
       required: true,
-      type: [Object, Array]
+      type: Object
     }
   },
 
