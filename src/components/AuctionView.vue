@@ -52,10 +52,6 @@ export default {
     }
   },
 
-  created() {
-    auctionFactory(xhrFactory(this.token))
-      .get(this.$route.params.id)
-      .then(auction => {
   methods: {
     receivedBid(payload) {
       console.log("event received", this.eventName);
@@ -66,13 +62,25 @@ export default {
       // console.log("register socket", this.eventName);
       this.$socket.$subscribe(this.eventName, this.receiveBid);
     },
+
+    async getAuction() {
+      const auction = await auctionFactory(xhrFactory(this.token)).get(
+        this.$route.params.id
+      );
+
+      if (auction) {
         this.auction = auction;
         this.loading = false;
-      });
+      }
+    }
   },
 
   beforeDestroy() {
     this.$socket.$unsubscribe(this.eventName);
+  },
+
+  created() {
+    this.getAuction();
   },
 
   watch: {
