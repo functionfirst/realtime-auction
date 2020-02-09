@@ -1,5 +1,5 @@
 <template>
-  <div class="border bg-gray-200 p-8">
+  <div class="p-8">
     <h1 class="text-2xl font-thin text-center mb-6">{{ auction.name }}</h1>
     <p class="leading-loose">{{ auction.description }}</p>
     <p>Start Date: {{ auction.start_date }}</p>
