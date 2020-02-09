@@ -69,14 +69,6 @@ export default {
   },
 
   computed: {
-    currentBid() {
-      if (this.auction.bids && this.auction.bids.length) {
-        return this.auction.bids[this.auction.bids.length - 1];
-      }
-
-      return 0;
-    },
-
     token() {
       return this.$store.state.user.token;
     },
