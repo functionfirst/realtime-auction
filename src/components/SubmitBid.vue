@@ -19,7 +19,7 @@
       >
         <option value="0" selected>Click to select a bid increment</option>
         <option
-          :value="currentBid.value + increment"
+          :value="incrementValue(increment)"
           v-for="(increment, index) in bidIncrements"
           :key="index"
         >+ £{{ increment}}</option>
@@ -89,6 +89,14 @@ export default {
         return false;
       }
       return true;
+    },
+
+    incrementValue(inc) {
+      if (this.auction.current_bid) {
+        return this.auction.current_bid.value + inc;
+      }
+
+      return this.auction.start_amount + inc;
     },
 
     async submitBid() {
