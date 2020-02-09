@@ -1,0 +1,118 @@
+<template>
+  <form v-if="user.token" class="flex flex-col" @submit.prevent="submitBid">
+    <label
+      for="bidValue"
+      v-if="bidBlocker"
+      class="cursor-pointer mb-2 text-red-600"
+    >Please select an amount before Placing a bid</label>
+
+    <label v-else for="bidValue" class="cursor-pointer mb-2">Submit a Single Bid</label>
+
+    <div class="mb-4">
+      <select
+        id="bidValue"
+        v-model="bid.value"
+        required
+        class="appearance-none border px-4 py-3 w-full text-lg"
+        style="-webkit-appearance: none"
+        @change="bidBlocker = false"
+      >
+        <option value="0" selected>Click to select a bid increment</option>
+        <option
+          :value="currentBid.value + increment"
+          v-for="(increment, index) in bidIncrements"
+          :key="index"
+        >+ £{{ increment}}</option>
+      </select>
+    </div>
+
+    <button
+      class="flex flex-col shadow-md items-center text-white bg-gray-900 p-3 hover:bg-gray-800"
+    >
+      Place Bid
+      <span>£{{ bid.value }}</span>
+
+      <small>You can review before submitting</small>
+    </button>
+  </form>
+
+  <p v-else class="font-bold">You must be logged in to submit a bid</p>
+</template>
+
+<script>
+import { auctionFactory } from "@/lib/auctionFactory";
+import { xhrFactory } from "@/lib/xhrFactory";
+import bidIncrements from "@/lib/bidIncrements";
+
+export default {
+  props: {
+    auction: {
+      default: () => {},
+      required: true,
+      type: Object
+    }
+  },
+
+  data() {
+    return {
+      bidBlocker: false,
+      bid: {
+        value: 0
+      }
+    };
+  },
+
+  computed: {
+    currentBid() {
+      if (this.auction.bids && this.auction.bids.length) {
+        return this.auction.bids[this.auction.bids.length - 1];
+      }
+
+      return 0;
+    },
+
+    token() {
+      return this.$store.state.user.token;
+    },
+
+    bidIncrements() {
+      return bidIncrements;
+    },
+
+    user() {
+      return this.$store.state.user;
+    }
+  },
+
+  methods: {
+    checkBidAmount() {
+      if (this.bid.value == 0) {
+        this.bidBlocker = !this.bidBlocker;
+        return false;
+      }
+      return true;
+    },
+
+    async submitBid() {
+      const valid = await this.checkBidAmount();
+
+      console.log(valid);
+      if (!valid) return;
+
+      const bid = {
+        ...this.user,
+        value: this.bid.value
+      };
+
+      const response = await auctionFactory(xhrFactory(this.token)).bid(
+        this.$route.params.id,
+        bid
+      );
+
+      if (response.success) {
+        this.$socket.client.emit("bid:send", response.auction);
+      }
+    }
+  }
+};
+</script>

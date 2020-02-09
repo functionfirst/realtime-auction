@@ -14,27 +14,8 @@
       <div class="font-bold text-xl">{{ auction.start_amount }}</div>
     </div>
 
-    <form v-if="user.token" class="flex flex-col" @submit.prevent="submitBid">
-      <label for="bidValue" class="cursor-pointer mb-2">Submit a Single Bid</label>
+    <SubmitBid :auction="auction" />
 
-      <div class="mb-4">
-        <input id="bidValue" type="text" v-model="bid.value" class="border px-3 py-2 w-full" />
-      </div>
-
-      <button class="flex flex-col items-center bg-blue-400 p-3">
-        Place Bid
-        <span>£{{ bid.value }}</span>
-
-        <small>You can review before submitting</small>
-      </button>
-    </form>
-
-    <p v-else class="font-bold">You must be logged in to submit a bid</p>
-
-    <!-- <p>{{ auction.enabled }}</p> -->
-    <!-- <p>{{ auction.countdown }}</p> -->
-    <!-- <p>{{ auction.bids }}</p> -->
-    <!-- <p>{{ auction.autobids }}</p> -->
     <BidHistory :bids="auction.bids" />
   </div>
 </template>
@@ -43,6 +24,7 @@
 import { xhrFactory } from "@/lib/xhrFactory";
 import { auctionFactory } from "@/lib/auctionFactory";
 import BidHistory from "@/components/BidHistory";
+import SubmitBid from "@/components/SubmitBid";
 
 export default {
   data() {
@@ -57,39 +39,20 @@ export default {
 
   components: {
     BidHistory,
+    SubmitBid
   },
 
   sockets: {
     "bid:send": function(data) {
       console.log("bid:send", data);
+      // Don't push to stack. Do something more robust here with auction data
+      this.auction.bids.push(data.bid);
     }
   },
 
   computed: {
     token() {
       return this.$store.state.user.token;
-    },
-
-    user() {
-      return this.$store.state.user;
-    }
-  },
-
-  methods: {
-    async submitBid() {
-      const bid = {
-        ...this.user,
-        value: this.bid.value
-      };
-
-      const response = await auctionFactory(xhrFactory(this.token)).bid(
-        this.$route.params.id,
-        bid
-      );
-
-      if (response.success) {
-        this.$socket.client.emit("bid:send", response.auction);
-      }
     }
   },
 
