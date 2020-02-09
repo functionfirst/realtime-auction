@@ -1,19 +1,17 @@
-// BASE SETUP
-// ======================================
-var express = require('express'),
-	app = express(),
-	http = require('http'),
-	bodyParser = require('body-parser'),
-	apiRoutes = require('./app/routes/api')(app, express),
-	cors = require('cors'),
-	enforceSSL = require('./app/lib/enforceSSL'),
-	multerUploads = require('./app/lib/enforceSSL'),
-	port = process.env.PORT || 8080,
-	httpServer,
-	socket;
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const express = require('express');
+const http = require('http');
 
-// APP CONFIGURATION --------------------
+const app = express();
+
+const apiRoutes = require('./app/routes/api')(app, express);
+const enforceSSL = require('./app/lib/enforceSSL');
+const multerUploads = require('./app/lib/enforceSSL');
 const socketIO = require('./app/lib/io');
+const port = process.env.PORT || 8080;
+
+// APP CONFIGURATION
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -22,20 +20,15 @@ app.use(cors());
 // Enforce SSL on production server
 app.use(enforceSSL);
 
-// MULTER
-// Image uploads
+// Use multer for Image uploads
 app.use(multerUploads);
 
-
-// API
 // Load API end points
 app.use('/api', apiRoutes);
 
 // START SERVER
-httpServer = http.createServer(app);
+let httpServer = http.createServer(app);
 httpServer.listen(port);
 
 // SETUP SOCKET BROADCASTS
-
-console.log('All the magic happens on port ' + port);
 socketIO(httpServer)
