@@ -14,8 +14,7 @@
       <div class="font-bold text-xl">{{ auction.start_amount }}</div>
     </div>
 
-    <SubmitBid :auction="auction" />
-
+    <SubmitBid :auction="auction" :event-name="eventName" />
   </div>
 </template>
 
@@ -39,15 +38,11 @@ export default {
     SubmitBid
   },
 
-  sockets: {
-    "bid:send": function(data) {
-      console.log("bid:send", data);
-      // Don't push to stack. Do something more robust here with auction data
-      this.auction.bids.push(data.bid);
-    }
-  },
-
   computed: {
+    eventName() {
+      return `bid_send_${this.auction.id}`;
+    },
+
     token() {
       return this.$store.state.user.token;
     }
@@ -57,9 +52,31 @@ export default {
     auctionFactory(xhrFactory(this.token))
       .get(this.$route.params.id)
       .then(auction => {
+  methods: {
+    receivedBid(payload) {
+      console.log("event received", this.eventName);
+      console.log(payload);
+    },
+
+    registerSocket() {
+      // console.log("register socket", this.eventName);
+      this.$socket.$subscribe(this.eventName, this.receiveBid);
+    },
         this.auction = auction;
         this.loading = false;
       });
+  },
+
+  beforeDestroy() {
+    this.$socket.$unsubscribe(this.eventName);
+  },
+
+  watch: {
+    auction() {
+      if (this.auction) {
+        this.registerSocket();
+      }
+    }
   }
 };
 </script>

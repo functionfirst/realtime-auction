@@ -50,6 +50,12 @@ export default {
       default: () => {},
       required: true,
       type: Object
+    },
+
+    eventName: {
+      default: "",
+      required: true,
+      type: String
     }
   },
 
@@ -110,7 +116,9 @@ export default {
       );
 
       if (response.success) {
-        this.$socket.client.emit("bid:send", response.auction);
+        console.log("emit event", this.eventName, response.auction);
+        this.$socket.client.emit(this.eventName, response.auction);
+        console.log(this.$socket.client);
       }
     }
   }
