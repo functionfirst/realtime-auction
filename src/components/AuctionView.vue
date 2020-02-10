@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import { xhrFactory } from "@/lib/xhrFactory";
-import { auctionFactory } from "@/lib/auctionFactory";
 import SubmitBid from "@/components/SubmitBid";
 
 export default {
