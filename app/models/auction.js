@@ -49,14 +49,8 @@ AuctionSchema.methods.isValidStartDate = function isValidStartDate(cb) {
 	}
 
 
-AuctionSchema.methods.currentWinner = function () {
-	var userid = '';
 
-	if (this.bids.length > 0) {
-		this.sortField('bids');
-		userid = this.bids[this.bids.length - 1].userid;
 	}
-	return userid;
 AuctionSchema.methods.minimumBid = function () {
 	return this.current_bid && this.current_bid.value ? this.current_bid.value + 1 : this.start_amount
 }
