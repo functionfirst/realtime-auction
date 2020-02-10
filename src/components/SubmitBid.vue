@@ -67,8 +67,6 @@ export default {
   },
 
   computed: {
-    token() {
-      return this.$store.state.user.token;
     auction() {
       return this.$store.getters.auction(this.$route.params.id);
     },
