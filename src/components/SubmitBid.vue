@@ -3,10 +3,10 @@
     <label
       for="bidValue"
       v-if="bidBlocker"
-      class="cursor-pointer mb-2 text-red-600"
+      class="cursor-pointer my-2 text-red-600"
     >Please select an amount before Placing a bid</label>
 
-    <label v-else for="bidValue" class="cursor-pointer mb-2">Submit a Single Bid</label>
+    <label v-else for="bidValue" class="cursor-pointer my-2">Submit a Single Bid</label>
 
     <div class="mb-4">
       <select
