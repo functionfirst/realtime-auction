@@ -44,32 +44,13 @@ export default {
   },
 
   computed: {
-    token() {
-      return this.$store.state.user.token;
-    }
-  },
-
-  methods: {
-    updateAuction(auction) {
-      this.auction = auction;
-    },
-
-    async getAuction() {
-      const auction = await auctionFactory(xhrFactory(this.token)).get(
-        this.$route.params.id
-      );
-
-      if (auction) {
-        this.auction = auction;
-        this.loading = false;
-      }
+    auction() {
+      return this.$store.getters.auction(this.$route.params.id);
     }
   },
 
   created() {
-    this.getAuction();
-  },
-
+    this.$store.dispatch("getAuction", this.$route.params.id);
   }
 };
 </script>

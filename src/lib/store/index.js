@@ -13,6 +13,12 @@ const store = new Vuex.Store({
   },
 
   actions: {
+    async getAuction({ dispatch, state }, id) {
+      const auction = await auctionFactory(xhrFactory(state.user.token)).get(id);
+
+      dispatch('updateAuction', auction);
+    },
+
     async getAuctions({ state, commit }) {
       const auctions = await auctionFactory(xhrFactory(state.user.token)).all()
       commit('auctions', auctions);
@@ -34,6 +40,11 @@ const store = new Vuex.Store({
     logout({ commit }) {
       commit('user', {})
     }
+  },
+
+  getters: {
+    auction: state => id => state.auctions.find(auction => auction.id === id),
+
   },
 
   mutations: {
