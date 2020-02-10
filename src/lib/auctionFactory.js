@@ -36,7 +36,12 @@ const auctionFactory = http => {
   // submit a bid
   async function bid(id, bidData) {
     const { data } = await http.put(`${apiHost}/api/auctions/${id}/bid`, bidData);
-    return data
+
+    if (data.success) {
+      return new Auction(data.auction)
+    } else {
+      throw new Error(data.message);
+    }
   }
 
   // delete auction
