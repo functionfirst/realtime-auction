@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
-import { apiHost } from '@/lib/env'
+import authFactory from '@/lib/authFactory';
+import xhrFactory from "@/lib/xhrFactory";
 
 Vue.use(Vuex)
 
@@ -11,15 +11,15 @@ const store = new Vuex.Store({
   },
 
   actions: {
-    async login({ commit }, { email, password }) {
-      const { data } = await axios.post(`${apiHost}/api/authenticate`, { email, password });
 
+    async login({ commit }, { email, password }) {
+      const data = await authFactory(xhrFactory()).authenticate(email, password);
       commit('user', data.user)
       return data
     },
 
-    async register({ commit }, user) {
-      const { data } = await axios.post(`${apiHost}/api/users`, user)
+    async register({ commit }, credentials) {
+      const data = await authFactory(xhrFactory()).register(credentials);
 
       commit('user', data.user)
       return data
