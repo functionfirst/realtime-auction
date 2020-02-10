@@ -15,12 +15,13 @@
         required
         class="appearance-none border px-4 py-3 w-full text-lg"
         style="-webkit-appearance: none"
-        @change="bidBlocker = false"
+        @change="setIncrement"
       >
         <option value="0" selected>Click to select a bid increment</option>
         <option
-          :value="incrementValue(increment)"
+          :value="increment"
           v-for="(increment, index) in bidIncrements"
+          :checked="currentIncrement == increment"
           :key="index"
         >+ £{{ increment}}</option>
       </select>
@@ -64,7 +65,8 @@ export default {
       bidBlocker: false,
       bid: {
         value: 0
-      }
+      },
+      currentIncrement: 0
     };
   },
 
@@ -83,6 +85,11 @@ export default {
   },
 
   methods: {
+    setIncrement(event) {
+      this.currentIncrement = event.target.value;
+      this.bidBlocker = false;
+    },
+
     checkBidAmount() {
       if (this.bid.value == 0) {
         this.bidBlocker = !this.bidBlocker;
@@ -92,7 +99,7 @@ export default {
     },
 
     incrementValue(inc) {
-      if (this.auction.current_bid) {
+      if (this.auction.current_bid.value) {
         return this.auction.current_bid.value + inc;
       }
 
@@ -104,9 +111,11 @@ export default {
 
       if (!valid) return;
 
+      const value = this.incrementValue(this.bid.value);
+
       const bid = {
         ...this.user,
-        value: this.bid.value
+        value
       };
 
       const response = await auctionFactory(xhrFactory(this.token)).bid(
