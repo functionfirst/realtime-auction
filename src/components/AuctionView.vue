@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <SubmitBid :auction="auction" :event-name="eventName" />
+    <SubmitBid :auction="auction" :event-name="eventName" @updateAuction="updateAuction" />
   </div>
 </template>
 
@@ -53,6 +53,10 @@ export default {
   },
 
   methods: {
+    updateAuction(auction) {
+      this.auction = auction;
+    },
+
     receivedBid(payload) {
       console.log("event received", this.eventName);
       console.log(payload);

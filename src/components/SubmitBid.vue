@@ -115,6 +115,7 @@ export default {
       );
 
       if (response.success) {
+        this.$emit("updateAuction", response.auction); // @todo replace this with vuex state update
         console.log("emit event", this.eventName, response.auction);
         this.$socket.client.emit(this.eventName, response.auction);
         console.log(this.$socket.client);
