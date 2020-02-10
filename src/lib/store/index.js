@@ -85,6 +85,9 @@ const store = new Vuex.Store({
   getters: {
     auction: state => id => state.auctions.find(auction => auction.id === id),
 
+    isLoggedIn(state) {
+      return state.user.token
+    }
   },
 
   mutations: {
