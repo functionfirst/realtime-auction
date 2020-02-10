@@ -2,7 +2,8 @@
 
 ## Configuration
 Copy config_default.js and rename it to config.js
-```cp config_default.js config.js```
+```cp .env_default .env```
+
 ## Setup
 1. Create a copy of config_default.js, naming it as config.js
 ```cp config_default.js config.js```
