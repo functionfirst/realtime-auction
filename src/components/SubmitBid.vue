@@ -27,6 +27,8 @@
       </select>
     </div>
 
+    <div v-if="error" class="bg-red-500 text-white p-4">{{ error }}</div>
+
     <button
       type="button"
       v-if="bid.value == 0"
