@@ -1,5 +1,5 @@
 <template>
-  <form v-if="user.token" class="flex flex-col" @submit.prevent="submitBid">
+  <form class="flex flex-col" @submit.prevent="submitBid">
     <label
       for="bidValue"
       v-if="bidBlocker"
@@ -37,7 +37,6 @@
     </button>
   </form>
 
-  <p v-else class="font-bold">You must be logged in to submit a bid</p>
 </template>
 
 <script>
@@ -79,8 +78,6 @@ export default {
       return bidIncrements;
     },
 
-    user() {
-      return this.$store.state.user;
     }
   },
 
