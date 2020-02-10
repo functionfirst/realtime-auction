@@ -52,8 +52,6 @@
 </template>
 
 <script>
-import { auctionFactory } from "@/lib/auctionFactory";
-import { xhrFactory } from "@/lib/xhrFactory";
 import bidIncrements from "@/lib/bidIncrements";
 
 export default {
