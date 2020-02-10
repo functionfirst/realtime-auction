@@ -30,7 +30,6 @@ export default {
   data() {
     return {
       loading: true,
-      auction: {},
       bid: {
         value: 0
       }
