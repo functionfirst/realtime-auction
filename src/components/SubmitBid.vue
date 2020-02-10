@@ -74,26 +74,16 @@ export default {
       return bidIncrements;
     },
 
+    bidValue() {
+      const bidValue = this.auction.current_bid.value
+        ? this.auction.current_bid.value
+        : this.auction.start_amount;
+
+      return bidValue + this.bid.value;
     }
   },
 
   methods: {
-    checkBidAmount() {
-      if (this.bid.value == 0) {
-        this.bidBlocker = !this.bidBlocker;
-        return false;
-      }
-      return true;
-    },
-
-    incrementValue(inc) {
-      if (this.auction.current_bid.value) {
-        return this.auction.current_bid.value + inc;
-      }
-
-      return this.auction.start_amount + inc;
-    },
-
     submitBid() {
       try {
         this.$store.dispatch("submitBid", {
