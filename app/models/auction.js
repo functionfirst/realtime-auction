@@ -45,19 +45,9 @@ AuctionSchema.methods.isValidStartDate = function isValidStartDate(cb) {
 	return new Date() >= new Date(this.start_date);
 }
 
-// Establish the minimum bid
-// Either the highest current bid + 1
-// OR the auction start amount
-AuctionSchema.methods.minimumBid = function () {
-	var minBid = this.start_amount;
 
-	if (this.bids.length > 0) {
-		this.sortField('bids');
-		minBid = this.bids[this.bids.length - 1].value + 1;
 	}
 
-	return minBid;
-}
 
 AuctionSchema.methods.currentWinner = function () {
 	var userid = '';
@@ -67,6 +57,8 @@ AuctionSchema.methods.currentWinner = function () {
 		userid = this.bids[this.bids.length - 1].userid;
 	}
 	return userid;
+AuctionSchema.methods.minimumBid = function () {
+	return this.current_bid && this.current_bid.value ? this.current_bid.value + 1 : this.start_amount
 }
 
 AuctionSchema.methods.getOldestMatchingAutobid = function (autobidValue) {
