@@ -45,6 +45,4 @@ const auctionFactory = http => {
   }
 }
 
-export {
-  auctionFactory
-}
+export default auctionFactory

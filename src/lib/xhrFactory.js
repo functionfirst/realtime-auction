@@ -24,6 +24,4 @@ const xhrFactory = token => {
   }
 }
 
-export {
-  xhrFactory
-}
+export default xhrFactory
