@@ -57,20 +57,6 @@ import { xhrFactory } from "@/lib/xhrFactory";
 import bidIncrements from "@/lib/bidIncrements";
 
 export default {
-  props: {
-    auction: {
-      default: () => {},
-      required: true,
-      type: Object
-    },
-
-    eventName: {
-      default: "",
-      required: true,
-      type: String
-    }
-  },
-
   data() {
     return {
       bidBlocker: false,
@@ -83,6 +69,8 @@ export default {
   computed: {
     token() {
       return this.$store.state.user.token;
+    auction() {
+      return this.$store.getters.auction(this.$route.params.id);
     },
 
     bidIncrements() {
