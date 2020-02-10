@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <SubmitBid :auction="auction" :event-name="eventName" @updateAuction="updateAuction" />
+    <SubmitBid />
   </div>
 </template>
 
