@@ -19,6 +19,46 @@ const store = new Vuex.Store({
       dispatch('updateAuction', auction);
     },
 
+    async submitBid({ dispatch, state }, { id, value }) {
+      const bid = {
+        userid: state.user.userid,
+        name: state.user.name,
+        value
+      };
+
+      try {
+        const auction = await auctionFactory(xhrFactory(state.user.token)).bid(id, bid);
+
+        const eventName = `bid_send_${auction.id}`
+
+        dispatch("updateAuction", auction);
+
+        console.log("emit event", eventName, auction);
+        this._vm.$socket.client.emit(eventName, auction);
+      } catch (err) {
+        // @todo throw this out as a visible message to the user
+        // console.log(err.message);
+        throw new Error(err.message);
+        // throw err;
+        // throw new Error('Something went wrong here....')
+      }
+    },
+
+    updateAuction({ state }, auction) {
+      console.log('update auction')
+      // let auctions = state.auctions
+      console.log(auction);
+      const index = state.auctions.findIndex(item => item.id === auction.id)
+
+      console.log(state.auctions);
+      console.log(index);
+      Vue.set(state.auctions[index], auction)
+
+      // auctions.splice(index, 1, auction);
+
+      // commit('auctions', auctions)
+    },
+
     async getAuctions({ state, commit }) {
       const auctions = await auctionFactory(xhrFactory(state.user.token)).all()
       commit('auctions', auctions);

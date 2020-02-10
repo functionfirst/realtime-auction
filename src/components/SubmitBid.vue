@@ -115,28 +115,14 @@ export default {
       return this.auction.start_amount + inc;
     },
 
-    async submitBid() {
-      const valid = await this.checkBidAmount();
-
-      if (!valid) return;
-
-      const value = this.incrementValue(this.bid.value);
-
-      const bid = {
-        ...this.user,
-        value
-      };
-
-      const response = await auctionFactory(xhrFactory(this.token)).bid(
-        this.$route.params.id,
-        bid
-      );
-
-      if (response.success) {
-        this.$emit("updateAuction", response.auction); // @todo replace this with vuex state update
-        console.log("emit event", this.eventName, response.auction);
-        this.$socket.client.emit(this.eventName, response.auction);
-        console.log(this.$socket.client);
+    submitBid() {
+      try {
+        this.$store.dispatch("submitBid", {
+          id: this.$route.params.id,
+          value: this.bidValue
+        });
+      } catch (err) {
+        this.error = err.message;
       }
     }
   }
