@@ -17,7 +17,7 @@
         style="-webkit-appearance: none"
         @change="setIncrement"
       >
-        <option value="0" selected>Click to select a bid increment</option>
+        <option value="0">Click to select a bid increment</option>
         <option
           :value="increment"
           v-for="(increment, index) in bidIncrements"
