@@ -6,9 +6,10 @@
     <p>End Date: {{ auction.end_date }}</p>
 
     <div
-      v-if="auction.current_bid"
+      v-if="auction.current_bid.value"
       class="p-4 bg-green-300 text-center"
     >Current Bid is....£{{ auction.current_bid.value }}</div>
+
     <div v-else>
       <p class="text-center font-medium my-6">This auction currently has no bids</p>
 
