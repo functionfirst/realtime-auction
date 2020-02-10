@@ -138,14 +138,5 @@ AuctionSchema.methods.sortField = function (field) {
 	this[field].sort(function (b1, b2) { return b1.value - b2.value; });
 }
 
-AuctionSchema.methods.highestBid = function () {
-	this.sortField('bids');
-
-	return {
-		bid: this.bids[this.bids.length - 1],
-		auction_id: this._id
-	}
-}
-
 // return model
 module.exports = db.model('Auction', AuctionSchema);
