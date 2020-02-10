@@ -59,8 +59,13 @@ export default {
     },
 
     registerSocket() {
-      // console.log("register socket", this.eventName);
-      this.$socket.$subscribe(this.eventName, this.receiveBid);
+      if (this.$socket.connected && this.$socket.$subscribe) {
+        this.$socket.$subscribe(this.eventName, this.receiveBid);
+      }
+    },
+
+    unregisterSocket() {
+      this.$socket.$unsubscribe(this.eventName);
     },
 
     async getAuction() {
@@ -76,7 +81,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$socket.$unsubscribe(this.eventName);
+    this.unregisterSocket();
   },
 
   created() {
@@ -87,6 +92,14 @@ export default {
     auction() {
       if (this.auction) {
         this.registerSocket();
+      }
+    },
+
+    "$socket.connected"(connected) {
+      if (connected) {
+        this.registerSocket();
+      } else {
+        this.unregisterSocket();
       }
     }
   }
