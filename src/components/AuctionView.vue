@@ -44,10 +44,6 @@ export default {
   },
 
   computed: {
-    eventName() {
-      return `bid_send_${this.auction.id}`;
-    },
-
     token() {
       return this.$store.state.user.token;
     }
@@ -56,21 +52,6 @@ export default {
   methods: {
     updateAuction(auction) {
       this.auction = auction;
-    },
-
-    receivedBid(payload) {
-      console.log("event received", this.eventName);
-      console.log(payload);
-    },
-
-    registerSocket() {
-      if (this.$socket.connected && this.$socket.$subscribe) {
-        this.$socket.$subscribe(this.eventName, this.receiveBid);
-      }
-    },
-
-    unregisterSocket() {
-      this.$socket.$unsubscribe(this.eventName);
     },
 
     async getAuction() {
@@ -85,28 +66,10 @@ export default {
     }
   },
 
-  beforeDestroy() {
-    this.unregisterSocket();
-  },
-
   created() {
     this.getAuction();
   },
 
-  watch: {
-    auction() {
-      if (this.auction) {
-        this.registerSocket();
-      }
-    },
-
-    "$socket.connected"(connected) {
-      if (connected) {
-        this.registerSocket();
-      } else {
-        this.unregisterSocket();
-      }
-    }
   }
 };
 </script>
