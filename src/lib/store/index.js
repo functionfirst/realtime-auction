@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import auctionFactory from "@/lib/auctionFactory";
 import authFactory from '@/lib/authFactory';
 import xhrFactory from "@/lib/xhrFactory";
 
@@ -7,10 +8,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    auctions: []
   },
 
   actions: {
+    async getAuctions({ state, commit }) {
+      const auctions = await auctionFactory(xhrFactory(state.user.token)).all()
+      commit('auctions', auctions);
+    },
 
     async login({ commit }, { email, password }) {
       const data = await authFactory(xhrFactory()).authenticate(email, password);
@@ -33,6 +39,10 @@ const store = new Vuex.Store({
   mutations: {
     user(state, user) {
       this.state.user = user
+    },
+
+    auctions(state, auctions) {
+      this.state.auctions = auctions
     },
 
     initialiseStore(state) {
