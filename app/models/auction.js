@@ -45,12 +45,50 @@ AuctionSchema.methods.isValidStartDate = function isValidStartDate(cb) {
 	return new Date() >= new Date(this.start_date);
 }
 
+AuctionSchema.methods.addBid = function (bid) {
+	const auction = this;
 
+	// Check for a valid start date
+	const invalidStartDate = !auction.isValidStartDate()
+
+	if (invalidStartDate) {
+		throw new Error("Auction is yet to start, you cannot bid yet.")
 	}
 
+	// Check if the minimumBid value is met
+	const minimumBid = auction.minimumBid();
 
-
+	if (bid.value < minimumBid) {
+		throw new Error(`The minimum bid is £${minimumBid}.`);
 	}
+
+	// Check if any autobids are in place to override this bid
+	const autobid = auction.checkForAutobid(bid.value);
+
+	// set current_bid to the auto bid amount
+	if (autobid.value) {
+		bid.value = autobid.value;
+		bid.userid = autobid.userid;
+		bid.email = autobid.email;
+
+		auction.bids.push(bid);
+		auction.current_bid = bid;
+		auction.save();
+
+		throw new Error('You have been outbid');
+	}
+
+	auction.bids.push(bid);
+	auction.current_bid = bid;
+	auction.save();
+
+	// Remove these fields - don't need them on front-end
+	auction.bids = undefined
+	auction.autobids = undefined
+
+	return auction;
+}
+
 AuctionSchema.methods.minimumBid = function () {
 	return this.current_bid && this.current_bid.value ? this.current_bid.value + 1 : this.start_amount
 }
