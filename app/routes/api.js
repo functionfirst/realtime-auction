@@ -31,6 +31,7 @@ const api = (app, express) => {
 	apiRouter.get('/auctions', auctionRoute.list);
 	apiRouter.get('/auctions/:auction_id', auctionRoute.view);
 	apiRouter.put('/auctions/:auction_id/bid', auctionRoute.bid);
+	apiRouter.put('/auctions/:auction_id/autobid', auctionRoute.autobid);
 
 	// User Routes (Admin only)
 	apiRouter.get('/users', requireAdmin, userRoute.list);

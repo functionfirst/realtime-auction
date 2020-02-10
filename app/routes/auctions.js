@@ -94,6 +94,20 @@ const isUserBlocked = async (userid) => {
   }
 }
 
+const autobid = async (req, res) => {
+  // Check if it's an autobid
+  if (req.body.autobid && req.body.value) {
+    // Check the autobid userid/value don't already exist
+    var autobidExists = auction.autobids.filter(function (obj) {
+      return obj.value == req.body.value && obj.userid == req.body.userid
+    });
+
+    if (autobidExists.length === 0) {
+      // Save the autobid
+      auction.autobids.push({
+        value: req.body.value,
+        userid: req.body.userid,
+        email: req.body.email
       });
 
       // Use the minimumBid value to create bid instead of the Users max bid (Autobid value)
@@ -147,5 +161,6 @@ module.exports = {
   create: create,
   view: view,
   update: update,
-  bid: bid
+  bid: bid,
+  autobid: autobid
 };
