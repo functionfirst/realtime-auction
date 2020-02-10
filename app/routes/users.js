@@ -44,10 +44,6 @@ function create(req, res) {
 
 	// set the user information (from the request)
 	user.name = req.body.name;
-	user.pobox = req.body.pobox;
-	user.address = req.body.address;
-	user.city = req.body.city;
-	user.mobile = req.body.mobile;
 	user.email = req.body.email;
 	user.password = req.body.password;
 	user.confirm_password = req.body.confirm_password;
