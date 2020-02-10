@@ -46,26 +46,25 @@ function create(req, res) {
 	user.name = req.body.name;
 	user.email = req.body.email;
 	user.password = req.body.password;
-	user.confirm_password = req.body.confirm_password;
 
 	// VALIDATION
-	if (validator.isNull(user.name)) {
+	if (validator.isEmpty(user.name)) {
 		return throwValidationError('Please enter your Name.', res);
 	}
 
-	if (validator.isNull(user.email)) {
+	if (validator.isEmpty(user.email)) {
 		return throwValidationError('Please enter your email address.', res);
 	}
 
-	if (validator.isNull(user.password)) {
+	if (validator.isEmpty(user.password)) {
 		return throwValidationError('Please enter a password', res);
 	}
 
-	if (validator.isNull(user.confirm_password)) {
+	if (validator.isEmpty(req.body.confirm_password)) {
 		return throwValidationError('Please confirm your password.', res);
 	}
 
-	if (!validator.equals(user.password, user.confirm_password)) {
+	if (!validator.equals(user.password, req.body.confirm_password)) {
 		return throwValidationError('Please ensure your passwords match.', res);
 	}
 
