@@ -61,6 +61,7 @@ export default {
       bid: {
         value: 0
       },
+      error: ""
     };
   },
 
