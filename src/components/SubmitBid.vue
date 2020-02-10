@@ -15,13 +15,11 @@
         required
         class="appearance-none border px-4 py-3 w-full text-lg"
         style="-webkit-appearance: none"
-        @change="setIncrement"
       >
         <option value="0">Click to select a bid increment</option>
         <option
           :value="increment"
           v-for="(increment, index) in bidIncrements"
-          :checked="currentIncrement == increment"
           :key="index"
         >+ £{{ increment}}</option>
       </select>
@@ -79,7 +77,6 @@ export default {
       bid: {
         value: 0
       },
-      currentIncrement: 0
     };
   },
 
@@ -96,11 +93,6 @@ export default {
   },
 
   methods: {
-    setIncrement(event) {
-      this.currentIncrement = event.target.value;
-      this.bidBlocker = false;
-    },
-
     checkBidAmount() {
       if (this.bid.value == 0) {
         this.bidBlocker = !this.bidBlocker;
