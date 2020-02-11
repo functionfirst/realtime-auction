@@ -94,11 +94,11 @@ const store = new Vuex.Store({
 
   mutations: {
     user(state, user) {
-      this.state.user = user
+      state.user = user
     },
 
     auctions(state, auctions) {
-      this.state.auctions = auctions
+      state.auctions = auctions
     },
 
     initialiseStore(state) {
