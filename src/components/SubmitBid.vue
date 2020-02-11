@@ -44,7 +44,7 @@
       class="flex flex-col shadow-md items-center text-white bg-gray-900 p-3 hover:bg-gray-800"
     >
       <span class="text-gray-400 text-sm">Place a bid for:</span>
-      <span class="text-2xl font-bold">£{{ bid.value }}</span>
+      <span class="text-2xl font-bold">£{{ bidValue }}</span>
 
       <small>You can review before submitting</small>
     </button>
