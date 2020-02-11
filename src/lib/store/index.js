@@ -39,15 +39,6 @@ const store = new Vuex.Store({
       }
     },
 
-    updateAuction({ state }, auction) {
-      console.log('update auction')
-      // let auctions = state.auctions
-      console.log(auction);
-      const index = state.auctions.findIndex(item => item.id === auction.id)
-
-      console.log(state.auctions);
-      console.log(index);
-      Vue.set(state.auctions[index], auction)
     socket_newBid({ commit, getters }, auction) {
       const index = getters.auctionIndex(auction.id);
       commit('UPDATE_AUCTION', { index, auction })
