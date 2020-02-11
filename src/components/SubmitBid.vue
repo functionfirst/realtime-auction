@@ -4,9 +4,9 @@
       for="bidValue"
       v-if="bidBlocker && bid.value == 0"
       class="cursor-pointer my-2 text-red-600"
-    >Please select an amount before Placing a bid</label>
+    >Please select a bid increment</label>
 
-    <label v-else for="bidValue" class="cursor-pointer my-2">Submit a Single Bid</label>
+    <label v-else for="bidValue" class="cursor-pointer my-2">Select a bid increment</label>
 
     <div class="mb-4">
       <select
@@ -16,7 +16,7 @@
         class="appearance-none border px-4 py-3 w-full text-lg"
         style="-webkit-appearance: none"
       >
-        <option value="0">Click to select a bid increment</option>
+        <option value="0">Click to select</option>
         <option
           :value="increment"
           v-for="(increment, index) in bidIncrements"
@@ -39,15 +39,37 @@
       <small>You can review before submitting</small>
     </button>
 
-    <button
-      v-else
-      class="flex flex-col shadow-md items-center text-white bg-gray-900 p-3 hover:bg-gray-800"
-    >
-      <span class="text-gray-400 text-sm">Place a bid for:</span>
-      <span class="text-2xl font-bold">£{{ bidValue }}</span>
+    <div v-else class>
+      <button
+        v-if="!showConfirm"
+        class="flex flex-col rounded shadow-md justify-center w-full shadow-md items-center text-white bg-gray-900 p-4 hover:bg-gray-800"
+        type="button"
+        @click="showConfirm = true"
+      >
+        <span class="text-gray-400 text-sm">Place a bid for:</span>
+        <span class="text-2xl font-bold">£{{ bidValue }}</span>
 
-      <small>You can review before submitting</small>
-    </button>
+        <small>You can review before submitting</small>
+      </button>
+
+      <div v-else class="p-4 bg-gray-800 z-10 flex flex-col justify-center items-center">
+        <span class="text-gray-400 text-sm">You are about to submit a bid for:</span>
+
+        <span class="text-2xl font-bold text-white mb-4">£{{ bidValue }}</span>
+
+        <div class="flex items-center justify-between w-full">
+          <button
+            class="rounded shadow-md flex-1 mr-2 p-5 bg-green-400 hover:bg-green-300"
+          >Confirm bid</button>
+
+          <button
+            type="button"
+            @click="showConfirm = false"
+            class="rounded shadow-md flex-1 ml-2 p-5 bg-gray-400 hover:bg-gray-300"
+          >Cancel</button>
+        </div>
+      </div>
+    </div>
   </form>
 </template>
 
@@ -61,7 +83,8 @@ export default {
       bid: {
         value: 0
       },
-      error: ""
+      error: "",
+      showConfirm: false
     };
   },
 
@@ -90,6 +113,8 @@ export default {
           id: this.$route.params.id,
           value: this.bidValue
         });
+
+        this.showConfirm = false;
       } catch (err) {
         this.error = err.message;
       }
