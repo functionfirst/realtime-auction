@@ -2,7 +2,7 @@
   <form class="flex flex-col" @submit.prevent="submitBid">
     <label
       for="bidValue"
-      v-if="bidBlocker"
+      v-if="bidBlocker && bid.value == 0"
       class="cursor-pointer my-2 text-red-600"
     >Please select an amount before Placing a bid</label>
 
