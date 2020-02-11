@@ -28,13 +28,8 @@ const store = new Vuex.Store({
 
       try {
         const auction = await auctionFactory(xhrFactory(state.user.token)).bid(id, bid);
-
-        const eventName = `bid_send_${auction.id}`
-
         dispatch("updateAuction", auction);
-
-        console.log("emit event", eventName, auction);
-        this._vm.$socket.client.emit(eventName, auction);
+        this._vm.$socket.client.emit('newBid', auction)
       } catch (err) {
         // @todo throw this out as a visible message to the user
         // console.log(err.message);
