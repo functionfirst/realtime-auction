@@ -1,10 +1,10 @@
 <template>
-  <header class="bg-gray-900 text-white py-6">
+  <header class="bg-gray-900 text-white py-3 lg:py-6">
     <div class="max-w-2xl mx-auto w-full">
-      <div class="flex justify-between items-center">
-        <router-link class="font-bold text-lg mr-4" to="/">Real-time Auctions</router-link>
+      <div class="flex flex-col lg:flex-row lg:justify-between items-center">
+        <router-link class="font-bold text-lg" to="/">Real-time Auctions</router-link>
 
-        <div class="flex flex-1 items-center justify-end">
+        <div class="flex flex-1 items-center justify-center lg:justify-end mt-3 lg:mt-0">
           <ul v-if="user && user.admin" class="flex justify-between items-center nav navbar-nav">
             <li>
               <router-link class="rounded p-2 block hover:bg-gray-700" to="/users">Users</router-link>
