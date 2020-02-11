@@ -1,9 +1,8 @@
 const socket = require('socket.io');
 
 const socketEvents = socket => {
-    // broadcasts a bid to other users
-    socket.on('bid:send', function (data) {
-        socket.broadcast.emit('bid:send', data);
+    socket.on('newBid', function (auction) {
+        socket.broadcast.emit('newBid', auction);
     });
 }
 
