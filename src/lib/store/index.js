@@ -49,9 +49,10 @@ const store = new Vuex.Store({
       console.log(index);
       Vue.set(state.auctions[index], auction)
 
-      // auctions.splice(index, 1, auction);
+    updateAuction({ commit, getters }, auction) {
+      const index = getters.auctionIndex(auction.id)
 
-      // commit('auctions', auctions)
+      commit('UPDATE_AUCTION', { index, auction })
     },
 
     async getAuctions({ state, commit }) {
@@ -90,6 +91,10 @@ const store = new Vuex.Store({
   mutations: {
     user(state, user) {
       state.user = user
+    },
+
+    UPDATE_AUCTION(state, { index, auction }) {
+      state.auctions.splice(index, 1, auction);
     },
 
     auctions(state, auctions) {
