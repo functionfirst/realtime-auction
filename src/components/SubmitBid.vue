@@ -31,7 +31,8 @@
       type="button"
       v-if="bid.value == 0"
       @click="bidBlocker = !bidBlocker"
-      class="flex flex-col shadow-md items-center text-white bg-gray-900 p-3 hover:bg-gray-800"
+      v-palette
+      class="btn btn--primary flex flex-col shadow-md items-center"
     >
       <span class="text-gray-400 text-sm">Place a bid for:</span>
       <span class="text-2xl font-bold">Select a bid amount</span>
@@ -42,7 +43,8 @@
     <div v-else class>
       <button
         v-if="!showConfirm"
-        class="flex flex-col rounded shadow-md justify-center w-full shadow-md items-center text-white bg-gray-900 p-4 hover:bg-gray-800"
+        v-palette
+        class="btn btn--primary flex flex-col rounded shadow-md justify-center items-center"
         type="button"
         @click="showConfirm = true"
       >
@@ -52,20 +54,19 @@
         <small>You can review before submitting</small>
       </button>
 
-      <div v-else class="p-4 bg-gray-800 z-10 flex flex-col justify-center items-center">
+      <div v-else v-palette class="panel panel--primary flex flex-col justify-center items-center">
         <span class="text-gray-400 text-sm">You are about to submit a bid for:</span>
 
         <span class="text-2xl font-bold text-white mb-4">£{{ bidValue }}</span>
 
         <div class="flex items-center justify-between w-full">
-          <button
-            class="rounded shadow-md flex-1 mr-2 p-5 bg-green-400 hover:bg-green-300"
-          >Confirm bid</button>
+          <button v-palette class="btn btn--success flex-1 mr-2">Confirm bid</button>
 
           <button
             type="button"
             @click="showConfirm = false"
-            class="rounded shadow-md flex-1 ml-2 p-5 bg-gray-400 hover:bg-gray-300"
+            v-palette
+            class="btn btn--default flex-1 ml-2"
           >Cancel</button>
         </div>
       </div>
