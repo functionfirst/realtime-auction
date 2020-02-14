@@ -5,10 +5,10 @@ const http = require('http');
 
 const app = express();
 
-const apiRoutes = require('./app/routes/api')(app, express);
-const enforceSSL = require('./app/lib/enforceSSL');
-const multerUploads = require('./app/lib/enforceSSL');
-const socketIO = require('./app/lib/io');
+const apiRoutes = require('./routes/api')(app, express);
+const enforceSSL = require('./lib/enforceSSL');
+const multerUploads = require('./lib/enforceSSL');
+const socketIO = require('./lib/io');
 const port = process.env.PORT || 8080;
 
 // APP CONFIGURATION

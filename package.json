@@ -14,7 +14,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "env-cmd node server.js",
+    "dev": "env-cmd node app/server.js",
     "seed": "env-cmd node app/seed"
   },
   "author": "Alan Jenkins",
