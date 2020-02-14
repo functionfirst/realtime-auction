@@ -1,10 +1,9 @@
-// grab packages that we need to use for the model
-var mongoose = require('mongoose');
-var db = require('../lib/db');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs');
+const mongoose = require('mongoose');
 
-// User Schema
+const db = require('../lib/db');
+const Schema = mongoose.Schema;
+
 var UserSchema = new Schema({
 	name: { type: String, required: true },
 	pobox: String,
@@ -23,28 +22,26 @@ var UserSchema = new Schema({
 	blocked: { type: Boolean, default: true }
 });
 
-// hash the passowrd before the user is saved
+/**
+ * Hashes the password before the user is saved
+ */
 UserSchema.pre('save', function (next) {
-	var user = this;
-
 	// hash the password only if the password has been changed or user is new
-	if (!user.isModified('password')) return next();
+	if (!this.isModified('password')) return next();
 
-	// generate hash
-	bcrypt.hash(user.password, null, null, function (err, hash) {
-		if (err) return next(err);
-
-		// change password to hashed version
-		user.password = hash;
+	try {
+		this.password = bcrypt.hash(this.password);
 		next();
-	});
+	} catch (err) {
+		return next(err);
+	}
 });
 
-// method to compare a given password with the database hash
-UserSchema.methods.comparePassword = function (password) {
-	var user = this;
-
-	return bcrypt.compareSync(password, user.password);
+/**
+ * method to compare a given password with the database hash
+ */
+UserSchema.methods.isPasswordValid = function (password) {
+	return bcrypt.compareSync(password, this.password);
 };
 
 UserSchema.methods.isBlocked = function (field) {
