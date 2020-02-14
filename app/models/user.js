@@ -44,7 +44,18 @@ UserSchema.methods.isPasswordValid = function (password) {
 	return bcrypt.compareSync(password, this.password);
 };
 
+/**
+ * Authenticate the user by checking the account is not blocked
+ * and that the password is correct
+ */
+UserSchema.methods.authenticate = function (password) {
+	if (this.blocked) {
+		throw new Error('Authentication failed. Error 2.');
+	}
+
+	if (!this.isPasswordValid(password)) {
+		throw new Error('Authentication failed. Error 3.')
+	}
 }
 
-// return model
 module.exports = db.model('User', UserSchema);
