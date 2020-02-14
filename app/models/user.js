@@ -44,8 +44,6 @@ UserSchema.methods.isPasswordValid = function (password) {
 	return bcrypt.compareSync(password, this.password);
 };
 
-UserSchema.methods.isBlocked = function (field) {
-	return this.blocked;
 }
 
 // return model
