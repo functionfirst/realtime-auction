@@ -5,14 +5,6 @@ var User = require('../models/user'),
 	validator = require('validator'),
 	mail = require('../lib/mail');
 
-var users = {
-	me: me,
-	list: list,
-	create: create,
-	view: view,
-	update: update,
-	upload: upload
-};
 
 // Check AWS bucket is configured
 if (process.env.AWS_BUCKET) {
@@ -219,4 +211,11 @@ function sendNewUserSignup(name, email, uid) {
 	});
 }
 
-module.exports = users;
+module.exports = {
+	me: me,
+	list: list,
+	create: create,
+	view: view,
+	update: update,
+	upload: upload
+};
