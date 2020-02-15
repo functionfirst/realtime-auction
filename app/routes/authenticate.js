@@ -1,63 +1,41 @@
-var User = require('../models/user'),
-	jwt = require('jsonwebtoken'),
-	superSecret = process.env.SECRET;
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
-function authenticate(req, res) {
-	// select the name email and password explicitly
-	User.findOne({
-		email: req.body.email
-	}).select('name email password admin blocked').exec(function (err, user) {
-		if (err) throw err;
+const createUserToken = u => {
+	const superSecret = process.env.SECRET;
+	const expiresIn = process.env.TOKEN_EXPIRY * (24 * 60 * 60) // 24 = hours. 60 = minutes
 
-		// no user with that email was found
-		if (!user) {
-			res.json({
-				success: false,
-				message: 'Authentication failed. Error 1.'
-			});
-		} else if (user) {
-			var accountBlocked = user.blocked;
-			var validPassword = user.comparePassword(req.body.password);
+	const user = {
+		admin: u.admin,
+		email: u.email,
+		userid: u._id,
+		name: u.name
+	}
 
-			// Check if account is blocked
-			if (accountBlocked) {
-				res.json({
-					success: false,
-					message: 'Authentication failed. Error 2.'
-				});
+	return jwt.sign(user, superSecret, { expiresIn });;
+}
 
-				// check password matches
-			} else if (!validPassword) {
-				res.json({
-					success: false,
-					message: 'Authentication failed. Error 3.'
-				});
-			} else {
-				// if user is found and password is correct
-				// create a token
-				var token = jwt.sign({
-					admin: user.admin,
-					email: user.email,
-					userid: user._id,
-					name: user.name
-				}, superSecret, {
-					expiresIn: process.env.TOKEN_EXPIRY * (24 * 60 * 60) // 24 = hours. 60 = minutes
-				});
+const authenticate = async (req, res) => {
+	try {
+		const user = await User
+			.findOne({ email: req.body.email }, 'name email password admin blocked')
+			.orFail(new Error("Authentication failed. Error 1"));
 
-				// return the information including token as JSON
-				res.json({
-					success: true,
-					message: 'Enjoy your token',
-					user: {
-						email: user.email,
-						userid: user._id,
-						name: user.name,
-						token
-					}
-				});
-			}
-		}
-	});
-};
+		user.authenticate(req.body.password);
+
+		const token = createUserToken(user);
+
+		res.json({
+			success: true,
+			token,
+			name: user.name
+		});
+	} catch (err) {
+		res.json({
+			success: false,
+			error: err.message
+		})
+	}
+}
 
 module.exports = authenticate;
