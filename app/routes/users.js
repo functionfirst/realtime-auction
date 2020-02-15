@@ -80,15 +80,15 @@ function create(req, res) {
 	})
 };
 
-
-// Retrieve single user
-function view(req, res) {
-	User.findById(req.params.user_id, function (err, user) {
-		if (err) res.send(err);
-
-		res.json(user);
-	});
-};
+// Retrieve user
+const view = async (req, res) => {
+	try {
+		const user = await User.findById(req.params.user_id);
+		res.status(200).json({ user })
+	} catch ({ message }) {
+		res.status(400).json({ message });
+	}
+}
 
 // Update single user information
 function update(req, res) {
