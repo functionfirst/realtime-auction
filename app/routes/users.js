@@ -23,13 +23,14 @@ const me = (req, res) => {
 }
 
 // view all users
-function list(req, res) {
-	User.find({}, null, { sort: 'name' }, function (err, user) {
-		if (err) res.send(err);
-
-		res.json(user);
-	});
-};
+const list = async (req, res) => {
+	try {
+		const users = await User.find({}, null, { sort: 'name' })
+		res.status(200).json({ users });
+	} catch (err) {
+		res.status(400).send(err);
+	}
+}
 
 // create user
 function create(req, res) {
