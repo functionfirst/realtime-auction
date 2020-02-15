@@ -1,5 +1,5 @@
-const verifyToken = require('../lib/verifytoken');
-const requireAdmin = require('../lib/authorise.js');
+const verifyToken = require('../middleware/verifytoken');
+const requireAdmin = require('../middleware/authorise.js');
 
 // Routes
 const auctionRoute = require('../routes/auctions');

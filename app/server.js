@@ -6,8 +6,8 @@ const http = require('http');
 const app = express();
 
 const apiRoutes = require('./routes/api')(app, express);
-const enforceSSL = require('./lib/enforceSSL');
 const multerUploads = require('./lib/enforceSSL');
+const enforceSSL = require('./middleware/enforceSSL');
 const socketIO = require('./lib/io');
 const port = process.env.PORT || 8080;
 
