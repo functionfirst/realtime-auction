@@ -3,8 +3,7 @@ const Auction = require('../models/auction');
 const S3FS = require('s3fs');
 const fs = require('fs');
 const validator = require('validator');
-const mail = require('../lib/mail');
-
+const mail = require('../lib/mail/sendMail');
 
 
 // Check AWS bucket is configured
