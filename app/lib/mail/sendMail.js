@@ -1,6 +1,6 @@
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
-var smtpTransport = nodemailer.createTransport({
+const smtpTransport = nodemailer.createTransport({
   service: '',
   auth: {
     user: '',
@@ -8,4 +8,13 @@ var smtpTransport = nodemailer.createTransport({
   }
 });
 
-module.exports = smtpTransport;
+const sendMail = (template, data) => {
+  try {
+    const newEmail = template(data)
+    smtpTransport.sendMail(newEmail)
+  } catch (err) {
+    throw err
+  }
+}
+
+module.exports = sendMail

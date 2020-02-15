@@ -3,7 +3,9 @@ const Auction = require('../models/auction');
 const S3FS = require('s3fs');
 const fs = require('fs');
 const validator = require('validator');
-const mail = require('../lib/mail/sendMail');
+
+const sendMail = require('../lib/mail/sendMail');
+const { newUserSignup } = require('../lib/mail/templates')
 
 
 // Check AWS bucket is configured
@@ -71,8 +73,7 @@ function create(req, res) {
 			}
 		}
 
-		// Send email confirmation to admin
-		// sendNewUserSignup(user.name, user.email, u._id);
+		sendMail(newUserSignup, user);
 
 		res.json({ success: true, message: 'User created' });
 	})
@@ -190,24 +191,6 @@ function throwValidationError(msg, res) {
 	return res.json({
 		success: false,
 		message: msg
-	});
-}
-
-function sendNewUserSignup(name, email, uid) {
-	var uid_link = config.domain + '/users/' + uid
-	var mailOptions = {
-		from: name + " <" + email + ">",
-		to: config.email,
-		subject: name + ' - New Account Request',
-		text: 'A new user has signed up.\r\nName: ' + name + '\r\n' + uid_link,
-		html: '<p>A new user has signed up.</p><p>Name: ' + name + '</p><p><a href="' + uid_link + '">' + uid_link + '</a></p>'
-	}
-
-	mail.sendMail(mailOptions, function (error, info) {
-		if (error) {
-			return console.log(error);
-		}
-		console.log('Message sent' + info.response);
 	});
 }
 
