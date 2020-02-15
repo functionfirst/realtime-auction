@@ -2,33 +2,21 @@ const jwt = require('jsonwebtoken');
 const superSecret = process.env.SECRET;
 
 const verifyToken = (req, res, next) => {
-	// check header or url params or post params for token
-	var token = req.body.token || req.params['token'] || req.headers['x-access-token'];
+	try {
+		let token = (req.body && req.body.token) || req.params['token'] || req.headers['x-access-token'];
 
-	// decode token
-	if (token) {
-		// verify secret and check expiry
-		jwt.verify(token, superSecret, function (err, decoded) {
-			if (err) {
-				return res.status(403).send({
-					success: false,
-					message: 'Failed to authenticate token'
-				});
-			} else {
-				// if everything is good, save to request for use in other routes
-				req.admin = decoded.admin; // track if they are admin as part of the request
-				req.decoded = decoded;
+		if (!token) {
+			throw new Error('No token provided');
+		}
 
-				next();
-			}
-		});
-	} else {
-		// no token
-		// return a 403 http response (access forbidden) and an error
-		return res.status(403).send({
-			success: false,
-			message: 'No token provided'
-		});
+		try {
+			req.decoded = jwt.verify(token, superSecret);
+			next();
+		} catch (err) {
+			throw new Error('Failed to authenticate token');
+		}
+	} catch ({ message }) {
+		return res.status(403).json({ message });
 	}
 }
 
