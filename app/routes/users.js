@@ -1,9 +1,10 @@
-var User = require('../models/user'),
-	Auction = require('../models/auction'),
-	S3FS = require('s3fs'),
-	fs = require('fs'),
-	validator = require('validator'),
-	mail = require('../lib/mail');
+const User = require('../models/user');
+const Auction = require('../models/auction');
+const S3FS = require('s3fs');
+const fs = require('fs');
+const validator = require('validator');
+const mail = require('../lib/mail');
+
 
 
 // Check AWS bucket is configured
