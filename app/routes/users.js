@@ -18,9 +18,9 @@ if (process.env.AWS_BUCKET) {
 }
 
 // get user information
-function me(req, res) {
+const me = (req, res) => {
 	res.send(req.decoded);
-};
+}
 
 // view all users
 function list(req, res) {
