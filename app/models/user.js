@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const db = require('../lib/db');
 const Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+var User = new Schema({
 	name: { type: String, required: true },
 	pobox: String,
 	address: String,
@@ -25,7 +25,7 @@ var UserSchema = new Schema({
 /**
  * Hashes the password before the user is saved
  */
-UserSchema.pre('save', function (next) {
+User.pre('save', function (next) {
 	// hash the password only if the password has been changed or user is new
 	if (!this.isModified('password')) return next();
 
@@ -40,7 +40,7 @@ UserSchema.pre('save', function (next) {
 /**
  * method to compare a given password with the database hash
  */
-UserSchema.methods.isPasswordValid = function (password) {
+User.methods.isPasswordValid = function (password) {
 	return bcrypt.compareSync(password, this.password);
 };
 
@@ -48,7 +48,7 @@ UserSchema.methods.isPasswordValid = function (password) {
  * Authenticate the user by checking the account is not blocked
  * and that the password is correct
  */
-UserSchema.methods.authenticate = function (password) {
+User.methods.authenticate = function (password) {
 	if (this.blocked) {
 		throw new Error('Authentication failed. Error 2.');
 	}
@@ -58,4 +58,4 @@ UserSchema.methods.authenticate = function (password) {
 	}
 }
 
-module.exports = db.model('User', UserSchema);
+module.exports = db.model('User', User);

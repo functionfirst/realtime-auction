@@ -3,7 +3,7 @@ var db = require('../lib/db');
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-var BidSchema = new Schema({
+var Bid = new Schema({
 	userid: {
 		type: ObjectId
 	},
@@ -21,4 +21,4 @@ var BidSchema = new Schema({
 	}
 });
 
-module.exports = db.model('Bid', BidSchema);
+module.exports = db.model('Bid', Bid);

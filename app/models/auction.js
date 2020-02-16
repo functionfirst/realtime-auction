@@ -5,7 +5,7 @@ var BidSchema = require('../models/bid');
 var Schema = mongoose.Schema;
 
 // Auction Schema
-var AuctionSchema = new Schema({
+var Auction = new Schema({
 	name: {
 		type: String,
 		required: true,
@@ -41,11 +41,11 @@ var AuctionSchema = new Schema({
 	autobids: [AutobidSchema.schema]
 });
 
-AuctionSchema.methods.isValidStartDate = function isValidStartDate(cb) {
+Auction.methods.isValidStartDate = function isValidStartDate(cb) {
 	return new Date() >= new Date(this.start_date);
 }
 
-AuctionSchema.methods.addBid = function (bid) {
+Auction.methods.addBid = function (bid) {
 	const auction = this;
 
 	// Check for a valid start date
@@ -89,11 +89,11 @@ AuctionSchema.methods.addBid = function (bid) {
 	return auction;
 }
 
-AuctionSchema.methods.minimumBid = function () {
+Auction.methods.minimumBid = function () {
 	return this.current_bid && this.current_bid.value ? this.current_bid.value + 1 : this.start_amount
 }
 
-AuctionSchema.methods.getOldestMatchingAutobid = function (autobidValue) {
+Auction.methods.getOldestMatchingAutobid = function (autobidValue) {
 	// sort by created_at and filter by the autobid value
 	var autobids = this.autobids
 		.filter(function (obj) {
@@ -109,7 +109,7 @@ AuctionSchema.methods.getOldestMatchingAutobid = function (autobidValue) {
 	}
 }
 
-AuctionSchema.methods.checkForAutobid = function (bidValue) {
+Auction.methods.checkForAutobid = function (bidValue) {
 	var highestAutobid = { value: 0 };
 	var autobidUser = '';
 	var autobidEmail = '';
@@ -172,9 +172,9 @@ AuctionSchema.methods.checkForAutobid = function (bidValue) {
 	};
 }
 
-AuctionSchema.methods.sortField = function (field) {
+Auction.methods.sortField = function (field) {
 	this[field].sort(function (b1, b2) { return b1.value - b2.value; });
 }
 
 // return model
-module.exports = db.model('Auction', AuctionSchema);
+module.exports = db.model('Auction', Auction);
