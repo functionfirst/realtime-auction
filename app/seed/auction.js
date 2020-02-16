@@ -1,25 +1,8 @@
-var Auction = require('../models/auction');
+const Auction = require('../models/auction');
 
-function create(properties) {
-  var auction = new Auction(properties);
+const getDate = days => {
+  let date = new Date();
 
-  auction.save(function (err) {
-    if (err) {
-      // check for duplicate user entry
-      if (err.code == 11000) {
-        console.log('An Auction with the name "' + properties.name + '" already exists.')
-      } else {
-        console.log(err);
-      }
-      return;
-    }
-
-    console.log('Auction created');
-  });
-}
-
-function getDate(days) {
-  var date = new Date();
   if (days) {
     date.setDate(date.getDate() + days);
   }
@@ -27,16 +10,37 @@ function getDate(days) {
   return date;
 }
 
-module.exports = {
-  seed: function () {
-    create({
-      name: 'Dummy Auction',
-      startDate: getDate(),
-      endDate: getDate(3),
-      description: 'This is some dummy auction content',
-      startAmount: 100,
-      enabled: true,
-      countdown: 2
-    });
+let auctions = [
+  {
+    name: 'Dummy Auction',
+    startDate: getDate(),
+    endDate: getDate(3),
+    description: 'This is some dummy auction content',
+    startAmount: 100,
+    enabled: true,
+    countdown: 2
   }
-};
+];
+
+const create = async properties => {
+  try {
+    let auction = new Auction(properties);
+    await auction.save()
+
+    console.log('Auction created');
+  } catch (err) {
+    if (err.code == 11000) {
+      console.log('An Auction with the name "' + properties.name + '" already exists.')
+    } else {
+      console.log(err.message);
+    }
+  }
+}
+
+const seed = () => {
+  auctions.forEach(user => create(user));
+}
+
+module.exports = {
+  seed
+}

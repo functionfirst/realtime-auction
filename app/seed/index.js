@@ -1,7 +1,7 @@
-var auction = require('./auction');
-var user = require('./user');
+const auction = require('./auction');
+const user = require('./user');
 
-console.log('START: Starting to seed database');
+console.log('START: Seed database.');
 
 auction.seed();
 user.seed();
