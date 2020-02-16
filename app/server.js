@@ -17,7 +17,6 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-// Enforce SSL on production server
 app.use(enforceSSL);
 
 // Use multer for Image uploads

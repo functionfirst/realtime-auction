@@ -1,8 +1,15 @@
-function enforceSSL(req, res, next) {
-    var productionNotSSL = process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https';
+const { isProduction } = require('../lib/env');
 
-    if (productionNotSSL) {
-        return res.redirect(['https://', req.get('Host'), req.url].join(''));
+const sslHeader = req => req.headers['x-forwarded-proto'] === 'https';
+
+/**
+ * Enforce SSL on production server
+ */
+const enforceSSL = (req, res, next) => {
+    let isNotSSL = !sslHeader(req);
+
+    if (isProduction && isNotSSL) {
+        return res.redirect(`https://${req.get('Host')}${req.url}`);
     }
 
     return next();
