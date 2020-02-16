@@ -37,7 +37,6 @@ const api = (app, express) => {
 	apiRouter.get('/users', requireAdmin, userRoute.list);
 	apiRouter.get('/users/:user_id', requireAdmin, userRoute.view);
 	apiRouter.put('/users/:user_id', requireAdmin, userRoute.update);
-	apiRouter.post('/users/:user_id/upload', requireAdmin, userRoute.upload);
 
 	// Auction Routes (Admin only)
 	apiRouter.post('/auctions', requireAdmin, auctionRoute.create);

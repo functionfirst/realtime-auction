@@ -16,9 +16,6 @@ const User = new Schema({
 		type: Boolean,
 		default: false
 	},
-	image: {
-		type: String
-	},
 	blocked: { type: Boolean, default: true }
 });
 

@@ -1,21 +1,9 @@
 const User = require('../models/user');
 const Auction = require('../models/auction');
-const S3FS = require('s3fs');
-const fs = require('fs');
 const validator = require('validator');
 
 const sendMail = require('../lib/mail/sendMail');
 const { newUserSignup } = require('../lib/mail/templates')
-
-
-// Check AWS bucket is configured
-if (process.env.AWS_BUCKET) {
-	// S3FS implementation
-	s3fsImpl = new S3FS(process.env.S3_BUCKET, {
-		accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-	});
-}
 
 // get user information
 const me = (req, res) => {
@@ -98,7 +86,6 @@ function update(req, res) {
 		// Update user info if its new
 		if (req.body.name) user.name = req.body.name;
 		if (req.body.password) user.password = req.body.password;
-		if (req.body.removeImage) user.image = '';
 
 		user.pobox = req.body.pobox;
 		user.address = req.body.address;
@@ -119,37 +106,6 @@ function update(req, res) {
 		})
 	})
 };
-
-function upload(req, res) {
-	// Upload image
-	var file = req.file;
-
-	// Create file stream
-	var stream = fs.createReadStream(file.path);
-
-	// writefile calls putObject behind the scenes
-	s3fsImpl.writeFile(file.filename, stream).then(function () {
-		fs.unlink(file.path, function (err) {
-			if (err) return res.send(err);
-
-			// Update user with new image
-			User.findById(req.params.user_id, function (err, user) {
-				if (err) return res.send(err);
-
-				if (req.file.filename) user.image = req.file.filename;
-
-				user.save(function (err, user) {
-					if (err) return res.send(err);
-
-					res.json({
-						message: req.file.filename + ' successfully uploaded to the server',
-						filename: req.file.filename
-					});
-				});
-			});
-		});
-	});
-}
 
 function clearBidHistory(userid) {
 	Auction.find({ 'bids.userid': userid }, function (err, auctions) {
@@ -200,6 +156,5 @@ module.exports = {
 	list: list,
 	create: create,
 	view: view,
-	update: update,
-	upload: upload
+	update: update
 };
