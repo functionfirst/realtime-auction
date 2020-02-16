@@ -2,10 +2,10 @@ const verifyToken = require('../middleware/verifytoken');
 const requireAdmin = require('../middleware/authorise.js');
 
 // Routes
-const auctionRoute = require('../routes/auctions');
-const authRoute = require('../routes/authenticate');
-const homeRoute = require('../routes/home');
-const userRoute = require('../routes/users');
+const auctionRoute = require('../controllers/auctions');
+const authRoute = require('../controllers/authenticate');
+const homeRoute = require('../controllers/home');
+const userRoute = require('../controllers/users');
 
 const api = (app, express) => {
 	// get an instance of express router

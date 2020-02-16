@@ -5,7 +5,7 @@ const http = require('http');
 
 const app = express();
 
-const apiRoutes = require('./routes/api')(app, express);
+const apiRoutes = require('./routes')(app, express);
 const enforceSSL = require('./middleware/enforceSSL');
 const multerUploads = require('./lib/multer');
 const socketIO = require('./lib/io');
