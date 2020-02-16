@@ -1,11 +1,10 @@
-var mongoose = require('mongoose');
-var db = require('../lib/db');
-var AutobidSchema = require('../models/autobid');
-var BidSchema = require('../models/bid');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const db = require('../lib/db');
+const AutobidSchema = require('../models/autobid');
+const BidSchema = require('../models/bid');
+const Schema = mongoose.Schema;
 
-// Auction Schema
-var Auction = new Schema({
+const Auction = new Schema({
 	name: {
 		type: String,
 		required: true,
@@ -176,5 +175,4 @@ Auction.methods.sortField = function (field) {
 	this[field].sort(function (b1, b2) { return b1.value - b2.value; });
 }
 
-// return model
 module.exports = db.model('Auction', Auction);

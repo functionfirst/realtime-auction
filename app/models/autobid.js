@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var db = require('../lib/db');
-var Schema = mongoose.Schema;
-var ObjectId = mongoose.Schema.Types.ObjectId;
+const mongoose = require('mongoose');
+const db = require('../lib/db');
+const Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-var Autobid = new Schema({
+const Autobid = new Schema({
 	userid: {
 		type: ObjectId
 	},

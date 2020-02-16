@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const db = require('../lib/db');
 const Schema = mongoose.Schema;
 
-var User = new Schema({
+const User = new Schema({
 	name: { type: String, required: true },
 	pobox: String,
 	address: String,
