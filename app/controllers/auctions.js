@@ -99,15 +99,15 @@ const createAutobid = async (req, res) => {
   if (req.body.autobid && req.body.value) {
     // Check the autobid userid/value don't already exist
     var autobidExists = auction.autobids.filter(function (obj) {
-      return obj.value == req.body.value && obj.userid == req.body.userid
+      return obj.value == req.body.value && obj.userid == req.decoded._id
     });
 
     if (autobidExists.length === 0) {
       // Save the autobid
       auction.autobids.push({
         value: req.body.value,
-        userid: req.body.userid,
-        email: req.body.email
+        userid: req.decoded._id,
+        name: req.decoded.name
       });
 
       // Use the minimumBid value to create bid instead of the Users max bid (Autobid value)
@@ -123,7 +123,7 @@ const createAutobid = async (req, res) => {
 
 const createBid = async (req, res) => {
   try {
-    const userBlocked = await isUserBlocked(req.body.userid)
+    const userBlocked = await isUserBlocked(req.decoded._id)
 
     if (userBlocked) {
       return res.send({
@@ -143,8 +143,8 @@ const createBid = async (req, res) => {
 
     const updatedAuction = await auction.addBid({
       value: req.body.value,
-      userid: req.body.userid,
-      email: req.body.email
+      userid: req.decoded._id,
+      name: req.decoded.name
     })
 
     res.json({ auction: updatedAuction, success: true });
