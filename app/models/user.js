@@ -12,7 +12,7 @@ const User = new Schema({
 		default: false
 	},
 	blocked: { type: Boolean, default: true }
-});
+}, { timestamps: true });
 
 /**
  * Hashes the password before the user is saved

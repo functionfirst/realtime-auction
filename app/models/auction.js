@@ -37,7 +37,7 @@ const Auction = new Schema({
 	countdown: { type: Number, default: 1 },
 	bids: [Bid.schema],
 	autobids: [Autobid.schema]
-});
+}, { timestamps: true });
 
 Auction.methods.isValidStartDate = function isValidStartDate(cb) {
 	return new Date() >= new Date(this.start_date);

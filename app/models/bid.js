@@ -13,11 +13,7 @@ const Bid = new Schema({
 	blocked: {
 		type: Boolean,
 		default: false
-	},
-	created_at: {
-		type: Date,
-		default: Date.now
 	}
-});
+}, { timestamps: true });
 
 module.exports = db.model('Bid', Bid);
