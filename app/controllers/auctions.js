@@ -2,14 +2,14 @@ const Auction = require('../models/auction');
 const User = require('../models/user');
 
 const list = async (req, res) => {
-  const fields = 'name description start_date end_date start_amount current_bid countdown _id';
+  const fields = 'name description startDate endDate startAmount currentBid countdown _id';
   const filter = {
     enabled: true
   };
 
   try {
     const auctions = await Auction
-      .find(filter, null, { sort: 'start_date' })
+      .find(filter, null, { sort: 'startDate' })
       .select(fields)
 
     res.json(auctions);
@@ -24,10 +24,10 @@ function create(req, res) {
 
   // set auction info
   auction.name = req.body.name;
-  auction.start_date = req.body.start_date;
-  auction.end_date = req.body.end_date;
+  auction.startDate = req.body.startDate;
+  auction.endDate = req.body.endDate;
   auction.description = req.body.description;
-  auction.start_amount = req.body.start_amount;
+  auction.startAmount = req.body.startAmount;
   auction.enabled = req.body.enabled;
   auction.countdown = req.body.countdown;
 
@@ -41,7 +41,7 @@ function create(req, res) {
 // View a specific auction (Users)
 const view = async (req, res) => {
   const id = req.params.auction_id
-  const fields = 'name description start_date end_date start_amount current_bid countdown _id';
+  const fields = 'name description startDate endDate startAmount currentBid countdown _id';
 
   try {
     const auction = await Auction
@@ -60,11 +60,11 @@ function update(req, res) {
 
     // update auction info
     if (req.body.name) auction.name = req.body.name;
-    if (req.body.start_date) auction.start_date = req.body.start_date;
-    if (req.body.end_date) auction.end_date = req.body.end_date;
+    if (req.body.startDate) auction.startDate = req.body.startDate;
+    if (req.body.endDate) auction.endDate = req.body.endDate;
     if (req.body.description) auction.description = req.body.description;
     if (req.body.countdown) auction.countdown = req.body.countdown;
-    auction.start_amount = req.body.start_amount;
+    auction.startAmount = req.body.startAmount;
     auction.enabled = req.body.enabled;
 
     // Check if we're resetting bids
@@ -139,7 +139,7 @@ const bid = async (req, res) => {
   }
 
   try {
-    const auction = await Auction.findById(req.params.auction_id, 'name description start_date end_date start_amount current_bid countdown _id bids autobids')
+    const auction = await Auction.findById(req.params.auction_id, 'name description startDate endDate startAmount currentBid countdown _id bids autobids')
 
     const updatedAuction = await auction.addBid({
       value: req.body.value,

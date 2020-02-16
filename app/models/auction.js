@@ -14,15 +14,15 @@ const Auction = new Schema({
 	description: {
 		type: String
 	},
-	start_date: {
+	startDate: {
 		type: Date,
 		required: true
 	},
-	end_date: {
+	endDate: {
 		type: Date,
 		required: true
 	},
-	start_amount: {
+	startAmount: {
 		type: Number,
 		required: true
 	},
@@ -30,7 +30,7 @@ const Auction = new Schema({
 		type: Boolean,
 		default: false
 	},
-	current_bid: {
+	currentBid: {
 		type: Bid.schema,
 		required: false
 	},
@@ -40,7 +40,7 @@ const Auction = new Schema({
 }, { timestamps: true });
 
 Auction.methods.isValidStartDate = function isValidStartDate(cb) {
-	return new Date() >= new Date(this.start_date);
+	return new Date() >= new Date(this.startDate);
 }
 
 Auction.methods.addBid = function (bid) {
@@ -63,21 +63,21 @@ Auction.methods.addBid = function (bid) {
 	// Check if any autobids are in place to override this bid
 	const autobid = auction.checkForAutobid(bid.value);
 
-	// set current_bid to the auto bid amount
+	// set currentBid to the auto bid amount
 	if (autobid.value) {
 		bid.value = autobid.value;
 		bid.userid = autobid.userid;
 		bid.email = autobid.email;
 
 		auction.bids.push(bid);
-		auction.current_bid = bid;
+		auction.currentBid = bid;
 		auction.save();
 
 		throw new Error('You have been outbid');
 	}
 
 	auction.bids.push(bid);
-	auction.current_bid = bid;
+	auction.currentBid = bid;
 	auction.save();
 
 	// Remove these fields - don't need them on front-end
@@ -88,17 +88,17 @@ Auction.methods.addBid = function (bid) {
 }
 
 Auction.methods.minimumBid = function () {
-	return this.current_bid && this.current_bid.value ? this.current_bid.value + 1 : this.start_amount
+	return this.currentBid && this.currentBid.value ? this.currentBid.value + 1 : this.startAmount
 }
 
 Auction.methods.getOldestMatchingAutobid = function (autobidValue) {
-	// sort by created_at and filter by the autobid value
+	// sort by createdAt and filter by the autobid value
 	var autobids = this.autobids
 		.filter(function (obj) {
 			return obj.value === autobidValue;
 		})
 		.sort(function (b1, b2) {
-			return b1.created_at - b2.created_at;
+			return b1.createdAt - b2.createdAt;
 		});
 
 	return {

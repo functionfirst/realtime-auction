@@ -31,10 +31,10 @@ module.exports = {
   seed: function () {
     create({
       name: 'Dummy Auction',
-      start_date: getDate(),
-      end_date: getDate(3),
+      startDate: getDate(),
+      endDate: getDate(3),
       description: 'This is some dummy auction content',
-      start_amount: 100,
+      startAmount: 100,
       enabled: true,
       countdown: 2
     });
