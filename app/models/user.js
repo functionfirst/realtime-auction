@@ -30,17 +30,17 @@ User.pre('save', function (next) {
 });
 
 /**
- * method to compare a given password with the database hash
+ * Compare a given password with the database hash
  */
-User.methods.isPasswordValid = function (password) {
+User.method('isPasswordValid', function (password) {
 	return comparePassword(password, this.password);
-};
+})
 
 /**
  * Authenticate the user by checking the account is not blocked
  * and that the password is correct
  */
-User.methods.authenticate = function (password) {
+User.method('authenticate', function (password) {
 	if (this.blocked) {
 		throw new Error('Authentication failed. Error 2.');
 	}
@@ -48,6 +48,6 @@ User.methods.authenticate = function (password) {
 	if (!this.isPasswordValid(password)) {
 		throw new Error('Authentication failed. Error 3.')
 	}
-}
+})
 
 module.exports = db.model('User', User);
