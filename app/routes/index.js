@@ -26,11 +26,11 @@ const api = (app, express) => {
 	// Routes now require admin access
 	apiRouter.use(requireAdmin);
 
-	apiRouter.get('/users', requireAdmin, listUsers);
-	apiRouter.get('/users/:user_id', requireAdmin, viewUser);
-	apiRouter.put('/users/:user_id', requireAdmin, updateUser);
-	apiRouter.post('/auctions', requireAdmin, createAuction);
-	apiRouter.put('/auctions/:auction_id', requireAdmin, updateAuction);
+	apiRouter.get('/users', listUsers);
+	apiRouter.get('/users/:user_id', viewUser);
+	apiRouter.put('/users/:user_id', updateUser);
+	apiRouter.post('/auctions', createAuction);
+	apiRouter.put('/auctions/:auction_id', updateAuction);
 
 	return apiRouter
 }
