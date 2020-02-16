@@ -1,7 +1,7 @@
 const { Schema } = require('mongoose');
 const db = require('../lib/db');
-const AutobidSchema = require('../models/autobid');
-const BidSchema = require('../models/bid');
+const Autobid = require('../models/autobid');
+const Bid = require('../models/bid');
 
 const Auction = new Schema({
 	name: {
@@ -31,12 +31,12 @@ const Auction = new Schema({
 		default: false
 	},
 	current_bid: {
-		type: BidSchema.schema,
+		type: Bid.schema,
 		required: false
 	},
 	countdown: { type: Number, default: 1 },
-	bids: [BidSchema.schema],
-	autobids: [AutobidSchema.schema]
+	bids: [Bid.schema],
+	autobids: [Autobid.schema]
 });
 
 Auction.methods.isValidStartDate = function isValidStartDate(cb) {
