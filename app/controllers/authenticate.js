@@ -1,34 +1,28 @@
+const { sign } = require('jsonwebtoken');
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
 
-const createUserToken = u => {
-	const superSecret = process.env.SECRET;
-	const expiresIn = process.env.TOKEN_EXPIRY * (24 * 60 * 60) // 24 = hours. 60 = minutes
+const expiresIn = process.env.TOKEN_EXPIRY * (24 * 60 * 60); // 24 = hours. 60 = minutes
+const superSecret = process.env.SECRET;
 
-	const user = {
-		admin: u.admin,
-		email: u.email,
-		userid: u._id,
-		name: u.name
+const createUserToken = ({ admin, email, _id, name }) => {
+	try {
+		return sign({ admin, email, _id, name }, superSecret, { expiresIn });
+	} catch ({ message }) {
+		throw new Error(message)
 	}
-
-	return jwt.sign(user, superSecret, { expiresIn });;
 }
 
 const authenticateUser = async (req, res) => {
 	try {
-		const user = await User
+		let user = await User
 			.findOne({ email: req.body.email }, 'name email password admin blocked')
 			.orFail(new Error("Authentication failed. Error 1"));
 
 		user.authenticate(req.body.password);
 
-		const token = createUserToken(user);
+		let token = createUserToken(user);
 
-		res.status(200).json({
-			token,
-			name: user.name
-		});
+		res.status(200).json({ token, name: user.name });
 	} catch ({ message }) {
 		res.status(403).json({ message })
 	}
