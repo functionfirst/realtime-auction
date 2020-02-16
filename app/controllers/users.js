@@ -7,7 +7,7 @@ const { newUserSignup } = require('../lib/mail/templates')
 
 // get user information
 const me = (req, res) => {
-	res.send(req.decoded);
+	res.status(200).json(req.decoded);
 }
 
 // view all users
