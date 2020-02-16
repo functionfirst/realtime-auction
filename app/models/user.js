@@ -18,15 +18,15 @@ const User = new Schema({
  * Hashes the password before the user is saved
  */
 User.pre('save', function (next) {
-	// hash the password only if the password has been changed or user is new
-	if (!this.isModified('password')) return next();
-
 	try {
-		this.password = hashPassword(this.password);
-		next();
+		if (this.isModified('password')) {
+			this.password = hashPassword(this.password);
+		}
 	} catch (err) {
 		return next(err);
 	}
+
+	next();
 });
 
 /**
