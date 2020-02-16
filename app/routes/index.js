@@ -1,7 +1,6 @@
 const verifyToken = require('../middleware/verifytoken');
 const requireAdmin = require('../middleware/authorise.js');
 
-// Routes
 const { createAuction, createBid, createAutobid, listAuctions, updateAuction, viewAuction } = require('../controllers/auctions');
 const { authenticateUser } = require('../controllers/authenticate');
 const { apiHome } = require('../controllers/home');
