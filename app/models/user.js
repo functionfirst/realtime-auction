@@ -1,5 +1,5 @@
-const { compareSync, hash } = require('bcrypt-nodejs');
 const { Schema } = require('mongoose');
+const { comparePassword, hashPassword } = require('../lib/password');
 
 const db = require('../lib/db');
 
@@ -22,7 +22,7 @@ User.pre('save', function (next) {
 	if (!this.isModified('password')) return next();
 
 	try {
-		this.password = hash(this.password);
+		this.password = hashPassword(this.password);
 		next();
 	} catch (err) {
 		return next(err);
@@ -33,7 +33,7 @@ User.pre('save', function (next) {
  * method to compare a given password with the database hash
  */
 User.methods.isPasswordValid = function (password) {
-	return compareSync(password, this.password);
+	return comparePassword(password, this.password);
 };
 
 /**
