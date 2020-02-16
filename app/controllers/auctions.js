@@ -157,10 +157,10 @@ const bid = async (req, res) => {
 }
 
 module.exports = {
-  list: list,
-  create: create,
-  view: view,
-  update: update,
-  bid: bid,
-  autobid: autobid
-};
+  list,
+  create,
+  view,
+  update,
+  bid,
+  autobid
+}

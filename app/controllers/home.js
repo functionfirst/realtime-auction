@@ -1,7 +1,9 @@
-var home = {};
+const index = (req, res) => {
+	res.json({
+		message: "Welcome to the Real-time Auctions API!"
+	});
+}
 
-home.index = function (req, res) {
-	res.json({ message: "Yo, welcome to the auction API!" });
-};
-
-module.exports = home;
+module.exports = {
+	index
+}

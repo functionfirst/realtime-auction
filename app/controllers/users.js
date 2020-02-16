@@ -147,9 +147,9 @@ function throwValidationError(msg, res) {
 }
 
 module.exports = {
-	me: me,
-	list: list,
-	create: create,
-	view: view,
-	update: update
-};
+	create,
+	list,
+	me,
+	update,
+	view
+}

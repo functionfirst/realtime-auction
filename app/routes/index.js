@@ -18,7 +18,7 @@ const api = (app, express) => {
 	apiRouter.post('/users', userRoute.create);
 
 	// Authentication route
-	apiRouter.post('/authenticate', authRoute);
+	apiRouter.post('/authenticate', authRoute.authenticate);
 
 	// Verify token
 	// Routes defined beyond this point require a verified token
