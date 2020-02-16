@@ -87,11 +87,6 @@ function update(req, res) {
 		if (req.body.name) user.name = req.body.name;
 		if (req.body.password) user.password = req.body.password;
 
-		user.pobox = req.body.pobox;
-		user.address = req.body.address;
-		user.city = req.body.city;
-		user.mobile = req.body.mobile;
-
 		// If we just blocked this account we need to remove all of their auctions and autobids
 		if (user.blocked !== req.body.blocked && req.body.blocked) {
 			clearBidHistory(req.params.user_id);

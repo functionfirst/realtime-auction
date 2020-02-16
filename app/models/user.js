@@ -6,10 +6,6 @@ const Schema = mongoose.Schema;
 
 const User = new Schema({
 	name: { type: String, required: true },
-	pobox: String,
-	address: String,
-	city: String,
-	mobile: String,
 	email: { type: String, lowercase: true, required: true, index: { unique: true } },
 	password: { type: String, required: true, select: false },
 	admin: {

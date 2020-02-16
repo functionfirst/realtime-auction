@@ -2,10 +2,6 @@ var User = require('../models/user');
 
 var admin = {
   name: 'Admin',
-  pobox: 'NE1 9TG',
-  address: '76 Howden Road',
-  city: 'Newcastyle-upon-tyne',
-  mobile: '0786 096 235',
   email: 'admin',
   password: 'admin',
   admin: true,
@@ -14,10 +10,6 @@ var admin = {
 
 var player1 = {
   name: 'Player 1',
-  pobox: 'OX13 4JK',
-  address: '24 Sureberry DRive',
-  city: 'Oxford',
-  mobile: '0800 345 234',
   email: 'player1',
   password: 'demo',
   confirm_password: 'demo'
@@ -25,10 +17,6 @@ var player1 = {
 
 var player2 = {
   name: 'Player 2',
-  pobox: 'BN14 9GH',
-  address: '18 Fairmount Crescent',
-  city: 'Brighton',
-  mobile: '0800 345 234',
   email: 'player2',
   password: 'demo',
   confirm_password: 'demo'
