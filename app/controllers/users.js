@@ -6,12 +6,12 @@ const sendMail = require('../lib/mail/sendMail');
 const { newUserSignup } = require('../lib/mail/templates')
 
 // get user information
-const me = (req, res) => {
+const userDetails = (req, res) => {
 	res.status(200).json(req.decoded);
 }
 
 // view all users
-const list = async (req, res) => {
+const listUsers = async (req, res) => {
 	try {
 		const users = await User.find({}, null, { sort: 'name' })
 		res.status(200).json({ users });
@@ -21,7 +21,7 @@ const list = async (req, res) => {
 }
 
 // create user
-function create(req, res) {
+function createUser(req, res) {
 	// create new instance of user model
 	var user = new User();
 
@@ -69,7 +69,7 @@ function create(req, res) {
 };
 
 // Retrieve user
-const view = async (req, res) => {
+const viewUser = async (req, res) => {
 	try {
 		const user = await User.findById(req.params.user_id);
 		res.status(200).json({ user })
@@ -79,7 +79,7 @@ const view = async (req, res) => {
 }
 
 // Update single user information
-function update(req, res) {
+function updateUser(req, res) {
 	User.findById(req.params.user_id, function (err, user) {
 		if (err) return res.send(err);
 
@@ -147,9 +147,9 @@ function throwValidationError(msg, res) {
 }
 
 module.exports = {
-	create,
-	list,
-	me,
-	update,
-	view
+	createUser,
+	listUsers,
+	userDetails,
+	updateUser,
+	viewUser
 }

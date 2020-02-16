@@ -2,47 +2,35 @@ const verifyToken = require('../middleware/verifytoken');
 const requireAdmin = require('../middleware/authorise.js');
 
 // Routes
-const auctionRoute = require('../controllers/auctions');
-const authRoute = require('../controllers/authenticate');
-const homeRoute = require('../controllers/home');
-const userRoute = require('../controllers/users');
+const { createAuction, createBid, createAutobid, listAuctions, updateAuction, viewAuction } = require('../controllers/auctions');
+const { authenticateUser } = require('../controllers/authenticate');
+const { apiHome } = require('../controllers/home');
+const { createUser, listUsers, userDetails, updateUser, viewUser } = require('../controllers/users');
 
 const api = (app, express) => {
-	// get an instance of express router
 	let apiRouter = express.Router();
 
-	// API Homepage
-	apiRouter.get('/', homeRoute.index);
+	apiRouter.get('/', apiHome);
+	apiRouter.post('/users', createUser);
+	apiRouter.post('/authenticate', authenticateUser);
 
-	// Create a new User
-	apiRouter.post('/users', userRoute.create);
-
-	// Authentication route
-	apiRouter.post('/authenticate', authRoute.authenticate);
-
-	// Verify token
-	// Routes defined beyond this point require a verified token
+	// Routes now require a verified token
 	apiRouter.use(verifyToken);
 
-	// Get current user's details
-	apiRouter.get('/me', userRoute.me);
+	apiRouter.get('/me', userDetails);
+	apiRouter.get('/auctions', listAuctions);
+	apiRouter.get('/auctions/:auction_id', viewAuction);
+	apiRouter.put('/auctions/:auction_id/bid', createBid);
+	apiRouter.put('/auctions/:auction_id/autobid', createAutobid);
 
-	// Auction Routes (Users)
-	apiRouter.get('/auctions', auctionRoute.list);
-	apiRouter.get('/auctions/:auction_id', auctionRoute.view);
-	apiRouter.put('/auctions/:auction_id/bid', auctionRoute.bid);
-	apiRouter.put('/auctions/:auction_id/autobid', auctionRoute.autobid);
-
-	// User Routes (Admin only)
-	apiRouter.get('/users', requireAdmin, userRoute.list);
-	apiRouter.get('/users/:user_id', requireAdmin, userRoute.view);
-	apiRouter.put('/users/:user_id', requireAdmin, userRoute.update);
 	// Routes now require admin access
 	apiRouter.use(requireAdmin);
 
-	// Auction Routes (Admin only)
-	apiRouter.post('/auctions', requireAdmin, auctionRoute.create);
-	apiRouter.put('/auctions/:auction_id', requireAdmin, auctionRoute.update);
+	apiRouter.get('/users', requireAdmin, listUsers);
+	apiRouter.get('/users/:user_id', requireAdmin, viewUser);
+	apiRouter.put('/users/:user_id', requireAdmin, updateUser);
+	apiRouter.post('/auctions', requireAdmin, createAuction);
+	apiRouter.put('/auctions/:auction_id', requireAdmin, updateAuction);
 
 	return apiRouter
 }

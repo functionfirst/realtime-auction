@@ -1,7 +1,7 @@
 const Auction = require('../models/auction');
 const User = require('../models/user');
 
-const list = async (req, res) => {
+const listAuctions = async (req, res) => {
   const fields = 'name description startDate endDate startAmount currentBid countdown _id';
   const filter = {
     enabled: true
@@ -19,7 +19,7 @@ const list = async (req, res) => {
 };
 
 // Create a new auction (Admin only)
-function create(req, res) {
+function createAuction(req, res) {
   var auction = new Auction();
 
   // set auction info
@@ -39,7 +39,7 @@ function create(req, res) {
 };
 
 // View a specific auction (Users)
-const view = async (req, res) => {
+const viewAuction = async (req, res) => {
   const id = req.params.auction_id
   const fields = 'name description startDate endDate startAmount currentBid countdown _id';
 
@@ -54,7 +54,7 @@ const view = async (req, res) => {
 };
 
 // Update a specific auction (Admin only);
-function update(req, res) {
+function updateAuction(req, res) {
   Auction.findById(req.params.auction_id, function (err, auction) {
     if (err) return res.send(err);
 
@@ -94,7 +94,7 @@ const isUserBlocked = async (userid) => {
   }
 }
 
-const autobid = async (req, res) => {
+const createAutobid = async (req, res) => {
   // Check if it's an autobid
   if (req.body.autobid && req.body.value) {
     // Check the autobid userid/value don't already exist
@@ -121,7 +121,7 @@ const autobid = async (req, res) => {
   }
 }
 
-const bid = async (req, res) => {
+const createBid = async (req, res) => {
   try {
     const userBlocked = await isUserBlocked(req.body.userid)
 
@@ -157,10 +157,10 @@ const bid = async (req, res) => {
 }
 
 module.exports = {
-  list,
-  create,
-  view,
-  update,
-  bid,
-  autobid
+  createAuction,
+  createBid,
+  createAutobid,
+  listAuctions,
+  updateAuction,
+  viewAuction
 }

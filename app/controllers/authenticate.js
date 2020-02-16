@@ -15,7 +15,7 @@ const createUserToken = u => {
 	return jwt.sign(user, superSecret, { expiresIn });;
 }
 
-const authenticate = async (req, res) => {
+const authenticateUser = async (req, res) => {
 	try {
 		const user = await User
 			.findOne({ email: req.body.email }, 'name email password admin blocked')
@@ -39,5 +39,5 @@ const authenticate = async (req, res) => {
 }
 
 module.exports = {
-	authenticate
+	authenticateUser
 }
