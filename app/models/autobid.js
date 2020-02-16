@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
 const db = require('../lib/db');
-const Schema = mongoose.Schema;
-const ObjectId = mongoose.Schema.Types.ObjectId;
+const ObjectId = Schema.Types.ObjectId;
 
 const Autobid = new Schema({
 	userid: {

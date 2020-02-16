@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
+const { Schema } = require('mongoose');
 const db = require('../lib/db');
 const AutobidSchema = require('../models/autobid');
 const BidSchema = require('../models/bid');
-const Schema = mongoose.Schema;
 
 const Auction = new Schema({
 	name: {
