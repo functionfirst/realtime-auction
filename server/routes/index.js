@@ -1,3 +1,5 @@
+const express = require('express');
+
 const verifyToken = require('../middleware/verifytoken');
 const requireAdmin = require('../middleware/authorise.js');
 
@@ -6,32 +8,32 @@ const { authenticateUser } = require('../controllers/authenticate');
 const { apiHome } = require('../controllers/home');
 const { createUser, listUsers, userDetails, updateUser, viewUser } = require('../controllers/users');
 
-const api = (app, express) => {
-	let apiRouter = express.Router();
+const router = express.Router();
 
-	apiRouter.get('/', apiHome);
-	apiRouter.post('/users', createUser);
-	apiRouter.post('/authenticate', authenticateUser);
+const api = () => {
+	router.get('/', apiHome);
+	router.post('/users', createUser);
+	router.post('/authenticate', authenticateUser);
 
 	// Routes now require a verified token
-	apiRouter.use(verifyToken);
+	router.use(verifyToken);
 
-	apiRouter.get('/me', userDetails);
-	apiRouter.get('/auctions', listAuctions);
-	apiRouter.get('/auctions/:auction_id', viewAuction);
-	apiRouter.put('/auctions/:auction_id/bid', createBid);
-	apiRouter.put('/auctions/:auction_id/autobid', createAutobid);
+	router.get('/me', userDetails);
+	router.get('/auctions', listAuctions);
+	router.get('/auctions/:auction_id', viewAuction);
+	router.put('/auctions/:auction_id/bid', createBid);
+	router.put('/auctions/:auction_id/autobid', createAutobid);
 
 	// Routes now require admin access
-	apiRouter.use(requireAdmin);
+	router.use(requireAdmin);
 
-	apiRouter.get('/users', listUsers);
-	apiRouter.get('/users/:user_id', viewUser);
-	apiRouter.put('/users/:user_id', updateUser);
-	apiRouter.post('/auctions', createAuction);
-	apiRouter.put('/auctions/:auction_id', updateAuction);
+	router.get('/users', listUsers);
+	router.get('/users/:user_id', viewUser);
+	router.put('/users/:user_id', updateUser);
+	router.post('/auctions', createAuction);
+	router.put('/auctions/:auction_id', updateAuction);
 
-	return apiRouter
+	return router
 }
 
 module.exports = api;
