@@ -53,19 +53,20 @@ const store = new Vuex.Store({
     async getAuctions({ state, commit }) {
       const auctions = await auctionFactory(xhrFactory(state.user.token)).all()
       commit('auctions', auctions);
+      return auctions
     },
 
     async login({ commit }, { email, password }) {
-      const data = await authFactory(xhrFactory()).authenticate(email, password);
-      commit('user', data.user)
-      return data
+      const user = await authFactory(xhrFactory()).authenticate(email, password);
+      commit('user', user)
+      return user
     },
 
     async register({ commit }, credentials) {
-      const data = await authFactory(xhrFactory()).register(credentials);
+      const user = await authFactory(xhrFactory()).register(credentials);
 
-      commit('user', data.user)
-      return data
+      commit('user', user)
+      return user
     },
 
     logout({ commit }) {
