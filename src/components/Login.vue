@@ -45,15 +45,15 @@ export default {
     async login() {
       const { email, password } = this;
 
-      const response = await this.$store.dispatch("login", {
-        email,
-        password
-      });
+      try {
+        await this.$store.dispatch("login", {
+          email,
+          password
+        });
 
-      if (response.success) {
         this.$router.push("/");
-      } else {
-        this.error = response.message;
+      } catch (error) {
+        this.error = error;
       }
     }
   }
