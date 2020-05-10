@@ -7,7 +7,7 @@ const socketEvents = socket => {
 }
 
 const socketIO = server => {
-    let io = socket.listen(server);
+    const io = socket(server);
     io.on('connection', socketEvents);
     return io;
 }

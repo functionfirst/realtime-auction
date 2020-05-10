@@ -13,10 +13,11 @@ app.set('port', port);
 
 attachMiddleware(app, server);
 
-// SETUP SOCKET BROADCASTS
-socketIO(server)
-
 server.on('request', app);
+
 server.listen(app.get('port'), () => {
   console.log(`Express server listening on port ${app.get('port')}`);
 });
+
+// SETUP SOCKET BROADCASTS
+socketIO(server)
