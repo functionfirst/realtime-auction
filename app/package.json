@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "date-fns": "^2.13.0",
     "socket.io-client": "^2.3.0",
     "vue-socket.io-extended": "^4.0.1"
   },
