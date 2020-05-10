@@ -99,9 +99,9 @@ export default {
     },
 
     bidValue() {
-      const bidValue = this.auction.current_bid.value
-        ? this.auction.current_bid.value
-        : this.auction.start_amount;
+      const bidValue = this.auction.currentBid.value
+        ? this.auction.currentBid.value
+        : this.auction.startAmount;
 
       return bidValue + this.bid.value;
     }
