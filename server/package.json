@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "env-cmd node server/index.js",
-    "seed": "env-cmd node app/seed",
+    "seed": "env-cmd node server/seed",
     "watch": "env-cmd nodemon server/index.js"
   },
   "dependencies": {
