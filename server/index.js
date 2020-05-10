@@ -3,7 +3,7 @@ const http = require('http');
 
 const attachMiddleware = require('./middleware');
 const socketIO = require('./lib/io');
-const port = process.env.PORT || 8080;
+const { port } = require('./lib/env');
 
 // START SERVER
 const server = http.createServer();
