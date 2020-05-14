@@ -3,16 +3,39 @@ const { comparePassword, hashPassword } = require('../lib/password');
 
 const db = require('../lib/db');
 
-const User = new Schema({
-	name: { type: String, required: true },
-	email: { type: String, lowercase: true, required: true, index: { unique: true } },
-	password: { type: String, required: true, select: false },
+const fields = {
+	name: {
+		type: String,
+		required: true
+	},
+	email: {
+		type: String,
+		lowercase: true,
+		required: true,
+		index: {
+			unique: true
+		}
+	},
+	password: {
+		type: String,
+		required: true,
+		select: false
+	},
 	admin: {
 		type: Boolean,
 		default: false
 	},
-	blocked: { type: Boolean, default: true }
-}, { timestamps: true });
+	blocked: {
+		type: Boolean,
+		default: true
+	}
+}
+
+const options = {
+	timestamps: true
+}
+
+const User = new Schema(fields, options);
 
 /**
  * Hashes the password before the user is saved
