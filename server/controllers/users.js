@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const Auction = require('../models/auction');
-const validator = require('validator');
 
 const sendMail = require('../lib/mail/sendMail');
 const { newUserSignup } = require('../lib/mail/templates')
@@ -21,51 +20,22 @@ const listUsers = async (req, res) => {
 }
 
 // create user
-function createUser(req, res) {
-	// create new instance of user model
-	var user = new User();
+const createUser = async (req, res) => {
+	try {
+		const user = new User({
+			name: req.body.name,
+			email: req.body.email,
+			password: req.body.password
+		})
 
-	// set the user information (from the request)
-	user.name = req.body.name;
-	user.email = req.body.email;
-	user.password = req.body.password;
+		await user.save()
 
-	// VALIDATION
-	if (validator.isEmpty(user.name)) {
-		return throwValidationError('Please enter your Name.', res);
+		sendMail(newUserSignup, user)
+
+		res.status(200).json({ user })
+	} catch (errors) {
+		res.status(400).json({ errors })
 	}
-
-	if (validator.isEmpty(user.email)) {
-		return throwValidationError('Please enter your email address.', res);
-	}
-
-	if (validator.isEmpty(user.password)) {
-		return throwValidationError('Please enter a password', res);
-	}
-
-	if (validator.isEmpty(req.body.confirm_password)) {
-		return throwValidationError('Please confirm your password.', res);
-	}
-
-	if (!validator.equals(user.password, req.body.confirm_password)) {
-		return throwValidationError('Please ensure your passwords match.', res);
-	}
-
-	// save user and error check
-	user.save(function (err, u) {
-		if (err) {
-			// check for duplicate user entry
-			if (err.code == 11000) {
-				return res.json({ success: false, message: 'A User with that email already exists.' });
-			} else {
-				return res.send(err);
-			}
-		}
-
-		sendMail(newUserSignup, user);
-
-		res.json({ success: true, message: 'User created' });
-	})
 };
 
 // Retrieve user
@@ -136,13 +106,6 @@ function clearAutobidHistory(userid) {
 				if (err) console.log(err);
 			});
 		})
-	});
-}
-
-function throwValidationError(msg, res) {
-	return res.json({
-		success: false,
-		message: msg
 	});
 }
 
