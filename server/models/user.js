@@ -53,6 +53,21 @@ User.pre('save', function (next) {
 });
 
 /**
+ * Returns errors when user model is saved
+ */
+User.post('save', function (error, doc, next) {
+	if (error.name === 'MongoError' && error.code === 11000) {
+		error = ['A User with that email already exists']
+	} else {
+		if (error.errors) {
+			error = Object.values(error.errors).map(e => e.message)
+		}
+	}
+
+	next(error);
+});
+
+/**
  * Compare a given password with the database hash
  */
 User.method('isPasswordValid', function (password) {
