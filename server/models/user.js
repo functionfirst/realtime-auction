@@ -6,19 +6,19 @@ const db = require('../lib/db');
 const fields = {
 	name: {
 		type: String,
-		required: true
+		required: [true, 'User name is required']
 	},
 	email: {
 		type: String,
 		lowercase: true,
-		required: true,
+		required: [true, 'User email is required'],
 		index: {
 			unique: true
 		}
 	},
 	password: {
 		type: String,
-		required: true,
+		required: [true, 'User password is required'],
 		select: false
 	},
 	admin: {
