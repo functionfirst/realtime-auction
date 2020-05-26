@@ -2,7 +2,8 @@
   "name": "realtime-auctions",
   "version": "2.0.0",
   "description": "Real-time auction application.",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "private": false,
   "keywords": [
     "realtime",
     "bidding",
