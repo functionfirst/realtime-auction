@@ -16,10 +16,10 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "author": "Alan Jenkins",
+  "author": "Alan Jenkins <alan@functionfirst.co.uk> (http://functionfirst.co.uk)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/functionfirst/realtime-auction"
+    "url": "git+https://github.com/functionfirst/realtime-auction"
   },
   "dependencies": {
     "axios": "^0.19.2",
