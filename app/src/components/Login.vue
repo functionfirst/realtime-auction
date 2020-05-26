@@ -1,32 +1,68 @@
 <template>
-  <form class="border p-4 bg-gray-100" @submit.prevent="login">
-    <h1 class="text-center text-lg font-bold">Login</h1>
+  <form
+    class="border p-4 bg-gray-100"
+    @submit.prevent="login"
+  >
+    <h1 class="text-center text-lg font-bold">
+      Login
+    </h1>
 
     <div class="mb-4">
-      <label class="cursor-pointer mb-2 inline-block" for="email">Email</label>
-
-      <input class="border w-full px-3 py-2" id="email" required v-model="email" type="text" />
-    </div>
-
-    <div class="mb-4">
-      <label class="cursor-pointer mb-2 inline-block" for="password">Password</label>
+      <label
+        class="cursor-pointer mb-2 inline-block"
+        for="email"
+      >
+        Email
+      </label>
 
       <input
+        id="email"
+        v-model="email"
         class="border w-full px-3 py-2"
-        id="password"
         required
-        v-model="password"
-        type="password"
-      />
+        type="text"
+      >
     </div>
 
-    <p class="text-red-800 py-2" v-if="error">{{ error }}</p>
+    <div class="mb-4">
+      <label
+        class="cursor-pointer mb-2 inline-block"
+        for="password"
+      >
+        Password
+      </label>
 
-    <button class="bg-blue-300 px-3 py-2 w-full hover:bg-blue-400" type="submit">Login</button>
+      <input
+        id="password"
+        v-model="password"
+        class="border w-full px-3 py-2"
+        required
+        type="password"
+      >
+    </div>
+
+    <p
+      v-if="error"
+      class="text-red-800 py-2"
+    >
+      {{ error }}
+    </p>
+
+    <button
+      class="bg-blue-300 px-3 py-2 w-full hover:bg-blue-400"
+      type="submit"
+    >
+      Login
+    </button>
 
     <p class="mt-4 text-center">
       Not Registered?
-      <router-link class="text-blue-700 hover:text-blue-900" to="/register">Create an Account</router-link>
+      <router-link
+        class="text-blue-700 hover:text-blue-900"
+        to="/register"
+      >
+        Create an Account
+      </router-link>
     </p>
   </form>
 </template>

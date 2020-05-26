@@ -16,10 +16,10 @@ Vue.use(Palette);
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
-  router,
-  store,
   beforeCreate() {
     this.$store.commit('initialiseStore');
-  }
+  },
+  render: h => h(App),
+  router,
+  store
 }).$mount('#app')

@@ -1,21 +1,38 @@
 <template>
   <div class="p-4 md:p-8">
-    <h1 class="text-2xl font-thin text-center mb-6">{{ auction.name }}</h1>
-    <p class="leading-loose">{{ auction.description }}</p>
-    <p>Start Date: {{ auction.startDate }}</p>
-    <p>End Date: {{ auction.endDate }}</p>
+    <h1 class="text-2xl font-thin text-center mb-6">
+      {{ auction.name }}
+    </h1>
+
+    <p class="leading-loose">
+      {{ auction.description }}
+    </p>
+
+    <p>
+      Start Date: {{ auction.startDate }}
+    </p>
+
+    <p>
+      End Date: {{ auction.endDate }}
+    </p>
 
     <div
       v-if="auction.currentBid.value"
       class="p-4 bg-green-300 text-center"
-    >Current Bid is....£{{ auction.currentBid.value }}</div>
+    >
+      Current Bid is....£{{ auction.currentBid.value }}
+    </div>
 
     <div v-else>
-      <p class="text-center font-medium my-6">This auction currently has no bids</p>
+      <p class="text-center font-medium my-6">
+        This auction currently has no bids
+      </p>
 
       <div class="text-center">
         Bidding for this auction will start at
-        <div class="font-bold text-xl">£{{ auction.startAmount }}</div>
+        <div class="font-bold text-xl">
+          £{{ auction.startAmount }}
+        </div>
       </div>
     </div>
 
@@ -27,6 +44,10 @@
 import SubmitBid from "@/components/SubmitBid";
 
 export default {
+  components: {
+    SubmitBid
+  },
+
   data() {
     return {
       loading: true,
@@ -34,10 +55,6 @@ export default {
         value: 0
       }
     };
-  },
-
-  components: {
-    SubmitBid
   },
 
   computed: {

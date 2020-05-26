@@ -1,9 +1,12 @@
 <template>
-  <div id="app" class="min-h-screen flex flex-col">
+  <div
+    id="app"
+    class="min-h-screen flex flex-col"
+  >
     <site-header />
 
     <main class="flex-1">
-      <router-view></router-view>
+      <router-view />
     </main>
   </div>
 </template>
