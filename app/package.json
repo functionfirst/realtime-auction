@@ -13,7 +13,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint:test": "vue-cli-service lint --no-fix",
+    "test:unit": "vue-cli-service test:unit",
+    "test:watch": "vue-cli-service test:unit --watch"
   },
   "author": "Alan Jenkins",
   "repository": {
@@ -30,8 +33,11 @@
     "@fullhuman/postcss-purgecss": "^2.0.6",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-unit-jest": "^4.3.1",
     "@vue/cli-service": "^4.2.3",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^26.0.1",
     "env-cmd": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
