@@ -1,31 +1,28 @@
 <template>
-  <div>
-    <div
-      v-if="status.live"
-      class="auction-list-start-date"
-    >
-      <span class="label label-success">Live</span>
-      This auction started at {{ auction.start_date }}
+  <div
+    v-if="auction"
+    class="text-sm mt-2"
+  >
+    <div v-if="hasStarted && !hasFinished">
+      <span class="bg-green-300 rounded px-2 py-1">Live</span>
+      This auction started at {{ auction.startDate | formatDate("hh:mma MMM dd, yyyy") }}
     </div>
 
-    <div
-      v-if="status.expired"
-      class="auction-list-start-date"
-    >
-      <span class="label label-danger">Expired</span>
-      This auction ended at {{ auction.end_date }}
+    <div v-else-if="hasFinished">
+      <span class="bg-red-300 rounded px-2 py-1">Expired</span>
+      This auction ended at {{ auction.endDate | formatDate("hh:mma MMM dd, yyyy") }}
     </div>
 
-    <div
-      v-if="status.notstarted"
-      class="auction-list-start-date"
-    >
-      Auction starts {{ auction.start_date }}
+    <div v-else-if="!hasStarted">
+      Auction starts at {{ auction.startDate | formatDate("hh:mma MMM dd, yyyy") }}
     </div>
   </div>
 </template>
 
 <script>
+import { differenceInSeconds } from "date-fns";
+import { formatDate } from "@/lib/filters";
+
 export default {
   props: {
     auction: {
@@ -35,93 +32,17 @@ export default {
     }
   },
 
-  data() {
-    return {
-      status: {}
-    };
+  filters: {
+    formatDate
   },
 
   computed: {
-    currentTime() {
-      return new Date();
-    }
-
-    // status () {
-    //   return true
-    // }
-  },
-
-  methods: {
-    isAuctionLive() {
-      // Check if auction hasn started yet
-      let hasAuctionStarted = this.diffDate(this.auction.start_date);
-
-      if (!hasAuctionStarted) {
-        return { notstarted: true };
-      }
-
-      // Check if Auction has finished yet
-      let hasAuctionFinished = this.diffDate(this.auction.end_date);
-
-      if (hasAuctionFinished) {
-        // Check if there's a grace period
-        let latestBidDate = this.getLatestBidDate(this.auction.bids);
-
-        if (latestBidDate) {
-          // check if we've exceeded the countdown (grace period)
-          let inGracePeriod = this.checkGracePeriod(
-            latestBidDate,
-            this.auction.countdown
-          );
-
-          if (inGracePeriod) {
-            return { live: true };
-          }
-
-          return { expired: true };
-        }
-      }
-
-      return { live: true };
+    hasStarted() {
+      return differenceInSeconds(new Date(), this.auction.startDate) > 0;
     },
 
-    duration(val) {
-      return val;
-    },
-
-    checkGracePeriod(latestBidDate, countdown) {
-      let gracePeriodEnds = latestBidDate.add(countdown, "minutes");
-      let diff = gracePeriodEnds.diff(this.currentTime);
-
-      return this.duration(diff) >= 0;
-    },
-
-    diffDate(thisDate) {
-      let diffTime = new Date(thisDate);
-      let diff = this.currentTime.diff(diffTime);
-
-      return this.duration(diff) >= 0;
-    },
-
-    getLatestBidDate(bids) {
-      // Returns the latest bid date to check if the auction is still 'live'
-      let latestBidDate;
-
-      // Check bids exist
-      if (bids.length === 0) {
-        return false;
-      }
-
-      // Sort bids by highest financial value
-      bids.sort(function(b1, b2) {
-        return b2.value - b1.value;
-      });
-
-      // Grab the date of highest bid
-      latestBidDate = bids[0].created_at;
-
-      // return the highest bid date
-      return new Date(latestBidDate);
+    hasFinished() {
+      return differenceInSeconds(new Date(), this.auction.endDate) > 0;
     }
   }
 };
