@@ -24,16 +24,16 @@ import { differenceInSeconds } from "date-fns";
 import { formatDate } from "@/lib/filters";
 
 export default {
+  filters: {
+    formatDate
+  },
+
   props: {
     auction: {
       default: () => {},
       required: true,
       type: Object
     }
-  },
-
-  filters: {
-    formatDate
   },
 
   computed: {
