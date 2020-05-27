@@ -6,8 +6,8 @@ class Auction {
     this.id = _id
     this.name = name
     this.description = description
-    this.startDate = format(new Date(startDate), 'do MMM yyyy')
-    this.endDate = format(new Date(endDate), 'do MMM yyyy')
+    this.startDate = new Date(startDate)
+    this.endDate = new Date(endDate)
     this.startAmount = startAmount
     this.enabled = enabled
     this.countdown = countdown
