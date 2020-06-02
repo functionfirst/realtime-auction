@@ -13,4 +13,6 @@ const status = {
   }
 };
 
-export default status
+export {
+  status
+}
