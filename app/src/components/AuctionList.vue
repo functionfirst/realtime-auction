@@ -15,6 +15,7 @@
             class="border block p-4 hover:border-gray-400 hover:bg-gray-100"
           >
             {{ auction.name }}
+            <AuctionTimer :auction="auction" />
             <AuctionStatus :auction="auction" />
           </router-link>
         </li>
@@ -51,10 +52,12 @@
 
 <script>
 import AuctionStatus from "@/components/AuctionStatus";
+import AuctionTimer from "@/components/AuctionTimer";
 
 export default {
   components: {
-    AuctionStatus
+    AuctionStatus,
+    AuctionTimer
   },
 
   computed: {
