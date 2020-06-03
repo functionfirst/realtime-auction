@@ -27,6 +27,10 @@ const Auction = new Schema({
 		type: Number,
 		required: true
 	},
+	featured: {
+		type: Boolean,
+		default: false
+	},
 	enabled: {
 		type: Boolean,
 		default: false

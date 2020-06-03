@@ -21,6 +21,7 @@ class Auction {
     this.endDate = new Date(endDate)
     this.startAmount = startAmount
     this.enabled = enabled
+    this.featured = featured
     this.countdown = countdown
     this.currentBid = currentBid
     this.hasFinished = hasFinished
