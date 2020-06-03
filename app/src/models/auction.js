@@ -29,7 +29,7 @@ class Auction {
 
   get path() {
     const slug = convertToSlug(this.name)
-    return `${slug}/${this.id}`
+    return `/auctions/${slug}/${this.id}`
   }
 }
 
