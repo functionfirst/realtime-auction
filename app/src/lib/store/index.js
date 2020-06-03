@@ -51,7 +51,7 @@ const store = new Vuex.Store({
     },
 
     async getAuctions({ state, commit }) {
-      const auctions = await auctionFactory(xhrFactory(state.user.token)).all()
+      const auctions = await auctionFactory(xhrFactory()).all()
       commit('auctions', auctions);
       return auctions
     },
