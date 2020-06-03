@@ -1,5 +1,4 @@
 import { convertToSlug } from "@/lib/convertToSlug"
-import { format } from 'date-fns'
 
 class Auction {
   constructor({ _id, name, description, startDate, endDate, startAmount = 0, enabled = true, countdown = 1, currentBid = {} }) {
