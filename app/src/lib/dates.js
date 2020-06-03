@@ -1,9 +1,10 @@
-import { differenceInSeconds } from "date-fns";
+import { format } from "date-fns";
 
-const isInThePast = (date) => {
-  return differenceInSeconds(date, new Date()) < 0;
+const formatDate = (value, f = "dd/MM/yyyy") => {
+  if (!value) return
+  return format(value, f)
 }
 
 export {
-  isInThePast
+  formatDate
 }
