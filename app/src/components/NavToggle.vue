@@ -3,9 +3,9 @@
     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white"
     @click="$store.dispatch('toggleNav')"
   >
-    <!-- Menu open: "hidden", Menu closed: "block" -->
     <svg
       class="block h-6 w-6"
+      :class="$store.state.nav ? 'hidden' : ''"
       stroke="currentColor"
       fill="none"
       viewBox="0 0 24 24"
@@ -17,9 +17,9 @@
         d="M4 6h16M4 12h16M4 18h16"
       />
     </svg>
-    <!-- Menu open: "block", Menu closed: "hidden" -->
     <svg
-      class="hidden h-6 w-6"
+      class="block h-6 w-6"
+      :class="$store.state.nav ? '' : 'hidden'"
       stroke="currentColor"
       fill="none"
       viewBox="0 0 24 24"
