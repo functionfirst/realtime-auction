@@ -8,15 +8,21 @@
         <li
           v-for="(auction, _id) in auctions"
           :key="_id"
+          class="mb-4"
         >
           <router-link
             v-if="auction.path"
             :to="auction.path"
-            class="border block p-4 hover:border-gray-400 hover:bg-gray-100"
+            class="rounded-lg shadow-sm bg-white block p-4 hover:shadow-md"
           >
             {{ auction.name }}
             <AuctionTimer :auction="auction" />
             <AuctionStatus :auction="auction" />
+
+            <div v-if="auction.currentBid.value">
+              Highest bid<br>
+              £{{auction.currentBid.value}}
+            </div>
           </router-link>
         </li>
       </ul>
