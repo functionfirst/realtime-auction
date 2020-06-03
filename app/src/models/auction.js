@@ -9,6 +9,8 @@ class Auction {
     hasFinished,
     startDate,
     endDate,
+    createdAt,
+    featured,
     startAmount = 0,
     enabled = true,
     countdown = 1,
@@ -26,6 +28,7 @@ class Auction {
     this.currentBid = currentBid
     this.hasFinished = hasFinished
     this.hasStarted = hasStarted
+    this.createdAt = createdAt
   }
 
   get path() {
