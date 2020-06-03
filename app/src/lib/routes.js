@@ -23,7 +23,7 @@ const routes = [
     component: () => import('@/pages/Register')
   },
   {
-    path: '/success',
+    path: '/register/success',
     name: 'Success',
     component: () => import('@/pages/Success')
   },
