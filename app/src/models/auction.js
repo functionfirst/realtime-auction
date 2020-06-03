@@ -1,7 +1,19 @@
 import { convertToSlug } from "@/lib/convertToSlug"
 
 class Auction {
-  constructor({ _id, name, description, startDate, endDate, startAmount = 0, enabled = true, countdown = 1, currentBid = {} }) {
+  constructor({
+    _id,
+    name,
+    description,
+    hasStarted,
+    hasFinished,
+    startDate,
+    endDate,
+    startAmount = 0,
+    enabled = true,
+    countdown = 1,
+    currentBid = {}
+  }) {
     this.id = _id
     this.name = name
     this.description = description
@@ -11,6 +23,8 @@ class Auction {
     this.enabled = enabled
     this.countdown = countdown
     this.currentBid = currentBid
+    this.hasFinished = hasFinished
+    this.hasStarted = hasStarted
   }
 
   get path() {
