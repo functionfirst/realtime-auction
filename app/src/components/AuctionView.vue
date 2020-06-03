@@ -8,19 +8,30 @@
       {{ auction.description }}
     </p>
 
-    <p>
-      Start Date: {{ auction.startDate }}
-    </p>
+    <div class="flex flex-col items-center">
+      <p class="uppercase text-xs flex flex-col items-center mb-4">
+        Time Remaining
+      </p>
 
-    <p>
-      End Date: {{ auction.endDate }}
-    </p>
+      <auction-timer
+        class="text-2xl"
+        :auction="auction"
+      />
+
+      <p class="text-gray-700">
+        Auction ends on
+        {{ auction.endDate | formatDate }}
+        at
+        {{ auction.endDate | formatDate('hh:mm') }}
+      </p>
+    </div>
 
     <div
       v-if="auction.currentBid.value"
       class="p-4 bg-green-300 text-center"
     >
-      Current Bid is....£{{ auction.currentBid.value }}
+      <div>Highest Bid</div>
+      £{{ auction.currentBid.value }}
     </div>
 
     <div v-else>
@@ -42,10 +53,16 @@
 
 <script>
 import SubmitBid from "@/components/SubmitBid";
+import { formatDate } from "@/lib/dates";
 
 export default {
   components: {
+    AuctionTimer: () => import("@/components/AuctionTimer"),
     SubmitBid
+  },
+
+  filters: {
+    formatDate
   },
 
   data() {
