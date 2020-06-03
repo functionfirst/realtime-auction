@@ -12,27 +12,13 @@
             </router-link>
           </div>
           <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline">
-              <router-link
-                to="/auctions"
-                class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700"
-              >
-                All Listings
-              </router-link>
-
-              <router-link
-                to="/auctions/recent"
-                class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-              >
-                Recently Added
-              </router-link>
-
-              <router-link
-                to="/auctions/featured"
-                class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-              >
-                Featured
-              </router-link>
+            <div class="ml-10 flex items-baseline text-sm font-medium">
+              <nav-link
+                v-for="(item, index) in nav"
+                :key="index"
+                :item="item"
+                class="mr-4 "
+              />
             </div>
           </div>
         </div>
@@ -58,28 +44,15 @@
       :class="$store.state.nav ? '' : 'hidden'"
       @click="$store.dispatch('toggleNav')"
     >
-      <div class="px-2 pt-2 pb-3 sm:px-3">
-        <router-link
-          to="/auctions"
-          class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700"
-        >
-          All Listings
-        </router-link>
-
-        <router-link
-          to="/auctions/recent"
-          class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-        >
-          Recently Added
-        </router-link>
-
-        <router-link
-          to="/auctions/featured"
-          class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-        >
-          Featured
-        </router-link>
+      <div class="px-2 pt-2 pb-3 sm:px-3 text-base font-medium">
+        <nav-link
+          v-for="(item, index) in nav"
+          :key="index"
+          :item="item"
+          class="block mb-1"
+        />
       </div>
+
       <div
         v-if="$store.state.user"
         class="pt-4 pb-3 border-t border-gray-700"
@@ -140,12 +113,33 @@
 </template>
 
 <script>
+const nav = [
+  {
+    label: "All Listings",
+    url: "/auctions"
+  },
+  {
+    label: "Recently Added",
+    url: "/auctions/recent"
+  },
+  {
+    label: "Featured",
+    url: "/auctions/featured"
+  }
+];
 export default {
   components: {
     Logo: () => import("@/components/Logo"),
     ProfileDropdown: () => import("@/components/ProfileDropdown"),
     NavToggle: () => import("@/components/NavToggle"),
+    NavLink: () => import("@/components/NavLink"),
     Notifications: () => import("@/components/Notifications")
+  },
+
+  data() {
+    return {
+      nav
+    };
   },
 
   computed: {
