@@ -59,6 +59,7 @@
 <script>
 import AuctionStatus from "@/components/AuctionStatus";
 import AuctionTimer from "@/components/AuctionTimer";
+import { isAfter, subWeeks } from "@/lib/dates";
 
 export default {
   components: {
@@ -67,13 +68,35 @@ export default {
   },
 
   computed: {
+    filter() {
+      return this.$route.params.filter;
+    },
+
     auctions() {
-      return this.$store.state.auctions;
+      let auctions = this.$store.state.auctions;
+
+      if (this.filter) {
+        auctions = auctions.filter(this[this.filter]);
+      }
+
+      return auctions;
     }
   },
 
   mounted() {
     this.$store.dispatch("getAuctions");
+  },
+
+  methods: {
+    featured(auction) {
+      return auction.featured;
+    },
+
+    recent(auction) {
+      const createdAt = new Date(auction.createdAt);
+      const dateLimit = subWeeks(new Date(), 1);
+      return isAfter(createdAt, dateLimit);
+    }
   }
 };
 </script>
