@@ -1,12 +1,15 @@
 # Real-time Auctions  
 A simple real-time auction system
 
+## Disclaimer
+This repo is a playground for me to experiment and develop my skills. The project is not intended to be deployed as a "real" application though you are very welcome to use it.
+
 ## Server Setup
 
 1. Change directory to server
 
   ```cd server```
-
+\
 2. Copy .env_example and rename it to .env
 
 ```cp .env_default .env```
