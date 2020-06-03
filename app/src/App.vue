@@ -1,22 +1,13 @@
 <template>
-  <div
-    id="app"
-    class="min-h-screen flex flex-col"
-  >
-    <site-header />
-
-    <main class="flex-1">
-      <router-view />
-    </main>
-  </div>
+  <layout id="app">
+    <router-view :key="$route.fullPath" />
+  </layout>
 </template>
 
 <script>
-import SiteHeader from "@/components/SiteHeader";
-
 export default {
   components: {
-    SiteHeader
+    Layout: () => import("@/layouts/Default")
   }
 };
 </script>

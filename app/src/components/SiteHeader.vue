@@ -1,74 +1,153 @@
 <template>
-  <header class="bg-gray-900 text-white py-3 lg:py-6">
-    <div class="max-w-2xl mx-auto w-full">
-      <div class="flex flex-col lg:flex-row lg:justify-between items-center">
-        <router-link
-          class="font-bold text-lg"
-          to="/"
-        >
-          Real-time Auctions
-        </router-link>
-
-        <div class="flex flex-1 items-center justify-center lg:justify-end mt-3 lg:mt-0">
-          <ul
-            v-if="user && user.admin"
-            class="flex justify-between items-center nav navbar-nav"
-          >
-            <li>
+  <nav class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <router-link
+              to="/"
+              class="block"
+            >
+              <logo class="h-8 w-8" />
+            </router-link>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline">
               <router-link
-                class="rounded p-2 block hover:bg-gray-700"
-                to="/users"
-              >
-                Users
-              </router-link>
-            </li>
-            <li>
-              <router-link
-                class="rounded p-2 block hover:bg-gray-700"
                 to="/auctions"
+                class="px-3 py-2 rounded-md text-sm font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700"
               >
-                Auctions
+                All Listings
               </router-link>
-            </li>
-          </ul>
 
-          <ul
-            v-if="user && user.token"
-            class="flex justify-between items-center"
-          >
-            <li>
-              <p class="mr-4">
-                You are logged in as {{ user.name }}
-              </p>
-            </li>
-            <li>
               <router-link
-                class="rounded p-2 block hover:bg-gray-700"
-                to="/logout"
+                to="/auctions/recent"
+                class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
               >
-                Logout
+                Recently Added
               </router-link>
-            </li>
-          </ul>
 
-          <ul v-else>
-            <li class="flex justify-between items-center">
               <router-link
-                class="rounded p-2 block hover:bg-gray-700"
-                to="/login"
+                to="/auctions/featured"
+                class="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
               >
-                Login
+                Featured
               </router-link>
-            </li>
-          </ul>
+            </div>
+          </div>
+        </div>
+
+        <div
+          v-if="$store.state.user"
+          class="hidden md:block"
+        >
+          <div class="ml-4 flex items-center md:ml-6">
+            <notifications />
+
+            <profile-dropdown />
+          </div>
+        </div>
+        <div class="-mr-2 flex md:hidden">
+          <nav-toggle />
         </div>
       </div>
     </div>
-  </header>
+
+    <div
+      class="bg-gray-800 fixed md:hidden min-h-screen w-full z-10"
+      :class="$store.state.nav ? '' : 'hidden'"
+      @click="$store.dispatch('toggleNav')"
+    >
+      <div class="px-2 pt-2 pb-3 sm:px-3">
+        <router-link
+          to="/auctions"
+          class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700"
+        >
+          All Listings
+        </router-link>
+
+        <router-link
+          to="/auctions/recent"
+          class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+        >
+          Recently Added
+        </router-link>
+
+        <router-link
+          to="/auctions/featured"
+          class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+        >
+          Featured
+        </router-link>
+      </div>
+      <div
+        v-if="$store.state.user"
+        class="pt-4 pb-3 border-t border-gray-700"
+      >
+        <div class="flex items-center px-5">
+          <div class="flex-shrink-0">
+            <img
+              class="h-10 w-10 rounded-full"
+              src="https://avatars.dicebear.com/api/identicon/realtime-auctions.svg?colors[]=amber"
+              alt=""
+            >
+          </div>
+          <div class="ml-3">
+            <div class="text-base font-medium leading-none text-white">
+              {{ $store.state.user.name }}
+            </div>
+            <div class="mt-1 text-sm font-medium leading-none text-gray-400">
+              {{ $store.state.user.email }}
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 px-2">
+          <router-link
+            to="/profile"
+            class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+          >
+            Your Profile
+          </router-link>
+
+          <router-link
+            to="/settings"
+            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+          >
+            Settings
+          </router-link>
+
+          <router-link
+            to="/logout"
+            class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+          >
+            Logout
+          </router-link>
+        </div>
+      </div>
+      <div
+        v-else
+        class="pt-4 pb-3 border-t border-gray-700"
+      >
+        <router-link
+          to="/login"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+        >
+          Login
+        </router-link>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {
+  components: {
+    Logo: () => import("@/components/Logo"),
+    ProfileDropdown: () => import("@/components/ProfileDropdown"),
+    NavToggle: () => import("@/components/NavToggle"),
+    Notifications: () => import("@/components/Notifications")
+  },
+
   computed: {
     user() {
       return this.$store.state.user;
