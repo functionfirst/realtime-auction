@@ -21,7 +21,7 @@
 
             <div v-if="auction.currentBid.value">
               Highest bid<br>
-              £{{auction.currentBid.value}}
+              £{{ auction.currentBid.value }}
             </div>
           </router-link>
         </li>
