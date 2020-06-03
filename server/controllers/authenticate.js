@@ -22,7 +22,7 @@ const authenticateUser = async (req, res) => {
 
 		let token = createUserToken(user);
 
-		res.status(200).json({ token, name: user.name });
+		res.status(200).json({ token: token, name: user.name, email: user.email });
 	} catch ({ message }) {
 		res.status(403).json({ message })
 	}
