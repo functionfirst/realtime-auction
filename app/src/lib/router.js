@@ -24,6 +24,12 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+router.afterEach((to, from) => {
+  if (to.meta && to.meta.pageTitle) {
+    document.title = to.meta.pageTitle
+  }
+})
+
 export {
   router
 }
