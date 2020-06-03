@@ -9,7 +9,6 @@
 
 <script>
 import { status } from "@/lib/status";
-import { isInThePast } from "@/lib/dates";
 
 export default {
   props: {
@@ -22,21 +21,13 @@ export default {
 
   computed: {
     status() {
-      if (this.hasStarted && !this.hasFinished) {
+      if (this.auction.hasStarted && !this.auction.hasFinished) {
         return status.live;
-      } else if (this.hasFinished) {
+      } else if (this.auction.hasFinished) {
         return status.expired;
       }
 
       return status.pending;
-    },
-
-    hasStarted() {
-      return isInThePast(this.auction.startDate);
-    },
-
-    hasFinished() {
-      return isInThePast(this.auction.endDate);
     }
   },
 
