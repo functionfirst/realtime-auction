@@ -1,9 +1,9 @@
 <template>
-  <div v-if="showTimer">
-    <span class="font-bold">{{ timer.days }}</span>d
-    <span class="font-bold">{{ timer.hours }}</span>h
-    <span class="font-bold">{{ timer.minutes }}</span>min
-    <span class="font-bold">{{ timer.seconds }}</span>sec
+  <div v-if="showCountdown">
+    <span class="font-bold">{{ countdown.days }}</span>d
+    <span class="font-bold">{{ countdown.hours }}</span>h
+    <span class="font-bold">{{ countdown.minutes }}</span>min
+    <span class="font-bold">{{ countdown.seconds }}</span>sec
   </div>
 </template>
 
@@ -21,38 +21,39 @@ export default {
 
   data() {
     return {
-      timer: null,
+      countdown: null,
       interval: null
     };
   },
 
   computed: {
-    showTimer() {
+    showCountdown() {
       return (
-        this.timer && (!this.auction.hasFinished || !this.auction.hasStarted)
+        this.countdown &&
+        (!this.auction.hasFinished || !this.auction.hasStarted)
       );
     }
   },
 
   mounted() {
-    this.interval = setInterval(this.countdown, 1000);
+    this.interval = setInterval(this.getCountdown, 1000);
   },
 
   destroyed() {
-    this.timer = null;
+    this.countdown = null;
     this.interval = null;
   },
 
   methods: {
-    countdown() {
+    getCountdown() {
       if (!this.auction.endDate) return;
 
-      const timer = intervalToDuration({
+      const countdown = intervalToDuration({
         start: this.auction.endDate,
         end: new Date()
       });
 
-      this.timer = timer;
+      this.countdown = countdown;
     }
   }
 };
