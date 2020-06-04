@@ -5,7 +5,17 @@ const routes = [
     component: () => import('@/pages/Home')
   },
   {
-    path: '/:name/:id',
+    path: '/auctions/:filter',
+    name: 'auctionsFiltered',
+    component: () => import('@/pages/Auctions')
+  },
+  {
+    path: '/auctions',
+    name: 'auctions',
+    component: () => import('@/pages/Auctions'),
+  },
+  {
+    path: '/auctions/:name/:id',
     name: 'auction',
     component: () => import('@/pages/Auction'),
     meta: {
@@ -23,7 +33,7 @@ const routes = [
     component: () => import('@/pages/Register')
   },
   {
-    path: '/success',
+    path: '/register/success',
     name: 'Success',
     component: () => import('@/pages/Success')
   },
@@ -31,6 +41,24 @@ const routes = [
     path: '/logout',
     name: 'Logout',
     component: () => import('@/pages/Logout')
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    meta: {
+      pageTitle: 'Your Profile',
+      requiresAuth: true
+    },
+    component: () => import('@/pages/Profile')
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    meta: {
+      pageTitle: 'Settings',
+      requiresAuth: true
+    },
+    component: () => import('@/pages/Settings')
   },
   {
     path: '*',

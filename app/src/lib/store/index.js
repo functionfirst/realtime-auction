@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    user: {},
+    nav: false,
+    user: null,
     auctions: []
   },
 
@@ -51,7 +52,7 @@ const store = new Vuex.Store({
     },
 
     async getAuctions({ state, commit }) {
-      const auctions = await auctionFactory(xhrFactory(state.user.token)).all()
+      const auctions = await auctionFactory(xhrFactory()).all()
       commit('auctions', auctions);
       return auctions
     },
@@ -69,8 +70,12 @@ const store = new Vuex.Store({
       return user
     },
 
+    toggleNav({ commit, state }) {
+      commit('TOGGLE_NAV', !state.nav)
+    },
+
     logout({ commit }) {
-      commit('user', {})
+      commit('user', null)
     }
   },
 
@@ -87,6 +92,10 @@ const store = new Vuex.Store({
   mutations: {
     user(state, user) {
       state.user = user
+    },
+
+    TOGGLE_NAV(state, payload) {
+      state.nav = payload
     },
 
     UPDATE_AUCTION(state, { index, auction }) {

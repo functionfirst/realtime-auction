@@ -1,8 +1,9 @@
 const Auction = require('../models/auction');
 const User = require('../models/user');
 
+const excludeFields = '-bids -autobids -enabled -currentBid.createdAt -currentBid.blocked -currentBid.updatedAt -currentBid._id';
+
 const listAuctions = async (req, res) => {
-  const fields = 'name description startDate endDate startAmount currentBid countdown _id';
   const filter = {
     enabled: true
   };
@@ -10,7 +11,7 @@ const listAuctions = async (req, res) => {
   try {
     const auctions = await Auction
       .find(filter, null, { sort: 'startDate' })
-      .select(fields)
+      .select(excludeFields)
 
     res.json(auctions);
   } catch (err) {
@@ -41,11 +42,10 @@ function createAuction(req, res) {
 // View a specific auction (Users)
 const viewAuction = async (req, res) => {
   const id = req.params.auction_id
-  const fields = 'name description startDate endDate startAmount currentBid countdown _id';
 
   try {
     const auction = await Auction
-      .findById(id, fields)
+      .findById(id, excludeFields)
 
     res.json(auction);
   } catch (err) {

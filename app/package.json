@@ -2,7 +2,8 @@
   "name": "realtime-auctions",
   "version": "2.0.0",
   "description": "Real-time auction application.",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "private": false,
   "keywords": [
     "realtime",
     "bidding",
@@ -18,10 +19,10 @@
     "test:unit": "vue-cli-service test:unit",
     "test:watch": "vue-cli-service test:unit --watch"
   },
-  "author": "Alan Jenkins",
+  "author": "Alan Jenkins <alan@functionfirst.co.uk> (http://functionfirst.co.uk)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/functionfirst/realtime-auction"
+    "url": "git+https://github.com/functionfirst/realtime-auction"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -51,24 +52,5 @@
   },
   "engines": {
     "node": "11.10.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/recommended"
-    ],
-    "rules": {
-      "no-console": "off"
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+  }
 }

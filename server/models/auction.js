@@ -2,6 +2,7 @@ const { Schema } = require('mongoose');
 const db = require('../lib/db');
 const Autobid = require('../models/autobid');
 const Bid = require('../models/bid');
+const differenceInSeconds = require('date-fns/differenceInSeconds')
 
 const Auction = new Schema({
 	name: {
@@ -26,6 +27,10 @@ const Auction = new Schema({
 		type: Number,
 		required: true
 	},
+	featured: {
+		type: Boolean,
+		default: false
+	},
 	enabled: {
 		type: Boolean,
 		default: false
@@ -38,6 +43,16 @@ const Auction = new Schema({
 	bids: [Bid.schema],
 	autobids: [Autobid.schema]
 }, { timestamps: true });
+
+Auction.set('toJSON', { virtuals: true })
+
+Auction.virtual('hasStarted').get(function () {
+	return differenceInSeconds(this.startDate, new Date()) < 0;
+})
+
+Auction.virtual('hasFinished').get(function () {
+	return differenceInSeconds(this.endDate, new Date()) < 0;
+})
 
 Auction.methods.isValidStartDate = function isValidStartDate(cb) {
 	return new Date() >= new Date(this.startDate);

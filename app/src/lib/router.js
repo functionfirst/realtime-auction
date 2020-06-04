@@ -24,6 +24,10 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+router.afterEach((to, from) => {
+  document.title = to.meta && to.meta.pageTitle || 'Real-time Auctions'
+})
+
 export {
   router
 }

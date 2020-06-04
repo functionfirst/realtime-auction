@@ -1,22 +1,41 @@
 import { convertToSlug } from "@/lib/convertToSlug"
-import { format } from 'date-fns'
 
 class Auction {
-  constructor({ _id, name, description, startDate, endDate, startAmount = 0, enabled = true, countdown = 1, currentBid = {} }) {
-    this.id = _id
-    this.name = name
-    this.description = description
-    this.startDate = format(new Date(startDate), 'do MMM yyyy')
-    this.endDate = format(new Date(endDate), 'do MMM yyyy')
-    this.startAmount = startAmount
-    this.enabled = enabled
+  constructor({
+    countdown = 1,
+    createdAt,
+    currentBid = {},
+    description,
+    enabled = true,
+    endDate,
+    featured,
+    hasStarted,
+    hasFinished,
+    id,
+    image,
+    name,
+    startAmount = 0,
+    startDate
+  }) {
     this.countdown = countdown
+    this.createdAt = createdAt
     this.currentBid = currentBid
+    this.description = description
+    this.enabled = enabled
+    this.endDate = new Date(endDate)
+    this.featured = featured
+    this.hasStarted = hasStarted
+    this.hasFinished = hasFinished
+    this.id = id
+    this.image = image
+    this.name = name
+    this.startAmount = startAmount
+    this.startDate = new Date(startDate)
   }
 
   get path() {
     const slug = convertToSlug(this.name)
-    return `${slug}/${this.id}`
+    return `/auctions/${slug}/${this.id}`
   }
 }
 

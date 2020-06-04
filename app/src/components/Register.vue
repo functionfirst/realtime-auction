@@ -117,7 +117,7 @@ export default {
       const response = await this.$store.dispatch("register", this.user);
 
       if (response.success) {
-        this.$router.push("/success");
+        this.$router.push("/register/success");
       } else {
         this.error = response.message;
       }
