@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AuctionList />
+    <AuctionList :filter="$route.params.filter" />
   </div>
 </template>
 
