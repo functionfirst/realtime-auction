@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rounded px-2 py-1 text-sm mt-2"
+    class="rounded px-2 py-1 text-sm"
     :class="`bg-${status.colour}-300`"
   >
     {{ status.label }}
