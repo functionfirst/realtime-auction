@@ -2,26 +2,51 @@
   <div>
     <div
       v-if="auctions"
-      class="mt-6 mb-12 max-w-2xl mx-auto"
+      class="mt-6 mb-12"
     >
-      <ul>
+      <ul
+        class="flex flex-wrap"
+        role="list"
+      >
         <li
-          v-for="(auction, _id) in auctions"
-          :key="_id"
-          class="mb-4"
+          v-for="(auction, id) in auctions"
+          :key="id"
+          class="mb-4 md:w-1/3 lg:w-1/4"
         >
           <router-link
             v-if="auction.path"
             :to="auction.path"
-            class="rounded-lg shadow-sm bg-white block p-4 hover:shadow-md"
+            class="rounded m-2 overflow-hidden shadow-sm bg-white block hover:shadow-md"
           >
-            {{ auction.name }}
-            <AuctionTimer :auction="auction" />
-            <AuctionStatus :auction="auction" />
+            <div class="relative">
+              <AuctionStatus
+                :auction="auction"
+                class="absolute right-0 top-0 mt-2 mr-2"
+              />
 
-            <div v-if="auction.currentBid.value">
-              Highest bid<br>
-              £{{ auction.currentBid.value }}
+              <img
+                :src="auction.image"
+                :alt="auction.name"
+              >
+
+              <div class="flex items-center justify-center z-10 absolute mb-2 left-0 ml-2 bottom-0">
+                <div class="bg-white px-3 py-2 rounded">
+                  <AuctionTimer :auction="auction" />
+                </div>
+              </div>
+            </div>
+
+            <div class="p-4">
+              {{ auction.name }}
+
+              <template v-if="auction.currentBid.value">
+                <p class="text-gray-700 text-sm mt-4">
+                  Highest bid
+                </p>
+                <p class="text-xl">
+                  £{{ auction.currentBid.value }}
+                </p>
+              </template>
             </div>
           </router-link>
         </li>

@@ -2,7 +2,8 @@ import { convertToSlug } from "@/lib/convertToSlug"
 
 class Auction {
   constructor({
-    _id,
+    id,
+    image,
     name,
     description,
     hasStarted,
@@ -16,7 +17,8 @@ class Auction {
     countdown = 1,
     currentBid = {}
   }) {
-    this.id = _id
+    this.id = id
+    this.image = image
     this.name = name
     this.description = description
     this.startDate = new Date(startDate)
