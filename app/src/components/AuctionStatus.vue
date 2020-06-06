@@ -17,6 +17,7 @@ export default {
       required: true,
       type: Boolean
     },
+
     hasFinished: {
       default: false,
       required: true,
@@ -34,8 +35,6 @@ export default {
 
       return status.pending;
     }
-  },
-
-  methods: {}
+  }
 };
 </script>
