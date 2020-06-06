@@ -19,8 +19,9 @@
             class="rounded m-2 overflow-hidden shadow-sm bg-white block hover:shadow-md"
           >
             <div class="relative">
-              <AuctionStatus
-                :auction="auction"
+              <auction-status
+                :has-started="auction.hasStarted"
+                :has-finished="auction.hasFinished"
                 class="absolute right-0 top-0 mt-2 mr-2"
               />
 
