@@ -18,6 +18,7 @@ describe('AuctionStatus.vue', () => {
     expect(cmp.vm.status.label).toBe("Pending")
     expect(cmp.vm.status.colour).toBe("blue")
     expect(cmp.find('div').text()).toBe("Pending")
+    expect(cmp.find('div').classes()).toContain('bg-blue-300')
   })
 
   it('auction has a live status', () => {
@@ -29,6 +30,7 @@ describe('AuctionStatus.vue', () => {
     expect(cmp.vm.status.label).toBe("Live")
     expect(cmp.vm.status.colour).toBe("green")
     expect(cmp.find('div').text()).toBe("Live")
+    expect(cmp.find('div').classes()).toContain('bg-green-300')
   })
 
   it('auction has an expired status', () => {
@@ -40,6 +42,7 @@ describe('AuctionStatus.vue', () => {
     expect(cmp.vm.status.label).toBe("Expired")
     expect(cmp.vm.status.colour).toBe("red")
     expect(cmp.find('div').text()).toBe("Expired")
+    expect(cmp.find('div').classes()).toContain('bg-red-300')
   })
 
   it('auction has an expired status ', () => {
@@ -51,5 +54,6 @@ describe('AuctionStatus.vue', () => {
     expect(cmp.vm.status.label).toBe("Expired")
     expect(cmp.vm.status.colour).toBe("red")
     expect(cmp.find('div').text()).toBe("Expired")
+    expect(cmp.find('div').classes()).toContain('bg-red-300')
   })
 })
