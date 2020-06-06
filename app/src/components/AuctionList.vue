@@ -92,12 +92,15 @@ export default {
     AuctionStatus,
     AuctionTimer
   },
+  props: {
+    filter: {
+      default: "",
+      required: false,
+      type: String
+    }
+  },
 
   computed: {
-    filter() {
-      return this.$route.params.filter;
-    },
-
     auctions() {
       let auctions = this.$store.state.auctions;
 
