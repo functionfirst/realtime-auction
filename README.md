@@ -1,53 +1,34 @@
-# Real-time Auctions  
+# Real-time Auctions
+
 A simple real-time auction system
 
 ## Disclaimer
+
 This repo is a playground for me to experiment and develop my skills. The project is not intended to be deployed as a "real" application though you are very welcome to use it.
 
-## Server Setup
+## Setup
 
-1. Change directory to server
+1. Install node modules with yarn
 
-  ```cd server```
-\
-2. Copy .env_example and rename it to .env
+   `yarn install`
 
-```cp .env_default .env```
+2) Copy client and server .env files
 
-3. Install node modules
+   `cp client/.env_example client/.env && cp server/.env_example server/.env`
 
-```npm install```
+3) Ensure CORS_ALLOWED_LIST in `server/.env` matches the URL of the client
 
-4. Ensure CORS_ALLOWED_LIST in .env file matches the URL of your front-end application
+4) Ensure VUE_APP_API_HOST in `client/.env` matches the URL of the API server
 
-5. Run local development server using nodemon
+5) Start the client and server in dev mode
 
-```npm run watch```
+   `yarn start`
 
-### Seed Data
-Populates the MongoDB with default test users, an admin account and a sample auction
+## Seeding the database
 
-```npm run seed```
+Populate MongoDB with default test users, an admin account and a sample auction
 
-## App Setup
-
-1. Change directory to app
-
-```cd app```
-
-2. Copy .env_example and rename it to .env
-
-```cp .env_default .env```
-
-3. Install node modules
-
-```npm install```
-
-4. In .env ensure VUE_APP_API_HOST matches the URL of your API server
-
-5. Run local development server
-
-```npm run serve```  
+`yarn seed`
 
 #### Auction Data
 
@@ -60,16 +41,19 @@ Start Amount: 100
 ```
 
 #### User Accounts
+
 ```
 Name: Admin
 Email: admin
 Password: admin
 ```
+
 ```
 Name: Player 1
 Email: player1
 Password: demo
 ```
+
 ```
 Name: Player 2
 Email: player2

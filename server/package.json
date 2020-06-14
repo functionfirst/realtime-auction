@@ -7,9 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "dev": "env-cmd node server/index.js",
-    "seed": "env-cmd node server/seed",
-    "watch": "env-cmd nodemon server/index.js"
+    "dev": "env-cmd node index.js",
+    "seed": "env-cmd node seed",
+    "watch": "env-cmd nodemon index.js"
   },
   "dependencies": {
     "async": "^3.1.1",

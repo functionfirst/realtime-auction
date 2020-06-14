@@ -12,25 +12,29 @@ import { status } from "@/lib/status";
 
 export default {
   props: {
-    auction: {
-      default: () => {},
+    hasStarted: {
+      default: false,
       required: true,
-      type: Object
+      type: Boolean
+    },
+
+    hasFinished: {
+      default: false,
+      required: true,
+      type: Boolean
     }
   },
 
   computed: {
     status() {
-      if (this.auction.hasStarted && !this.auction.hasFinished) {
+      if (this.hasStarted && !this.hasFinished) {
         return status.live;
-      } else if (this.auction.hasFinished) {
+      } else if (this.hasFinished) {
         return status.expired;
       }
 
       return status.pending;
     }
-  },
-
-  methods: {}
+  }
 };
 </script>

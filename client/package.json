@@ -1,5 +1,5 @@
 {
-  "name": "realtime-auctions",
+  "name": "client",
   "version": "2.0.0",
   "description": "Real-time auction application.",
   "license": "MIT",
@@ -14,7 +14,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint:test": "vue-cli-service lint --no-fix",
+    "test:unit": "vue-cli-service test:unit",
+    "test:watch": "vue-cli-service test:unit --watch"
   },
   "author": "Alan Jenkins <alan@functionfirst.co.uk> (http://functionfirst.co.uk)",
   "repository": {
@@ -31,8 +34,11 @@
     "@fullhuman/postcss-purgecss": "^2.0.6",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-unit-jest": "^4.3.1",
     "@vue/cli-service": "^4.2.3",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^26.0.1",
     "env-cmd": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
@@ -45,6 +51,6 @@
     "vuex": "^3.1.2"
   },
   "engines": {
-    "node": "11.10.0"
+    "node": "13.13.0"
   }
 }

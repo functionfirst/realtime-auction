@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "realtime-auctions",
+  "version": "2.0.0",
+  "license": "MIT",
+  "keywords": [
+    "realtime",
+    "bidding",
+    "bids",
+    "auction",
+    "auctions"
+  ],
+  "author": "Alan Jenkins <alan@functionfirst.co.uk> (http://functionfirst.co.uk)",
+  "description": "Real-time auction application.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/functionfirst/realtime-auction"
+  },
+  "engines": {
+    "node": "13.13.0"
+  },
+  "scripts": {
+    "client:dev": "yarn workspace client serve",
+    "server:dev": "yarn workspace server watch",
+    "seed": "yarn workspace server seed",
+    "start": "concurrently --kill-others-on-fail \"yarn server:dev\" \"yarn client:dev\""
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
