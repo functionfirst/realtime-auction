@@ -11,7 +11,7 @@
         <li
           v-for="(auction, id) in auctions"
           :key="id"
-          class="mb-4 md:w-1/3 lg:w-1/4"
+          class="mb-4 md:w-1/3"
         >
           <router-link
             v-if="auction.path"
