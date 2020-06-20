@@ -85,7 +85,7 @@ const store = new Vuex.Store({
     auctionIndex: state => id => state.auctions.findIndex(auction => auction.id === id),
 
     isLoggedIn(state) {
-      return state.user.token
+      return state.user && state.user.token
     }
   },
 
