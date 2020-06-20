@@ -1,7 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto mt-6 mb-12">
-    <AuctionList />
-  </div>
+  <AuctionList />
 </template>
 
 <script>

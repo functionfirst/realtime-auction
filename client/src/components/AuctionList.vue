@@ -11,7 +11,7 @@
         <li
           v-for="(auction, id) in auctions"
           :key="id"
-          class="mb-4 md:w-1/3"
+          class="mb-4 md:w-1/3 lg:w-1/4"
         >
           <router-link
             v-if="auction.path"
@@ -31,9 +31,10 @@
               >
 
               <div class="flex items-center justify-center z-10 absolute mb-2 left-0 ml-2 bottom-0">
-                <div class="bg-white px-3 py-2 rounded">
-                  <AuctionTimer :auction="auction" />
-                </div>
+                <AuctionTimer
+                  :auction="auction"
+                  class="bg-white px-3 py-2 rounded"
+                />
               </div>
             </div>
 
