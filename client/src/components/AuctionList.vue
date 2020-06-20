@@ -92,13 +92,6 @@ export default {
     AuctionStatus,
     AuctionTimer
   },
-  props: {
-    filter: {
-      default: "",
-      required: false,
-      type: String
-    }
-  },
 
   props: {
     filter: {
