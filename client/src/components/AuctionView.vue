@@ -22,7 +22,7 @@
         Auction ends on
         {{ auction.endDate | formatDate }}
         at
-        {{ auction.endDate | formatDate('hh:mm') }}
+        {{ auction.endDate | formatDate('hh:mma') }}
       </p>
     </div>
 
