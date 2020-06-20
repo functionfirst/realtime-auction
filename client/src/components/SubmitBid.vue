@@ -1,5 +1,6 @@
 <template>
   <form
+    v-if="$store.getters.isLoggedIn"
     class="flex flex-col"
     @submit.prevent="submitBid"
   >
@@ -102,6 +103,12 @@
       </div>
     </div>
   </form>
+  <div
+    v-else
+    class="bg-red-500 p-4 mt-4 rounded-sm shadow text-center"
+  >
+    You must be logged in to bid on this Auction
+  </div>
 </template>
 
 <script>
