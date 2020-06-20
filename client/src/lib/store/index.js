@@ -15,7 +15,7 @@ const store = new Vuex.Store({
 
   actions: {
     async getAuction({ dispatch, state }, id) {
-      const auction = await auctionFactory(xhrFactory(state.user.token)).get(id);
+      const auction = await auctionFactory(xhrFactory()).get(id);
 
       dispatch('updateAuction', auction);
     },
