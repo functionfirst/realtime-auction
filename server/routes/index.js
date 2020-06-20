@@ -16,12 +16,12 @@ const api = () => {
 	router.post('/authenticate', authenticateUser);
 
 	router.get('/auctions', listAuctions);
+	router.get('/auctions/:auction_id', viewAuction);
 
 	// Routes now require a verified token
 	router.use(verifyToken);
 
 	router.get('/me', userDetails);
-	router.get('/auctions/:auction_id', viewAuction);
 	router.put('/auctions/:auction_id/bid', createBid);
 	router.put('/auctions/:auction_id/autobid', createAutobid);
 
