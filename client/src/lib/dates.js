@@ -6,6 +6,7 @@ import {
 
 const formatDate = (value, f = "dd/MM/yyyy") => {
   if (!value) return
+  value = new Date(value);
   return format(value, f)
 }
 
