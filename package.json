@@ -17,7 +17,7 @@
     "url": "git+https://github.com/functionfirst/realtime-auction"
   },
   "engines": {
-    "node": "13.13.0"
+    "node": "14.7.0"
   },
   "scripts": {
     "client:dev": "yarn workspace client serve",
