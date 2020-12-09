@@ -1,5 +1,7 @@
-const { sign } = require('jsonwebtoken');
-const User = require('../models/user');
+import jsonwebtoken from 'jsonwebtoken'
+import User from '../models/user.js'
+
+const { sign } = jsonwebtoken
 
 const expiresIn = process.env.TOKEN_EXPIRY * (24 * 60 * 60); // 24 = hours. 60 = minutes
 const superSecret = process.env.SECRET;
@@ -28,6 +30,6 @@ const authenticateUser = async (req, res) => {
 	}
 }
 
-module.exports = {
+export {
 	authenticateUser
 }

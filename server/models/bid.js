@@ -1,5 +1,7 @@
-const { Schema } = require('mongoose');
-const db = require('../lib/db');
+import mongoose from 'mongoose'
+import db from '../lib/db.js'
+
+const { Schema } = mongoose
 const ObjectId = Schema.Types.ObjectId;
 
 const Bid = new Schema({
@@ -16,4 +18,4 @@ const Bid = new Schema({
 	}
 }, { timestamps: true });
 
-module.exports = db.model('Bid', Bid);
+export default db.model('Bid', Bid);

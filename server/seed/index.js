@@ -1,7 +1,7 @@
-const auction = require('./auction');
-const user = require('./user');
+import auction from './auction.js'
+import user from './user.js'
 
-console.log('START: Seed database.');
+console.log('START: Seed database.')
 
-auction.seed();
-user.seed();
+auction.seed()
+user.seed()

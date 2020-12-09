@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer'
 
 const smtpTransport = nodemailer.createTransport({
   service: '',
@@ -17,4 +17,4 @@ const sendMail = (template, data) => {
   }
 }
 
-module.exports = sendMail
+export default sendMail

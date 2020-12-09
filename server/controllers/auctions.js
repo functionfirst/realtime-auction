@@ -1,5 +1,5 @@
-const Auction = require('../models/auction');
-const User = require('../models/user');
+import Auction from '../models/auction.js'
+import User from '../models/user.js'
 
 const excludeFields = '-bids -autobids -enabled -currentBid.createdAt -currentBid.blocked -currentBid.updatedAt -currentBid._id';
 
@@ -156,7 +156,7 @@ const createBid = async (req, res) => {
   }
 }
 
-module.exports = {
+export {
   createAuction,
   createBid,
   createAutobid,

@@ -1,4 +1,4 @@
-const socket = require('socket.io');
+import socket from 'socket.io'
 
 const socketEvents = socket => {
     socket.on('newBid', function (auction) {
@@ -12,4 +12,4 @@ const socketIO = server => {
     return io;
 }
 
-module.exports = socketIO;
+export default socketIO

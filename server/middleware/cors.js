@@ -1,5 +1,5 @@
-const cors = require('cors');
-const { corsAllowedList } = require('../lib/env');
+import cors from 'cors'
+import { corsAllowedList } from '../lib/env.js'
 
 const options = {
   origin: function (origin, callback) {
@@ -11,4 +11,4 @@ const options = {
   }
 }
 
-module.exports = cors(options)
+export default cors(options)

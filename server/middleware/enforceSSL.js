@@ -1,18 +1,18 @@
-const { isProduction } = require('../lib/env');
+import { isProduction } from '../lib/env.js'
 
-const sslHeader = req => req.headers['x-forwarded-proto'] === 'https';
+const sslHeader = req => req.headers['x-forwarded-proto'] === 'https'
 
 /**
  * Enforce SSL on production server
  */
 const enforceSSL = (req, res, next) => {
-    let isNotSSL = !sslHeader(req);
+    let isNotSSL = !sslHeader(req)
 
     if (isProduction && isNotSSL) {
-        return res.redirect(`https://${req.get('Host')}${req.url}`);
+        return res.redirect(`https://${req.get('Host')}${req.url}`)
     }
 
-    return next();
+    return next()
 }
 
-module.exports = enforceSSL;
+export default enforceSSL

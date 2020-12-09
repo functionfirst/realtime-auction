@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express'
 
-const verifyToken = require('../middleware/verifytoken');
-const requireAdmin = require('../middleware/authorise.js');
+import verifyToken from '../middleware/verifytoken.js'
+import requireAdmin from '../middleware/authorise.js'
 
-const { createAuction, createBid, createAutobid, listAuctions, updateAuction, viewAuction } = require('../controllers/auctions');
-const { authenticateUser } = require('../controllers/authenticate');
-const { apiHome } = require('../controllers/home');
-const { createUser, listUsers, userDetails, updateUser, viewUser } = require('../controllers/users');
+import { createAuction, createBid, createAutobid, listAuctions, updateAuction, viewAuction } from '../controllers/auctions.js'
+import { authenticateUser } from '../controllers/authenticate.js'
+import { apiHome } from '../controllers/home.js'
+import { createUser, listUsers, userDetails, updateUser, viewUser } from '../controllers/users.js'
 
 const router = express.Router();
 
@@ -37,4 +37,4 @@ const api = () => {
 	return router
 }
 
-module.exports = api;
+export default api

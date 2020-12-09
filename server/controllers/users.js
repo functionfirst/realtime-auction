@@ -1,8 +1,8 @@
-const User = require('../models/user');
-const Auction = require('../models/auction');
+import User from '../models/user.js'
+import Auction from '../models/auction.js'
 
-const sendMail = require('../lib/mail/sendMail');
-const { newUserSignup } = require('../lib/mail/templates')
+import sendMail from '../lib/mail/sendMail.js'
+import { newUserSignup } from '../lib/mail/templates.js'
 
 // get user information
 const userDetails = (req, res) => {
@@ -109,7 +109,7 @@ function clearAutobidHistory(userid) {
 	});
 }
 
-module.exports = {
+export {
 	createUser,
 	listUsers,
 	userDetails,

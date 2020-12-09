@@ -1,5 +1,7 @@
-const { Schema } = require('mongoose');
-const db = require('../lib/db');
+import mongoose from 'mongoose'
+import db from '../lib/db.js'
+
+const { Schema } = mongoose
 const ObjectId = Schema.Types.ObjectId;
 
 const Autobid = new Schema({
@@ -19,4 +21,4 @@ const Autobid = new Schema({
 	}
 }, { timestamps: true });
 
-module.exports = db.model('Autobid', Autobid);
+export default db.model('Autobid', Autobid);

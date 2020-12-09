@@ -1,7 +1,9 @@
-const { Schema } = require('mongoose');
-const { comparePassword, hashPassword } = require('../lib/password');
+import mongoose from 'mongoose'
+import { comparePassword, hashPassword } from '../lib/password.js'
 
-const db = require('../lib/db');
+const { Schema } = mongoose
+
+import db from '../lib/db.js'
 
 const fields = {
 	name: {
@@ -88,4 +90,4 @@ User.method('authenticate', function (password) {
 	}
 })
 
-module.exports = db.model('User', User);
+export default db.model('User', User)

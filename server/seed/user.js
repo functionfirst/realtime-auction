@@ -1,4 +1,4 @@
-var User = require('../models/user');
+import User from '../models/user.js'
 
 let users = [
   {
@@ -44,6 +44,6 @@ const seed = () => {
   users.forEach(user => create(user));
 }
 
-module.exports = {
+export {
   seed
 }

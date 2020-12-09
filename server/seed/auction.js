@@ -1,4 +1,4 @@
-const Auction = require('../models/auction');
+import Auction from '../models/auction.js'
 
 const getDate = days => {
   let date = new Date();
@@ -41,6 +41,6 @@ const seed = () => {
   auctions.forEach(user => create(user));
 }
 
-module.exports = {
+export {
   seed
 }

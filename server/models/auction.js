@@ -1,8 +1,10 @@
-const { Schema } = require('mongoose');
-const db = require('../lib/db');
-const Autobid = require('../models/autobid');
-const Bid = require('../models/bid');
-const differenceInSeconds = require('date-fns/differenceInSeconds')
+import mongoose from 'mongoose'
+import db from '../lib/db.js'
+import Autobid from '../models/autobid.js'
+import Bid from '../models/bid.js'
+import differenceInSeconds from 'date-fns/differenceInSeconds/index.js'
+
+const { Schema } = mongoose
 
 const Auction = new Schema({
 	name: {
@@ -189,4 +191,4 @@ Auction.methods.sortField = function (field) {
 	this[field].sort(function (b1, b2) { return b1.value - b2.value; });
 }
 
-module.exports = db.model('Auction', Auction);
+export default db.model('Auction', Auction);

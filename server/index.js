@@ -1,9 +1,9 @@
-const express = require('express');
-const http = require('http');
+import express from 'express'
+import http from 'http'
 
-const attachMiddleware = require('./middleware');
-const socketIO = require('./lib/io');
-const { port } = require('./lib/env');
+import attachMiddleware from './middleware/index.js'
+import socketIO from './lib/io.js'
+import { port } from './lib/env.js'
 
 // START SERVER
 const server = http.createServer();

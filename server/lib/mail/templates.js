@@ -11,6 +11,6 @@ const newUserSignup = ({ name, email, _id }) => {
   return template
 }
 
-module.exports = {
+export {
   newUserSignup
 }

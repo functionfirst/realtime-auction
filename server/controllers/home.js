@@ -4,6 +4,6 @@ const apiHome = (req, res) => {
 	});
 }
 
-module.exports = {
+export {
 	apiHome
 }
