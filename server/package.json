@@ -22,7 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.17",
     "nodemailer": "^6.4.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "validator": "^12.2.0"
   },
   "keywords": [],
